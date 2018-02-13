@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nb}{int} \PYG{n}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+\PYG{n}{printf}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}hello, world\PYGZdq{}}\PYG{p}{);}
+\PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

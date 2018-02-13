@@ -1,0 +1,27 @@
+PWD /home/arpit/Desktop/Study-US/Rutgers-Camden/Classes/Spring 2017/Thesis/Final Thesis/Latex Document
+INPUT /usr/local/texlive/2017/texmf.cnf
+INPUT /usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT appendix.tex
+OUTPUT appendix.log
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/book.cls
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/book.cls
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/bk10.clo
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/bk10.clo
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/appendix/appendix.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/appendix/appendix.sty
+INPUT appendix.aux
+INPUT appendix.aux
+OUTPUT appendix.aux
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr17.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+OUTPUT appendix.pdf
+INPUT /usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsl10.tfm
+INPUT appendix.aux
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb

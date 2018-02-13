@@ -1,0 +1,166 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Common Imports}
+\PYG{c+c1}{\PYGZsh{}Pandas for creating dataframes}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k+kn}{as} \PYG{n+nn}{pd}
+\PYG{c+c1}{\PYGZsh{}Pyshark to capture packets}
+\PYG{k+kn}{import} \PYG{n+nn}{pyshark}
+\PYG{c+c1}{\PYGZsh{}For file operarions}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+
+\PYG{c+c1}{\PYGZsh{} Reading packets from pre\PYGZhy{}captured file}
+\PYG{n}{file\PYGZus{}cap} \PYG{o}{=} \PYG{n}{pyshark}\PYG{o}{.}\PYG{n}{FileCapture}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}captures/latest/attack2.pcapng\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Filter data from the captured packets for further processing}
+
+\PYG{c+c1}{\PYGZsh{}Attributes for sample size}
+\PYG{n}{startTime} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+\PYG{n}{endTime} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+\PYG{n}{i} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+\PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+\PYG{c+c1}{\PYGZsh{}Write extraction result to}
+\PYG{n}{base\PYGZus{}directory} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}converted/test2/attack\PYGZus{}samples/2/\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{}Sample Number}
+\PYG{n}{init\PYGZus{}sample} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{dfList} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{while}\PYG{p}{(}\PYG{n+nb+bp}{True}\PYG{p}{):}
+    \PYG{n}{i} \PYG{o}{+=} \PYG{l+m+mi}{1}
+    \PYG{c+c1}{\PYGZsh{}Each packet can have multiple layers (e.g eth, ip, tcp etc.).}
+    \PYG{c+c1}{\PYGZsh{}Combine them in list for a single packet.}
+    \PYG{n}{layerList} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{c+c1}{\PYGZsh{}pyshark not able to handle AttributeError, AssertionError and KeyError(index values)}
+    \PYG{k}{try}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{}Iterate through layers of packet}
+        \PYG{k}{for} \PYG{n}{layer} \PYG{o+ow}{in} \PYG{n}{file\PYGZus{}cap}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]:}
+            \PYG{c+c1}{\PYGZsh{} Slice Data according to time}
+            \PYG{n}{t} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{file\PYGZus{}cap}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{sniff\PYGZus{}timestamp}\PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{}Initial setup}
+            \PYG{k}{if} \PYG{n}{startTime} \PYG{o}{==} \PYG{l+m+mf}{0.0}\PYG{p}{:}
+                \PYG{n}{startTime} \PYG{o}{=} \PYG{n}{t}
+                \PYG{n}{endTime} \PYG{o}{=} \PYG{n}{startTime} \PYG{o}{+} \PYG{l+m+mi}{300} \PYG{c+c1}{\PYGZsh{} 300 sec(5 min) is the sample size}
+                \PYG{n}{sample} \PYG{o}{=} \PYG{n}{init\PYGZus{}sample}
+                \PYG{k}{print}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{,} \PYG{n}{startTime}\PYG{p}{,} \PYG{n}{endTime}\PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{} Write every sample to csv file}
+            \PYG{k}{elif} \PYG{n}{t} \PYG{o}{\PYGZgt{}} \PYG{n}{endTime}\PYG{p}{:}
+                \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{exists}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{p}{):}
+                    \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{p}{)}
+                \PYG{n}{dfList}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{))}
+                \PYG{c+c1}{\PYGZsh{}Clear list after writing this would save memory}
+                \PYG{n}{startTime} \PYG{o}{=} \PYG{n}{endTime}
+                \PYG{n}{endTime} \PYG{o}{=} \PYG{n}{startTime} \PYG{o}{+} \PYG{l+m+mi}{300}
+                \PYG{n}{sample} \PYG{o}{+=} \PYG{l+m+mi}{1}
+                \PYG{c+c1}{\PYGZsh{}Reset after writing to file}
+                \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+                \PYG{k}{print}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{,} \PYG{n}{startTime}\PYG{p}{,} \PYG{n}{endTime}\PYG{p}{)}
+                \PYG{n}{gc}\PYG{o}{.}\PYG{n}{collect}\PYG{p}{()}
+            \PYG{c+c1}{\PYGZsh{}We need only ip layer only}
+            \PYG{k}{if} \PYG{n}{layer}\PYG{o}{.}\PYG{n}{\PYGZus{}layer\PYGZus{}name} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{:}
+                \PYG{c+c1}{\PYGZsh{}Layer values are in the form of dictionary. Filter the attributes}
+                \PYG{n}{layer\PYGZus{}dict} \PYG{o}{=}
+                \PYG{p}{\PYGZob{}}\PYG{n}{key}\PYG{p}{:}\PYG{n}{value} \PYG{k}{for} \PYG{n}{key}\PYG{p}{,} \PYG{n}{value} \PYG{o+ow}{in} \PYG{n}{layer}\PYG{o}{.}\PYG{n}{\PYGZus{}all\PYGZus{}fields}\PYG{o}{.}\PYG{n}{items}\PYG{p}{()} \PYG{k}{if} \PYG{n}{key} \PYG{o+ow}{in} \PYG{n}{required\PYGZus{}keys}\PYG{p}{\PYGZcb{}}
+                \PYG{c+c1}{\PYGZsh{}Create dataframe from dictionary}
+                \PYG{n}{layerList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{layer\PYGZus{}dict}\PYG{p}{,} \PYG{n}{index}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+                \PYG{c+c1}{\PYGZsh{}Add timestamp and sample number}
+                \PYG{n}{layerList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}sniff\PYGZus{}timestamp\PYGZsq{}}\PYG{p}{:}\PYG{n}{file\PYGZus{}cap}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{sniff\PYGZus{}timestamp}\PYG{p}{\PYGZcb{},} \PYG{n}{index}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+                \PYG{n}{layerList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}sample\PYGZsq{}}\PYG{p}{:}\PYG{n}{sample}\PYG{p}{\PYGZcb{},} \PYG{n}{index}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+                \PYG{c+c1}{\PYGZsh{}Build packet dataframe from layer frames. Its single row dataframe}
+                \PYG{n}{cDf} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{concat}\PYG{p}{(}\PYG{n}{layerList}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{);}
+                \PYG{k}{if} \PYG{n}{first}\PYG{p}{:}
+                    \PYG{n}{dfList} \PYG{o}{=} \PYG{n}{cDf}
+                    \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{False}
+                \PYG{k}{else}\PYG{p}{:}
+                    \PYG{n}{dfList} \PYG{o}{=} \PYG{n}{dfList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{cDf}\PYG{p}{,} \PYG{n}{ignore\PYGZus{}index}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+  \PYG{k}{except} \PYG{p}{(}\PYG{n+ne}{AttributeError}\PYG{p}{,} \PYG{n+ne}{AssertionError}\PYG{p}{)} \PYG{k}{as} \PYG{n}{e}\PYG{p}{:}
+        \PYG{k}{continue}  \PYG{c+c1}{\PYGZsh{}print(\PYGZsq{}Ipv4 packet does not exist\PYGZsq{})}
+  \PYG{k}{except}  \PYG{n+ne}{KeyError}\PYG{p}{:}
+        \PYG{k}{break}\PYG{p}{;}
+
+\PYG{c+c1}{\PYGZsh{}If sample data is not written to file because for frame size}
+\PYG{k}{if}\PYG{p}{(}\PYG{n}{sample} \PYG{o}{==} \PYG{n}{init\PYGZus{}sample}\PYG{p}{):}
+    \PYG{n}{dfList}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{init\PYGZus{}sample}\PYG{p}{))}
+
+
+\PYGZbs{}\PYG{n}{section}\PYG{p}{\PYGZob{}}\PYG{n}{Clustering} \PYG{n}{based} \PYG{n}{on} \PYG{n}{destination} \PYG{n}{IP} \PYG{n}{address}\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{\PYGZsh{} Common Imports}
+
+\PYG{c+c1}{\PYGZsh{}Pandas for creating dataframes}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k+kn}{as} \PYG{n+nn}{pd}
+\PYG{c+c1}{\PYGZsh{}Sklearn}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn} \PYG{k+kn}{import} \PYG{n}{preprocessing}
+\PYG{c+c1}{\PYGZsh{}K\PYGZhy{}means clustering algo}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.cluster} \PYG{k+kn}{import} \PYG{n}{KMeans}
+\PYG{c+c1}{\PYGZsh{}OS moduled for file oprations}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\PYG{c+c1}{\PYGZsh{}CSV module}
+\PYG{k+kn}{import} \PYG{n+nn}{csv}
+
+\PYG{c+c1}{\PYGZsh{}Folder Base Path}
+\PYG{n}{base\PYGZus{}path} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}converted/test2/\PYGZsq{}}
+
+\PYG{c+c1}{\PYGZsh{}Cluster Path}
+\PYG{c+c1}{\PYGZsh{}Normal}
+\PYG{n}{sample\PYGZus{}path} \PYG{o}{=} \PYG{n}{base\PYGZus{}path}\PYG{o}{+}\PYG{l+s+s1}{\PYGZsq{}samples/\PYGZsq{}}
+\PYG{n}{cluster\PYGZus{}path} \PYG{o}{=} \PYG{n}{base\PYGZus{}path}\PYG{o}{+}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZus{}cluster/\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{}Attack}
+\PYG{c+c1}{\PYGZsh{}sample\PYGZus{}path = base\PYGZus{}path+\PYGZsq{}attack\PYGZus{}samples/2/\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{}cluster\PYGZus{}path = base\PYGZus{}path+\PYGZsq{}attack\PYGZus{}ip\PYGZus{}cluster/2/\PYGZsq{}}
+
+\PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+\PYG{n}{ip\PYGZus{}dict} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+\PYG{n}{sample\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{k}{for} \PYG{n}{filename} \PYG{o+ow}{in} \PYG{n}{os}\PYG{o}{.}\PYG{n}{listdir}\PYG{p}{(}\PYG{n}{sample\PYGZus{}path}\PYG{p}{):}
+    \PYG{n}{tdf} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{sample\PYGZus{}path}\PYG{o}{+}\PYG{n}{filename}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Filter Columns}
+    \PYG{n}{t} \PYG{o}{=} \PYG{n}{tdf}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}ip.dst\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}ip.proto\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}sniff\PYGZus{}timestamp\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}sample\PYGZsq{}}\PYG{p}{]]}
+    \PYG{c+c1}{\PYGZsh{}Remove null destinations}
+    \PYG{n}{t} \PYG{o}{=} \PYG{n}{t}\PYG{p}{[}\PYG{n}{t}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip.dst\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{notnull}\PYG{p}{()]}
+    \PYG{c+c1}{\PYGZsh{}Rename Columns}
+    \PYG{n}{t}\PYG{o}{.}\PYG{n}{columns} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}proto\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}time\PYGZus{}stamp\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}sample\PYGZsq{}}\PYG{p}{]}
+    \PYG{c+c1}{\PYGZsh{}Get count for each ip}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{t}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}proto\PYGZsq{}}\PYG{p}{])}\PYG{o}{.}\PYG{n}{size}\PYG{p}{()}\PYG{o}{.}\PYG{n}{unstack}\PYG{p}{()}\PYG{o}{.}\PYG{n}{fillna}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Select TCP and UDP as only fetures (TCP:6, UDP:17)}
+    \PYG{c+c1}{\PYGZsh{}df = df[[6,17]]}
+    \PYG{c+c1}{\PYGZsh{}Get value matrix}
+    \PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{values}
+    \PYG{c+c1}{\PYGZsh{}Create scaling}
+    \PYG{n}{scaler} \PYG{o}{=} \PYG{n}{preprocessing}\PYG{o}{.}\PYG{n}{StandardScaler}\PYG{p}{()}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Transform Traning data}
+    \PYG{n}{X\PYGZus{}trans} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Define Number of Clusters}
+    \PYG{n}{cluster\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{6}
+    \PYG{c+c1}{\PYGZsh{}Data Fitting using K\PYGZhy{}means}
+    \PYG{k}{if} \PYG{n}{first}\PYG{p}{:}
+        \PYG{n}{kmeans} \PYG{o}{=} \PYG{n}{KMeans}\PYG{p}{(}\PYG{n}{n\PYGZus{}clusters}\PYG{o}{=}\PYG{n}{cluster\PYGZus{}count}\PYG{p}{)}
+        \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{)}
+        \PYG{n}{centroids\PYGZus{}array}\PYG{o}{=}\PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{cluster\PYGZus{}centers\PYGZus{}}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{kmeans} \PYG{o}{=} \PYG{n}{KMeans}\PYG{p}{(}\PYG{n}{n\PYGZus{}clusters}\PYG{o}{=}\PYG{n}{cluster\PYGZus{}count}\PYG{p}{,} \PYG{n}{init}\PYG{o}{=}\PYG{n}{centroids\PYGZus{}array}\PYG{p}{)}
+        \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Attaching label/cluster to IP}
+    \PYG{n}{ip\PYGZus{}series} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{Series}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{index}\PYG{p}{,} \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{label\PYGZus{}series} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{Series}\PYG{p}{(}\PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{labels\PYGZus{}}\PYG{p}{,} \PYG{n}{name}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}label\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ip\PYGZus{}label\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{concat}\PYG{p}{([}\PYG{n}{ip\PYGZus{}series}\PYG{p}{,} \PYG{n}{label\PYGZus{}series}\PYG{p}{],} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{set\PYGZus{}index}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{)}
+    \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{exists}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{p}{):}
+        \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{p}{)}
+    \PYG{n}{ip\PYGZus{}label\PYGZus{}df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{sample\PYGZus{}count}\PYG{p}{))}
+    \PYG{n}{sample\PYGZus{}count} \PYG{o}{+=} \PYG{l+m+mi}{1}
+
+\PYG{c+c1}{\PYGZsh{}Cluster Assignment}
+\PYG{k+kn}{from} \PYG{n+nn}{itertools} \PYG{k+kn}{import} \PYG{n}{groupby}
+\PYG{n}{ip\PYGZus{}dict} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+
+\PYG{k}{for} \PYG{n}{filename} \PYG{o+ow}{in} \PYG{n}{os}\PYG{o}{.}\PYG{n}{listdir}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{p}{):}
+    \PYG{k}{with} \PYG{n+nb}{open}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{o}{+}\PYG{n}{filename}\PYG{p}{,} \PYG{n}{newline}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZsq{}}\PYG{p}{)} \PYG{k}{as} \PYG{n}{csvfile}\PYG{p}{:}
+        \PYG{n}{reader} \PYG{o}{=} \PYG{n}{csv}\PYG{o}{.}\PYG{n}{DictReader}\PYG{p}{(}\PYG{n}{csvfile}\PYG{p}{)}
+        \PYG{k}{for} \PYG{n}{row} \PYG{o+ow}{in} \PYG{n}{reader}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n}{row}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{]} \PYG{o+ow}{in} \PYG{n}{ip\PYGZus{}dict}\PYG{p}{:}
+                \PYG{c+c1}{\PYGZsh{}print(row[\PYGZsq{}ip\PYGZsq{}],ip\PYGZus{}dict[row[\PYGZsq{}ip\PYGZsq{}]])}
+                    \PYG{n}{ip\PYGZus{}dict}\PYG{p}{[}\PYG{n}{row}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{]]} \PYG{o}{=} \PYG{n}{ip\PYGZus{}dict}\PYG{p}{[}\PYG{n}{row}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{]]} \PYG{o}{+} \PYG{p}{[}\PYG{n}{row}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}label\PYGZsq{}}\PYG{p}{]]}
+                \PYG{k}{else}\PYG{p}{:}
+                    \PYG{n}{ip\PYGZus{}dict}\PYG{p}{[}\PYG{n}{row}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{]]} \PYG{o}{=} \PYG{p}{[}\PYG{n}{row}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}label\PYGZsq{}}\PYG{p}{]]}
+
+\PYG{c+c1}{\PYGZsh{}Find how many time destination has been assigned a given cluster}
+\PYG{n}{ip\PYGZus{}cluster\PYGZus{}dict} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+\PYG{k}{for} \PYG{n}{key}\PYG{p}{,} \PYG{n}{value} \PYG{o+ow}{in} \PYG{n}{ip\PYGZus{}dict}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+    \PYG{n}{ip\PYGZus{}cluster\PYGZus{}dict}\PYG{p}{[}\PYG{n}{key}\PYG{p}{]} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{k}\PYG{p}{:} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{group}\PYG{p}{))} \PYG{k}{for} \PYG{n}{k}\PYG{p}{,} \PYG{n}{group} \PYG{o+ow}{in} \PYG{n}{groupby}\PYG{p}{(}\PYG{n}{value}\PYG{p}{)\PYGZcb{}}
+\end{Verbatim}

@@ -1,0 +1,67 @@
+\begin{thebibliography}{10}
+
+\bibitem{ddosattacknews}
+Derek Kortepeter.
+\newblock Destructive ddos attacks increasing at a rapid rate.
+\newblock \url{http://techgenix.com/ddos-attacks-increasing/}, December 2017.
+\newblock [Online; accessed 22-August-2017].
+
+\bibitem{networkdatapacket}
+HowStuffWorks.
+\newblock What is a packet?
+\newblock \url{https://computer.howstuffworks.com/question525.htm}.
+\newblock [Online; accessed 20-January-2018].
+
+\bibitem{bot}
+Ken Dunham and Jim Melnick.
+\newblock {\em Malicious Bots: An Inside Look into the Cyber-Criminal
+  Underground of the Internet}.
+\newblock CRC Press, August 2008.
+
+\bibitem{networkTrafficFlow}
+Network~Working Group.
+\newblock Traffic flow measurement: Architecture.
+\newblock \url{https://www.ietf.org/rfc/rfc2722.txt}, October 1999.
+
+\bibitem{cisconetflow}
+Cisco.
+\newblock Introduction to cisco ios netflow.
+\newblock
+  \url{https://www.cisco.com/c/en/us/products/collateral/ios-nx-os-software/ios-netflow/prod_white_paper0900aecd80406232.html},
+  May 2012.
+\newblock [Online; accessed 22-August-2017].
+
+\bibitem{sflow}
+sFlow.
+\newblock Using sflow.
+\newblock \url{http://www.sflow.org/using_sflow/index.php}.
+\newblock [Online; accessed 16-November-2017].
+
+\bibitem{routingtablesize}
+Omar Santos.
+\newblock The size of the internet global routing table and its potential side
+  effects.
+\newblock
+  \url{https://supportforums.cisco.com/t5/network-infrastructure-documents/the-size-of-the-internet-global-routing-table-and-its-potential/ta-p/3136453},
+  May 2014.
+\newblock [Online; accessed 22-August-2017].
+
+\bibitem{swithcrouter}
+Cisco.
+\newblock What is a network switch vs. a router?
+\newblock
+  \url{https://www.cisco.com/c/en/us/solutions/small-business/resource-center/connect-employees-offices/network-switch-what.html}.
+\newblock [Online; accessed 16-November-2017].
+
+\bibitem{icmp}
+Network~Working Group.
+\newblock Icmp.
+\newblock \url{https://tools.ietf.org/html/rfc792}, Septmber 1981.
+\newblock [Online; accessed 16-November-2017].
+
+\bibitem{clusterning}
+Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
+\newblock {\em Mining of Massive Datasets}.
+\newblock Stanford University, 2014.
+
+\end{thebibliography}
