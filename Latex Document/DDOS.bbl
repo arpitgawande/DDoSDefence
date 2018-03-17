@@ -4,19 +4,32 @@
 Derek Kortepeter.
 \newblock Destructive ddos attacks increasing at a rapid rate.
 \newblock \url{http://techgenix.com/ddos-attacks-increasing/}, December 2017.
-\newblock [Online; accessed 22-August-2017].
+\newblock Online; accessed 22-August-2017.
 
 \bibitem{networkdatapacket}
-HowStuffWorks.
-\newblock What is a packet?
-\newblock \url{https://computer.howstuffworks.com/question525.htm}.
-\newblock [Online; accessed 20-January-2018].
+D.~W. Davies.
+\newblock A communication network for real-time computer systems.
+\newblock {\em Radio and Electronic Engineer}, 37(1):47--51, January 1969.
+
+\bibitem{DDoSAttacks}
+Cisco~Security portal.
+\newblock A cisco guide to defending against distributed denial of service
+  attacks.
+\newblock
+  \url{https://www.cisco.com/c/en/us/about/security-center/guide-ddos-defense.html}.
+\newblock Online; accessed 1-August-2017.
+
+\bibitem{ipspoofing}
+S.~M. Bellovin.
+\newblock A look back at "security problems in the tcp/ip protocol suite".
+\newblock In {\em 20th Annual Computer Security Applications Conference}, pages
+  229--249, Dec 2004.
 
 \bibitem{bot}
 Ken Dunham and Jim Melnick.
 \newblock {\em Malicious Bots: An Inside Look into the Cyber-Criminal
   Underground of the Internet}.
-\newblock CRC Press, August 2008.
+\newblock CRC Press, August 2008,.
 
 \bibitem{networkTrafficFlow}
 Network~Working Group.
@@ -29,13 +42,13 @@ Cisco.
 \newblock
   \url{https://www.cisco.com/c/en/us/products/collateral/ios-nx-os-software/ios-netflow/prod_white_paper0900aecd80406232.html},
   May 2012.
-\newblock [Online; accessed 22-August-2017].
+\newblock Online; accessed 22-August-2017.
 
 \bibitem{sflow}
 sFlow.
 \newblock Using sflow.
 \newblock \url{http://www.sflow.org/using_sflow/index.php}.
-\newblock [Online; accessed 16-November-2017].
+\newblock Online; accessed 16-November-2017.
 
 \bibitem{routingtablesize}
 Omar Santos.
@@ -44,24 +57,38 @@ Omar Santos.
 \newblock
   \url{https://supportforums.cisco.com/t5/network-infrastructure-documents/the-size-of-the-internet-global-routing-table-and-its-potential/ta-p/3136453},
   May 2014.
-\newblock [Online; accessed 22-August-2017].
+\newblock Online; accessed 22-August-2017.
 
 \bibitem{swithcrouter}
 Cisco.
 \newblock What is a network switch vs. a router?
 \newblock
   \url{https://www.cisco.com/c/en/us/solutions/small-business/resource-center/connect-employees-offices/network-switch-what.html}.
-\newblock [Online; accessed 16-November-2017].
+\newblock Online; accessed 16-November-2017.
 
 \bibitem{icmp}
 Network~Working Group.
 \newblock Icmp.
 \newblock \url{https://tools.ietf.org/html/rfc792}, Septmber 1981.
-\newblock [Online; accessed 16-November-2017].
 
-\bibitem{clusterning}
+\bibitem{machineLearning}
 Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
 \newblock {\em Mining of Massive Datasets}.
 \newblock Stanford University, 2014.
+
+\bibitem{SVM}
+Bernhard Sch\"{o}lkopf, Robert Williamson, Alex Smola, John Shawe-Taylor, and
+  John Platt.
+\newblock Support vector method for novelty detection.
+\newblock In {\em Proceedings of the 12th International Conference on Neural
+  Information Processing Systems}, NIPS'99, pages 582--588, Cambridge, MA, USA,
+  1999. MIT Press.
+
+\bibitem{kmeanClustering}
+Nathan S. Netanyahu Christine D. Piatko Ruth~Silverman Tapas~Kanungo, David
+  M.~Mount and Angela~Y. Wu.
+\newblock An efficient k-means clustering algorithm: Analysis and
+  implementation.
+\newblock {\em IEEE}, 24(7):881--892, July 2002.
 
 \end{thebibliography}
