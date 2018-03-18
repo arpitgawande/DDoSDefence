@@ -174,21 +174,33 @@ There are around 150 protocols managed and assigned by Internet Assigned Numbers
 
 According to Tom Mitchell (1998) A computer program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience.
 
-There are many algorithms which can be used for learning from the data and make the prediction. The learning algorithm build a model/hypothesis using training set as input and that model/hypothesis is used to perform predictions. Most common categorization of machine learning algorithm is Supervised and Unsupervised.
+A learning algorithm build the hypothesis using training set as input then that hypothesis is used to perform predictions. Most common categorization of machine learning algorithm is Supervised and Unsupervised.
 
-Let $f$ be the function which we need to guessed from input vector X = $x^{1}$, $x^{2}$, ..., $x^{m}$ and $h$ be the hypothesis about the function $f$. $h \in H$ and $f \in H$, where $H$ is class of functions. Both $f$ and $h$ can be vectors. We select $h$ based on a
-training set, $\Xi$, of $m$ input vector examples. In Supervised leaning we know the values of $f$ for the $m$ samples in the training set $\Xi$. We assume that if we can find a hypothesis, $h$, that closely agrees with $f$ for the members of $\Xi$, then this hypothesis will be a good guess for $f$ when $\Xi$ is large. In Unsupervised learning, we simply have a training set of vectors without function values for them. The problem in this case, typically, is to partition the training set into subsets, $\Xi_1$,  ,$\Xi_R$, in some appropriate way.\cite{machineLearning}
+Let $f$ be the function which we need to guessed from input vector $X$ = \{$x^{1}$, $x^{2}$, ..., $x^{m}$\}. This $X$ also called as training set where $x's$ represent an input variable/feature vector and $m$ is number of feature vectors in the training set. Let $h$ be the hypothesis about the function $f$. $h \in H$ and $f \in H$, where $H$ is class of functions. Both $f$ and $h$ can be vectors. We select $h$ based on a training set, $\Xi$, of $m$ input vector examples. In Supervised leaning we know the values of $f$ for the $m$ samples in the training set $\Xi$. We assume that if we can find a hypothesis, $h$, that closely agrees with $f$ for the members of $\Xi$, then this hypothesis will be a good guess for $f$ when $\Xi$ is large. In Unsupervised learning, we simply have a training set of vectors without function values for them. The problem in this case, typically, is to partition the training set into subsets, $\Xi_1$,  ,$\Xi_R$, in some appropriate way.\cite{machineLearning}
 
 Supervised algorithm such as One Class Support Vector Machine(One Class SVM)\cite{SVM} could be efficient to identify the anomalies in the data but it is very process and memory intensive, so training the algorithm for each and every IP address is very costly. Because of the resource constraints of the router our approach is to first cluster the IP address based on the features using Unsupervised learning algorithms such as k-means and then apply One Class SVM on the clusters to decide on the boundaries of those clusters. Unsupervised algorithms are fast and consume less resource which make them good to be used on the devices which have less cpu power and less memory.
 
-k-means clustering is one of the most efficient algorithm for creating clusters. In k-means, problem is to find set of $k$ points ($k \in \mathbb{N}$) in $\mathbb{R}^d$ $(\mu_{1}, \mu_{2}, ..., \mu_{k})$, called centers, such that mean square distance $(argmin_{k} || x^{i} {-} \mu_{k} ||^{2})$ from each data point from the set of $n$ data points in $d-dimensionl$ space $\mathbb{R}^d$ to its nearest center from $k$ centers is minimum. Lloyd's algorithm is most popular heuristic for k-means clustering, which we have used for our analysis.
-\cite{kmeanClustering}
+\subsubsection{Feature Scaling}
+
+Before feeding data to learning algorithm, we have to do feature scaling, also called Standardizing. Feature scaling is done by removing the mean and scaling the feature to a unit variance value. It is necessary because of the fact that, different features which are at the different scales could cause one feature dominating other in the algorithm output result. e.g. consider two vectors (1, 2, 3000) (1, 3, 2000). If we calculate the Euclidean distance between these two vectors then it would be $(1-1)^2 + (2-3)^2 + (3000-2000)^2$ . Form this, it is evident that the larger term would dominate the result.
+
+First we will convert training examples into a vector. Each row of the vector is one training example and each element in the vector is the feature. To standardize the input vector, mean and standard deviation is calculated for each feature in the input vector. Then new vector is created by subtracting the mean from every element of the feature vector and then dividing values of each feature vector by its standard deviation. The new vector created after this step is standardized vector, which is used as input to the learning algorithms.
+
+\hspace{2cm} Standardization formula: $x' = \frac{x - \bar{x}}{\sigma}$
+
+Where $x$ is the feature vector, ${\bar{x}}$ is the mean and $\sigma$  is its standard deviation.
+
+\subsubsection{Clustering}
+
+k-means clustering is one of the most efficient algorithm for creating clusters. The k-means problem is to find set of $k$ points $\{\mu_{1}, \mu_{2}, ..., \mu_{k}\}$ called centroids, where $\mu_{k}\in$ $\mathbb{R}^d$ and $k \in \mathbb{N}$, for training set $X = \{x^{1}, x^{2}, ..., x^{m}\}$, where $x^{i} \in \mathbb{R}^d$
+and $i= {1,2, ..m}$ is a training example, such that the mean square distance from each training example $x^{i}$ of training set, to its nearest center $\mu_{k}$ ($argmin_{k} || x^{i} {-} \mu_{k} ||^{2}$), is minimum. $m \in \mathbb{N}$, are the number of training examples.\cite{kmeanClustering}
+
+Lloyd's algorithm is most popular heuristic for k-means clustering, which we will be using for our analysis.
 
 \begin{algorithm}
 \caption{Lloyd's k-means algorithm}\label{kmeans}
 \begin{algorithmic}
-\State{$x^{1}$, $x^{2}$, ..., $x^{m}$ is training set, where $x^{i} \in \mathbb{R}^d$, $i = 1,2, .., m$}
-\State {Randomly initialize k cluster centroids $\mu_{1}$, $\mu_{2}$, ..., $\mu_{k} \in \mathbb{R}^d$}
+\State {Arbitrarily initialize k cluster centroids $\mu_{1}, \mu_{2}, ..., \mu_{k} \in \mathbb{R}^d$}
 \Repeat
   \For{$i\gets 1, m$}
     %\State {$c^{i}$ = index (from 1 to K) of cluster centroid closest to $x^{i}$}
@@ -202,35 +214,67 @@ k-means clustering is one of the most efficient algorithm for creating clusters.
 \end{algorithmic}
 \end{algorithm}
 
-For the k-means clustering we will be using training set given in the \ref{table:feature}.
+For our thesis we will be using k-means++ algorithm which is improvisation of kmeans, where arbitrarily initialization step is replaced by following simple, randomized seeding technique.
+
+Let $D(x)$ denote the shortest distance from a data point to the closest center we have already chosen. Following is the k-means++ algorithm.
+
+\begin{algorithm}
+\caption{kmeans++}\label{kmeans++}
+\begin{algorithmic}[1]
+  \State{Take one center $\mu_{1}$, chosen uniformly at random from $X$.}
+  \State{Take a new center $\mu_{k}$ , choosing $x \in X$ with probability $\frac{D(x)^{2}}{\sum_{x \in X} D(x)^{2}}$}
+  \State{Repeat Step 2. until we have taken $k$ centers altogether}
+  \State{Proceed as with the Lloyd's k-means algorithm.}
+\end{algorithmic}
+\end{algorithm}
 
 For our DDoS attack detection program, we will be using the Scikit-learn libraries. Scikit-learn is most popular and rich open source machine learning software library for the Python programming language and they have implementation for both kmeans and One Class SVM machine learning algorithms as well as data preprocessing programs.
 
-k-means library that we will be using is the kmeans++ algorithm which is augmented kmeans with with a simple, randomized seeding technique and using Lloyd’s algorithm.
+We will be using training set in the format given in the figure \ref{table:feature} and we will be using k-means++ Scikit-learn library for clustering.
 
-Before feeding data to clustering algorithm we have to do feature scaling, also called Standardizing. Standardization is done by removing the mean and scaling the feature to a unit variance value. It is necessary because of the fact that, different features which are at the different scales could cause one feature dominating other in the algorithm output result. e.g. consider two vectors (1, 2, 3000) (1, 3, 2000). If we calculate the Euclidean distance between these two vectors then it would be $(1-1)^2 + (2-3)^2 + (3000-2000)^2$ . Form this it is evident that the larger term would dominate the result.
+Before doing actual clustering we will first determine the number clusters and centroids\footnote{Centroids are the central vectors who presents the clusters.} Deciding on the number of clusters is important as randomly choosing the number of cluster will not be useful to have correct clustering. We will use Elbow method to find the optimal number of clusters. Elbow method check the percent of variance explained as function of the number of clusters. Following are the Eblow Diagrams for four samples.
 
-First we will convert training samples into a vector form where each row of vector is one training sample and column is the feature, Then to Standardize the input vector, mean and standard deviation is calculated for each feature in the input vector. Then new vector is created by subtracting the mean from every element of the feature vector and then dividing values of each feature vector by its standard deviation. The new vector created after this step is standardized vector, which is used as input to the learning algorithms.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{elbow-method}
+\caption{Elbow Method for cluster count detection} \label{fig:elbowmethod}
+\end{figure}
 
-Standardization formula: $x' = \frac{x - \bar{x}}{\sigma}$
+Using the elbow method, variance for each cluster number is calculated and the cluster number which produce less variance for the next cluster number is selected as best choice of cluster number for the give sample data. To come up with the best clustering scheme for all the sample we have
 
-Where $x$ is the feature vector, ${\bar{x}}$ is the mean and $\sigma$  is its standard deviation.
+To have correct clustering we first run the k-means algorithm to determine the central vectors called centroids. Clusters are represented by these centroids. As we have multiple samples (each sample has file associated with it), we will have cluster centroids for each sample. We will save all the centroids and then find the median of all the centroids removing the outliers so that we have good estimate of the correct centroids. This estimated centroids are used for clustering the samples. Following is the example of centroid vector where rows represents cluster label and columns represent the feature.
 
-To do clustering, we have to first decide on the number of clusters, but randomly choosing the number of cluster will be useful to have correct clustering. So we will use Elbow method to find the optimal number of clusters. Elbow method check the percent of variance explained as function of the number of clusters. Variance for each cluster number is calculated and the cluster number which produce less variance for the next cluster number is selected as best choice.
+\begin{table}[h!]
+\centering
+  \begin{tabular}{ l | c  c  c }
+    Cluster      & ICMP  & TCP  & UDP \\
+    \hline
+    0         &{-0.16815612}       &{-0.14928111}    &{-0.16948046} \\
+    1         &{-0.18181818}       &{5.13527652}     &{5.68956244} \\
+    2         &{5.08663322}        &{-0.27110845}    &{-0.099885} \\
+    3         &{-0.18670401}       &{-0.18804342}    &{-0.018538} \\
+  \end{tabular}
+\caption{k-means cluster centroids} \label{table:centroids}
+\end{table}
 
-To have correct clustering we first run the k-means algorithm to determine the cluster center. As we have multiple samples (each sample has file associated with it), we will have different cluster centroids for each sample. We will save all the centroids and then find the mean of all the centroid removing the outliers so that we have good estimate of the correct centroid. This estimated centroid is used for clustering the samples. Following is the example of centroid vector where rows are centroid label and columns represent the feature.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{kemans-clustering}
+\caption{Clustering using k-means++ algorithm} \label{fig:kmeans-clustering}
+\end{figure}
 
-$ [[-0.16815612 -0.14928111 -0.16948046] \\
-  [-0.18181818  5.13527652  5.68956244] \\
-  [ 5.08663322 -0.27110845 -0.099885  ] \\
-  [-0.18670401 -0.18804342 -0.018538  ]] $
-
+After deciding on centroids, we now have to run clustering on all the samples by passing centroids as initial cluster centers. The resultant clustering will be stored on file system
 
 Once the change in the normal behavior has been reported then router communicate to the destination network. Destination network collect that information to know the source of the attack. This information can be used to know the nature of the attack.
 
 To Communicate the destination network about the change in behavior router can use the existing ICMP protocol. ICMP protocol has been used to provide feedback about problems in the communication environment. ICMP messages are sent in several situations:  for example, when a datagram cannot reach its destination, when the gateway does not have the buffering capacity to forward a datagram, and when the gateway can direct the host to send traffic on a shorter route.\cite{icmp} Similarly we can use ICMP protocol to inform destination router about the change in the flow. ICMP protocol has many unused type code (there can be 0-255 types but as of now only 0-41 are in use) available. We can create our own type to communicate the anomaly in the flow.
 
 When depending on the type and severity of the situation destination host or network can decided whether to inform router to block the traffic.
+
+
+Principal-component analysis, or PCA, is a technique for taking a dataset con-
+sisting of a set of tuples representing points in a high-dimensional space and
+finding the directions along which the tuples line up best.
 
 \section{Conclusion}
 
