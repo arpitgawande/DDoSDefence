@@ -91,4 +91,16 @@ Nathan S. Netanyahu Christine D. Piatko Ruth~Silverman Tapas~Kanungo, David
   implementation.
 \newblock {\em IEEE}, 24(7):881--892, July 2002.
 
+\bibitem{k-means++}
+David Arthur and Sergei Vassilvitskii.
+\newblock K-means++: the advantages of careful seeding.
+\newblock In {\em In Proceedings of the 18th Annual ACM-SIAM Symposium on
+  Discrete Algorithms}, 2007.
+
+\bibitem{ri-index}
+William~M. Rand.
+\newblock Objective criteria for the evaluation of clustering methods.
+\newblock {\em Journal of the American Statistical Association},
+  66(336):846--850, 1971.
+
 \end{thebibliography}

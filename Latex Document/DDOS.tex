@@ -132,29 +132,28 @@ To extract IP layer information from the captured packets data extraction progra
 
 This learning can be done for the time during the day or given day during the week of year. e.g. We can have separate learning information for flow from morning 9 am to 12 pm and also can have information for evening 6 pm to 12 pm.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
   \begin{tabular}{| l | c | l | c |}
     \hline
     Destination IP      & Protocol  & Time stamp(Sec.)  & Sample Number \\
     \hline
-    52.6.129.72         & 6         & 1512094785.928596000  & 1 \\
-    192.168.0.4         & 6         & 1512094785.946987000  & 1 \\
-    192.168.0.4         & 17        & 1512094786.148488000  & 1 \\
-    \hline
+    52.6.129.72         & 6         & 1512094785.928596000  & 1 \\ \hline
+    192.168.0.4         & 6         & 1512094785.946987000  & 1 \\ \hline
+    192.168.0.4         & 17        & 1512094786.148488000  & 1 \\ \hline
   \end{tabular}
-\caption{IP packet attributes} \label{table:attribute}
+\caption{Flow snippet} \label{table:flow-snippet}
 \end{table}
 
 The sample files created using the \textit{data\_extraction} program will be used to create the training set.
 
 Flow based model is build as it is more reliable and fast. Packet analyzing is often difficult due to size and encryption. Also destination port number is not a reliable information in detecting attacks because of the fact that attacker use different ports during attack.
 
-Creating training set is an intermediate step in which IP packet count for each destination for given protocol(e.g TCP, UDP) is calculated. The training set gives us the flow information for each destination (i.e. how many packets are going to given destination IP address during a time window e.g. 300 seconds). We are using \textit{IP\_clustering} Python program to create training set. Our training set look like following in which each row is the destination IP address and columns are the number of packets observed of particular protocol during 300 second time.
+Creating training set is an intermediate step in which IP packet count for each destination for given protocol(e.g TCP, UDP) is calculated. The training set gives us the flow information for each destination (i.e. how many packets are recorded for a given destination IP address during a time window e.g. 300 seconds). We are using Python program to create training set from the sample files. Our training set look like following in which each row is one training example with destination IP address as label. A training example is $\mathbb{R}^3$ vector whose elements are the number of packets observed for a particular protocol during 300 second time.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
-  \begin{tabular}{| l |c | c | c | c |}
+  \begin{tabular}{| l | c | c | c |}
     \hline
     & \multicolumn{3}{ |c| }{IP Packet count} \\ \cline{2-4}
     {Destination IP}  &ICMP  &TCP &UDP\\
@@ -166,7 +165,7 @@ Creating training set is an intermediate step in which IP packet count for each 
 \caption{Training Set with three training examples} \label{table:feature}
 \end{table}
 
-This training set will be used to train our clustering algorithm. Clustering algorithm separate training examples into different group based on the features, called clusters. We will explain this algorithm in our later section.
+We ran python program to convert each sample file to training set and testing sets. Each sample file has corresponding train/test set file. We store both train and test sets on the file systems so that they can be used for training and testing the algorithms.
 
 There are around 150 protocols managed and assigned by Internet Assigned Numbers Authority (IANA) but most commonly used protocols in the DDoS attack are the ICMP, TCP and UDP protocols. For our training and analysis purpose we are using only these three protocols as the desired feature. In the larger system such as routers managed by ISP, other protocols can also be used as features if required.\par
 
@@ -214,9 +213,9 @@ Lloyd's algorithm is most popular heuristic for k-means clustering, which we w
 \end{algorithmic}
 \end{algorithm}
 
-For our thesis we will be using k-means++ algorithm which is improvisation of kmeans, where arbitrarily initialization step is replaced by following simple, randomized seeding technique.
+For our thesis we will be using k-means++ algorithm\cite{k-means++} which is improvisation of kmeans, where arbitrarily initialization step is replaced by following simple, randomized seeding technique.
 
-Let $D(x)$ denote the shortest distance from a data point to the closest center we have already chosen. Following is the k-means++ algorithm.
+Let $D(x)$ denote the shortest distance from a data point to the closest center we have already chosen then following is the k-means++ algorithm.
 
 \begin{algorithm}
 \caption{kmeans++}\label{kmeans++}
@@ -244,7 +243,7 @@ Using the elbow method, variance for each cluster number is calculated and the c
 
 To have correct clustering we first run the k-means algorithm to determine the central vectors called centroids. Clusters are represented by these centroids. As we have multiple samples (each sample has file associated with it), we will have cluster centroids for each sample. We will save all the centroids and then find the median of all the centroids removing the outliers so that we have good estimate of the correct centroids. This estimated centroids are used for clustering the samples. Following is the example of centroid vector where rows represents cluster label and columns represent the feature.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
   \begin{tabular}{ l | c  c  c }
     Cluster      & ICMP  & TCP  & UDP \\
@@ -263,7 +262,44 @@ To have correct clustering we first run the k-means algorithm to determine the c
 \caption{Clustering using k-means++ algorithm} \label{fig:kmeans-clustering}
 \end{figure}
 
-After deciding on centroids, we now have to run clustering on all the samples by passing centroids as initial cluster centers. The resultant clustering will be stored on file system
+Using the centroids obtained in he previous step we will run kmeans++ algorithm and then test it for accuracy. kmean++ algorithm gives label to each training example. This label is the cluster number to which that training example has been assigned to. So our new labeled data look like following.
+
+\begin{table}[H]
+\centering
+  \begin{tabular}{| l | c | c | c | c |}
+    \hline
+    {Destination IP}  &ICMP  &TCP &UDP  &Cluster \\
+    \hline
+    172.217.10.134  & 0     & 8     & 12  &1  \\ \hline
+    65.19.96.252    & 5     & 0     & 192 &0  \\ \hline
+    68.67.178.134   & 0     & 78    & 0   &2  \\ \hline
+  \end{tabular}
+\caption{Labeled Training Set (with cluster number)} \label{table:labeled-set}
+\end{table}
+
+
+We will run kmeans++ to for both training and testing set and we produce labeled data for both. We then checked how similar the test set clustering is with train set clustering. For measuring this similarity Rand Index(RI)\cite{ri-index} is used. RI is a measure of how many percent does the test clustering matches with our trained model.
+
+\hspace{4cm} $RI={\frac {TP+TN}{TP+FP+FN+TN}}$
+
+where $TP, TN, TN$ and $FN$ are the number of true positives, true negatives, false positives and false negatives respectively.
+
+We have observed that with more number of training sets RI index improves.
+
+Because of the reason that the training sets contain the flow information for different IP on a router during window of 300 seconds, there is very high possibility that same destination IP is captured in multiple training set. Our goal it to find out the correct cluster for destination IP so to achieve this goal we will check all the cluster assignment for a given destination IP and we will select the cluster which has the highest occurring frequency among all the training sets selected for the clustering. We will also count the average number of packets going to a given IP address which will help us reduce the error in deciding the DDoS attack. We will save this labeling and cluster count information for each IP destination on the file system. This information tell us the normal behavior of the packets traveling from the router to a given destination. As we have fixed the centroids for the clustering algorithm, every time in the future we should expect the an IP address to be found in the same cluster if flow of packets for a given destination is as per our our previous knowledge. If there is a DDoS attack on a any destination with flooding, then we can expect to see that destination assigned different cluster.
+
+But from the experiments on different data sets it is found that the destination under attack is labeled with the same cluster number when it was not under attack. This happened because there is no other cluster it can be assigned to so it gets assigned to cluster whoes centroid is nearest.
+
+To avoid such conditions we will have to create boundaries for the clusters. This scheme will make sure that the attack will be detected even if destination is assigned to same cluster to which it was labeled when there was normal traffic for that destination.
+
+for this we will be using One Class SVM which will help us to detect anomalies in the cluster. This approach is more efficient because the number of cluster are limited and always be far less than the number of destination IP address, so training one class SVM on clusters will be far less process intensive than training on massive number of IP address.
+
+For example the number of clusters we have create in our analysis are 4 in number while the number of IP address to which packets are flowing form router are 268 which is more than 60 times.
+
+
+After deciding on centroids, we now have to run clustering on all the train and test samples by passing centroids as initial cluster centers. The resultant clustering will be stored on file system.
+
+To evaluate the accuracy of the clustering i.e how similar are the c
 
 Once the change in the normal behavior has been reported then router communicate to the destination network. Destination network collect that information to know the source of the attack. This information can be used to know the nature of the attack.
 

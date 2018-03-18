@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  17 MAR 2018 21:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  18 MAR 2018 02:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -324,13 +324,13 @@ ts data ex-trac-tion pro-gram \OT1/cmr/m/it/10 data[]extraction
  []
 
 [8] [9]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 179.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 178.
 
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 179.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 178.
  [10]
 Missing character: There is no Â in font cmr10!
 Missing character: There is no — in font cmr10!
@@ -339,22 +339,20 @@ Missing character: There is no — in font cmr10!
 <elbow-method.png, id=64, 722.7pt x 578.16pt>
 File: elbow-method.png Graphic file (type png)
 <use elbow-method.png>
-Package pdftex.def Info: elbow-method.png  used on input line 239. on input lin
-e 239.
+Package pdftex.def Info: elbow-method.png  used on input line 238. on input lin
+e 238.
 Package pdftex.def Info: Requested size: 375.14705pt x 300.1156pt on input line
- 239.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<kemans-clustering.png, id=65, 722.7pt x 578.16pt>
+ 238.
+ [12 <./elbow-method.png>]
+<kemans-clustering.png, id=69, 722.7pt x 578.16pt>
 File: kemans-clustering.png Graphic file (type png)
 <use kemans-clustering.png>
-Package pdftex.def Info: kemans-clustering.png  used on input line 262. on inpu
-t line 262.
+Package pdftex.def Info: kemans-clustering.png  used on input line 261. on inpu
+t line 261.
 Package pdftex.def Info: Requested size: 375.14705pt x 300.1156pt on input line
- 262.
-[12 <./elbow-method.png>] [13 <./kemans-clustering.png>] (./DDOS.bbl
+ 261.
+ [13 <./kemans-clustering.png>] [14] [15]
+(./DDOS.bbl
 Underfull \hbox (badness 6188) in paragraph at lines 15--21
 []\OT1/cmr/m/n/10 Cisco Se-cu-rity por-tal.  A cisco guide to de-fend-ing again
 st dis-tributed de-
@@ -366,7 +364,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 40--46
  white _ paper0900aecd80406232 .
  []
 
-[14]
+
 Underfull \hbox (badness 1173) in paragraph at lines 54--61
 \OT1/cmr/m/n/10 fects.  $\OT1/cmtt/m/n/10 https : / / supportforums . cisco . c
 om / t5 / network-[]infrastructure-[]documents /
@@ -384,38 +382,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--68
 t-[]employees-[]offices /
  []
 
-) [15] (./DDOS.aux) ) 
+[16]) [17] (./DDOS.aux) ) 
 Here is how much of TeX's memory you used:
- 3135 strings out of 492985
- 44449 string characters out of 6132570
- 107602 words of memory out of 5000000
- 6626 multiletter control sequences out of 15000+600000
+ 3139 strings out of 492985
+ 44501 string characters out of 6132570
+ 106619 words of memory out of 5000000
+ 6630 multiletter control sequences out of 15000+600000
  12324 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,8n,26p,1249b,258s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cmextra/cmex7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.
-pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></
-usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr
-/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/l
-ocal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/lo
-cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/loc
-al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on DDOS.pdf (15 pages, 659279 bytes).
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
+fonts/cmextra/cmex7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pf
+b></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
+/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></u
+sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr
+/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on DDOS.pdf (17 pages, 666309 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
+ 148 PDF objects out of 1000 (max. 8388607)
+ 97 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
