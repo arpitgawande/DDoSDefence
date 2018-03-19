@@ -191,7 +191,7 @@ Where $x$ is the feature vector, ${\bar{x}}$ is the mean and $\sigma$  is its st
 
 \subsubsection{Clustering}
 
-k-means clustering is one of the most efficient algorithm for creating clusters. The k-means problem is to find set of $k$ points $\{\mu_{1}, \mu_{2}, ..., \mu_{k}\}$ called centroids, where $\mu_{k}\in$ $\mathbb{R}^d$ and $k \in \mathbb{N}$, for training set $X = \{x^{1}, x^{2}, ..., x^{m}\}$, where $x^{i} \in \mathbb{R}^d$
+k-means clustering is one of the most efficient algorithm for creating clusters. The k-means problem is to find set of $K$ points $\{\mu_{1}, \mu_{2}, ..., \mu_{k}\}$ called centroids, where $\mu_{k}\in$ $\mathbb{R}^d$ and $K \in \mathbb{N}$, for training set $X = \{x^{1}, x^{2}, ..., x^{m}\}$, where $x^{i} \in \mathbb{R}^d$
 and $i= {1,2, ..m}$ is a training example, such that the mean square distance from each training example $x^{i}$ of training set, to its nearest center $\mu_{k}$ ($argmin_{k} || x^{i} {-} \mu_{k} ||^{2}$), is minimum. $m \in \mathbb{N}$, are the number of training examples.\cite{kmeanClustering}
 
 Lloyd's algorithm is most popular heuristic for k-means clustering, which we will be using for our analysis.
@@ -199,7 +199,7 @@ Lloyd's algorithm is most popular heuristic for k-means clustering, which we w
 \begin{algorithm}
 \caption{Lloyd's k-means algorithm}\label{kmeans}
 \begin{algorithmic}
-\State {Arbitrarily initialize k cluster centroids $\mu_{1}, \mu_{2}, ..., \mu_{k} \in \mathbb{R}^d$}
+\State {Arbitrarily initialize $K$ cluster centroids $\mu_{1}, \mu_{2}, ..., \mu_{k}$}
 \Repeat
   \For{$i\gets 1, m$}
     %\State {$c^{i}$ = index (from 1 to K) of cluster centroid closest to $x^{i}$}
@@ -207,7 +207,7 @@ Lloyd's algorithm is most popular heuristic for k-means clustering, which we w
   \EndFor
   \For{$k\gets 1, K$}
     %\State {$\mu_{i}$ = average (mean) of points assigned to cluster k}
-    \State{$\mu_{k} = \frac{1}{n} [x^{(k_{1})} + x^{(k_{2})} + ... + x^{(k_{n}})] \in R$}\Comment{Move Centroid}
+    \State{$\mu_{k} = \frac{1}{n} [x^{(k_{1})} + x^{(k_{2})} + ... + x^{(k_{n}})]$}\Comment{Move Centroid}
   \EndFor
 \Until convergence
 \end{algorithmic}
@@ -262,6 +262,8 @@ To have correct clustering we first run the k-means algorithm to determine the c
 \caption{Clustering using k-means++ algorithm} \label{fig:kmeans-clustering}
 \end{figure}
 
+To draw data points on 2 dimension space we had to reduce our 3 dimensional training example into 2 dimension without loosing much information. We have achieved this by using Principal-Component Analysis (PCA). PCA is a technique for taking a dataset consisting of a set of tuples representing points in a high-dimensional space and finding the directions along which the tuples line up best.\cite{pca}. We have used Scikit-learn PCA module for this purpose.
+
 Using the centroids obtained in he previous step we will run kmeans++ algorithm and then test it for accuracy. kmean++ algorithm gives label to each training example. This label is the cluster number to which that training example has been assigned to. So our new labeled data look like following.
 
 \begin{table}[H]
@@ -292,14 +294,79 @@ But from the experiments on different data sets it is found that the destination
 
 To avoid such conditions we will have to create boundaries for the clusters. This scheme will make sure that the attack will be detected even if destination is assigned to same cluster to which it was labeled when there was normal traffic for that destination.
 
-for this we will be using One Class SVM which will help us to detect anomalies in the cluster. This approach is more efficient because the number of cluster are limited and always be far less than the number of destination IP address, so training one class SVM on clusters will be far less process intensive than training on massive number of IP address.
+for this we will be using One Class SVM which will help us to detect anomalies in the cluster. Compute and storage requirements of SVM increase rapidly with the number of training vectors, because of the fact that SVM is a quadratic programming problem (QP). So the approch presented in the paper is more efficient because the number of cluster are limited and always be far less than the number of destination IP address. Training one class SVM on clusters will be far less process and memory intensive than training on massive number of IP address.
 
 For example the number of clusters we have create in our analysis are 4 in number while the number of IP address to which packets are flowing form router are 268 which is more than 60 times.
 
+\subsubsection{Anomaly Detection using One Class Support-Vector Machine}
 
-After deciding on centroids, we now have to run clustering on all the train and test samples by passing centroids as initial cluster centers. The resultant clustering will be stored on file system.
+\subsubsection{Support-Vector Machine}
 
-To evaluate the accuracy of the clustering i.e how similar are the c
+Support-Vector Machine is a supervised learning algorithm which tries to classify data. Classification is based on the label of the training set. Consider the training set $\{(x^{1},y^{1}),(x^{2},y^{2}), .., (x^{m},y^{m})\}$, where $x^{i} \in \mathbb{R}^d$ is the training example and $y^{i} \in \{-1, +1\}$ is the label which is the classification value for $x^{i}$,
+
+$f(x)=$
+\left\{
+      \begin{array}{lr}
+        $\ge 0 \ y^i = +1 \\
+        < 0 \ y^i = -1$
+      \end{array}
+
+SVM try to create non-linear separation boundary by projecting data points through a non-linear function $\phi$ to higher dimension space. The data points in space $I$ which can not be separated by a line are projected to the feature space $F$ where there can a hyperplane that separate data point of one class form another. If the hyperplane is projected back on original space $I$ the we get non-linear curve.
+
+For projecting point to the hyperplane a kernel function is used.
+
+The hyperplane is represented with the equation $w^{T}x + b = 0$, where $w \in F$ and $b \in R$. This hyperplane separated the training example labeled with $-1$ and $1$ into different classes. The position of the hyperplane is such that the distance from the closest point from each class to the hyperplane is same. To avoid the over-fitting, slack variables $\xi^{i}$ are introduced. Over-fitting happen because learned hypothesis fit training examples so well that it fails to generalize new examples. The constant C>0 is the regularization parameter. It is choose large if we don't want to want to miss-classify training examples but if chosen small then we may miss classify few examples but margin would be large so that most of the points will be far away from the decision boundary. Thus SVM optimization problem is states as.
+
+\begin{center}
+  ${min}_{w,b,\xi^i} \ \frac{||w||^2}{2} + C \sum_{i=1}^m \xi^i$ \\
+  $\mbox{ subject to: }$ \\
+  $y^i( w^T \phi(x^i) + b) \geq & 1 - \xi^i & \mbox{ for all } i = 1, \dots, m$ \\
+  $& \xi^i \geq 0 & \mbox{ for all } i = 1, \dots, m$ \\
+\end{center}
+
+If this minimization problem is solved using Lagrange multipliers then the classification function $f(x)$ can be stated as.
+
+\begin{center}
+$f(x)=sgn(\sum_{i=1}^m \alpha^i y^i K(x,x^i) \ + b)$
+\end{center}
+
+$\alpha^i$ here are the Lagrange multipliers and $x^i$ with $\alpha^i$ are called the Support Vectors.
+
+---
+When this minimization problem (with quadratic programming) is solved using Lagrange multipliers, it gets really interesting. The decision function (classification) rule for a data point x then becomes:
+f(x)=sgn(∑i=1nαiyiK(x,xi)+b)
+Here αi are the Lagrange multipliers; every αi>0 is weighted in the decision function and thus “supports” the machine; hence the name Support Vector Machine. Since SVMs are considered to be sparse, there will be relatively few Lagrange multipliers with a non-zero value.
+---
+
+\subsubsection{One Class Support-Vector Machine}
+
+One Class Support-Vector Machine (One Class SVM) is the extension of SVM which detect boundaries of the training set so that every new training example will be classifies as belong to training set or not. It separate all the training set data point from feature space $F$ and maximizes the distance of hyperplane from $F$. This creates a binary function which returns +1 for the training example which fit in the trained set region otherwise it will return -1
+
+The minimization function of One Class SVM is slightly different than the SVM
+
+\begin{center}
+  ${min}_{w,\rho,\xi^i} \ \frac{||w||^2}{2} + \frac{1}{\nu n} \sum_{i=1}^m \xi^i - \rho$ \\
+  $\mbox{ subject to: }$ \\
+  $(w.\phi(x^i)) \geq \rho \- \xi^i \mbox{ for all } i = 1, \dots, m$ \\
+  $& \xi^i \geq 0 & \mbox{ for all } i = 1, \dots, m$ \\
+\end{center}
+
+
+-----
+
+The Support Vector Method For Novelty Detection by Schölkopf et al. basically separates all the data points from the origin (in feature space F) and maximizes the distance from this hyperplane to the origin. This results in a binary function which captures regions in the input space where the probability density of the data lives. Thus the function returns +1 in a “small” region (capturing the training data points) and −1 elsewhere.
+
+The quadratic programming minimization function is slightly different from the original stated above, but the similarity is still clear:
+
+minw, ξi, ρ12∥w∥2+1νn∑i=1nξi−ρ subject to: (w⋅ϕ(xi))≥ρ−ξiξi≥0 for all i=1,…,n for all i=1,…,n
+In the previous formulation the parameter C decided the smoothness. In this formula it is the parameter ν that characterizes the solution;
+
+it sets an upper bound on the fraction of outliers (training examples regarded out-of-class) and,
+it is a lower bound on the number of training examples used as Support Vector.
+Due to the importance of this parameter, this approach is often referred to as ν-SVM.
+
+
+----
 
 Once the change in the normal behavior has been reported then router communicate to the destination network. Destination network collect that information to know the source of the attack. This information can be used to know the nature of the attack.
 
@@ -307,10 +374,6 @@ To Communicate the destination network about the change in behavior router can u
 
 When depending on the type and severity of the situation destination host or network can decided whether to inform router to block the traffic.
 
-
-Principal-component analysis, or PCA, is a technique for taking a dataset con-
-sisting of a set of tuples representing points in a high-dimensional space and
-finding the directions along which the tuples line up best.
 
 \section{Conclusion}
 

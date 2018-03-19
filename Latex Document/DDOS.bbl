@@ -28,7 +28,7 @@ S.~M. Bellovin.
 \bibitem{bot}
 Ken Dunham and Jim Melnick.
 \newblock {\em Malicious Bots: An Inside Look into the Cyber-Criminal
-  Underground of the Internet}.
+  Underground of the Internet}, chapter 1. Introduction to Bots.
 \newblock CRC Press, August 2008,.
 
 \bibitem{networkTrafficFlow}
@@ -73,7 +73,7 @@ Network~Working Group.
 
 \bibitem{machineLearning}
 Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
-\newblock {\em Mining of Massive Datasets}.
+\newblock {\em Mining of Massive Datasets}, chapter Clutering.
 \newblock Stanford University, 2014.
 
 \bibitem{SVM}
@@ -96,6 +96,12 @@ David Arthur and Sergei Vassilvitskii.
 \newblock K-means++: the advantages of careful seeding.
 \newblock In {\em In Proceedings of the 18th Annual ACM-SIAM Symposium on
   Discrete Algorithms}, 2007.
+
+\bibitem{pca}
+Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
+\newblock {\em Mining of Massive Datasets}, chapter 11. Dimensionality
+  Reduction.
+\newblock Stanford University, 2014.
 
 \bibitem{ri-index}
 William~M. Rand.

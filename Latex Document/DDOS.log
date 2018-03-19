@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  18 MAR 2018 02:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  18 MAR 2018 23:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -351,8 +351,203 @@ Package pdftex.def Info: kemans-clustering.png  used on input line 261. on inpu
 t line 261.
 Package pdftex.def Info: Requested size: 375.14705pt x 300.1156pt on input line
  261.
- [13 <./kemans-clustering.png>] [14] [15]
-(./DDOS.bbl
+ [13 <./kemans-clustering.png>] [14]
+Overfull \hbox (24.22565pt too wide) in paragraph at lines 305--306
+\OT1/cmr/m/n/10 ca-tion is based on the la-bel of the train-ing set. Con-sider 
+the train-ing set $\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; y[]
+\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; y[]\
+OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; ::; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; y
+[]\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 g$\OT1/cmr/m/n/10 ,
+ []
+
+./DDOS.tex:308: Missing $ inserted.
+<inserted text> 
+                $
+l.308 \left
+           \{
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./DDOS.tex:310: Missing $ inserted.
+<inserted text> 
+                $
+l.310         $\ge
+                   0 \ y^i = +1 \\
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./DDOS.tex:312: Missing $ inserted.
+<inserted text> 
+                $
+l.312       \end{array}
+                       
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./DDOS.tex:313: Missing $ inserted.
+<inserted text> 
+                $
+l.313 
+      
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+./DDOS.tex:313: Missing \right. inserted.
+<inserted text> 
+                \right .
+l.313 
+      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+[15]
+./DDOS.tex:323: Misplaced alignment tab character &.
+l.323   $y^i( w^T \phi(x^i) + b) \geq &
+                                        1 - \xi^i & \mbox{ for all } i = 1, ...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+./DDOS.tex:323: Misplaced alignment tab character &.
+l.323 ...^i( w^T \phi(x^i) + b) \geq & 1 - \xi^i &
+                                                   \mbox{ for all } i = 1, \...
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+./DDOS.tex:324: Misplaced alignment tab character &.
+<recently read> &
+                 
+l.324   $&
+           \xi^i \geq 0 & \mbox{ for all } i = 1, \dots, m$ \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+./DDOS.tex:324: Misplaced alignment tab character &.
+l.324   $& \xi^i \geq 0 &
+                          \mbox{ for all } i = 1, \dots, m$ \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no à in font cmr10!
+Missing character: There is no ë in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no ± in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no ± in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no ± in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+./DDOS.tex:351: Misplaced alignment tab character &.
+<recently read> &
+                 
+l.351   $&
+           \xi^i \geq 0 & \mbox{ for all } i = 1, \dots, m$ \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+./DDOS.tex:351: Misplaced alignment tab character &.
+l.351   $& \xi^i \geq 0 &
+                          \mbox{ for all } i = 1, \dots, m$ \\
+I can't figure out why you would want to use a tab mark
+here. If you just want an ampersand, the remedy is
+simple: Just type `I\&' now. But if some right brace
+up above has ended a previous alignment prematurely,
+you're probably due for more error messages, and you
+might try typing `S' now just to see what is salvageable.
+
+Missing character: There is no √ in font cmr10!
+Missing character: There is no ∂ in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ú in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ù in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no à in font cmr10!
+Missing character: There is no í in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no æ in font cmr10!
+Missing character: There is no œ in font cmr10!
+Missing character: There is no Å in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no à in font cmr10!
+Missing character: There is no • in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no à in font cmr10!
+Missing character: There is no • in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no Ω in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no à in font cmr10!
+Missing character: There is no ë in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no æ in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no à in font cmr10!
+Missing character: There is no í in font cmr10!
+Missing character: There is no œ in font cmr10!
+Missing character: There is no Å in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no ã in font cmr10!
+Missing character: There is no Ö in font cmr10!
+Missing character: There is no œ in font cmr10!
+Missing character: There is no ï in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no • in font cmr10!
+Missing character: There is no œ in font cmr10!
+Missing character: There is no Å in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no à in font cmr10!
+Missing character: There is no í in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no æ in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no æ in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no • in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+Missing character: There is no ‚ in font cmr10!
+Missing character: There is no Ä in font cmr10!
+Missing character: There is no ¶ in font cmr10!
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no Ω in font cmr10!
+[16]
+Missing character: There is no Œ in font cmr10!
+Missing character: There is no Ω in font cmr10!
+ (./DDOS.bbl [17]
 Underfull \hbox (badness 6188) in paragraph at lines 15--21
 []\OT1/cmr/m/n/10 Cisco Se-cu-rity por-tal.  A cisco guide to de-fend-ing again
 st dis-tributed de-
@@ -382,12 +577,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--68
 t-[]employees-[]offices /
  []
 
-[16]) [17] (./DDOS.aux) ) 
+[18]) [19] (./DDOS.aux) ) 
 Here is how much of TeX's memory you used:
- 3139 strings out of 492985
- 44501 string characters out of 6132570
- 106619 words of memory out of 5000000
- 6630 multiletter control sequences out of 15000+600000
+ 3140 strings out of 492985
+ 44506 string characters out of 6132570
+ 106623 words of memory out of 5000000
+ 6631 multiletter control sequences out of 15000+600000
  12324 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,8n,26p,1249b,258s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -395,25 +590,26 @@ Here is how much of TeX's memory you used:
 /amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmbx9.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
-fonts/cmextra/cmex7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
-.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pf
-b></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
-/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></us
-r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr
-/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on DDOS.pdf (17 pages, 666309 bytes).
+fonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
+onts/cmextra/cmex7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.
+pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
+></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></
+usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
+/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on DDOS.pdf (19 pages, 686170 bytes).
 PDF statistics:
- 148 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
+ 160 PDF objects out of 1000 (max. 8388607)
+ 105 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
