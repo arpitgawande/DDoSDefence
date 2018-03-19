@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex DDOS"] 1521444570 "DDOS.aux" "DDOS.bbl" "DDOS" 1521444614
+["bibtex DDOS"] 1521473597 "DDOS.aux" "DDOS.bbl" "DDOS" 1521473601
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/base/unsrt.bst" 1480098433 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "DDOS.aux" 1521444614 4512 3143029401558c4cde6c5ec836f5ace5 ""
+  "DDOS.aux" 1521473020 4528 c4200135b8372edef33ae33bc8969c75 ""
   "biblo.bib" 1521435974 6064 56d3112846603e793e57426a92985927 ""
   (generated)
-  "DDOS.blg"
   "DDOS.bbl"
-["pdflatex"] 1521444612 "DDOS.tex" "DDOS.pdf" "DDOS" 1521444614
+  "DDOS.blg"
+["pdflatex"] 1521473601 "DDOS.tex" "DDOS.pdf" "DDOS" 1521473601
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1480098698 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1480098698 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -93,9 +93,9 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1510714426 2484032 9d0351ec5b3f8da39b0a5e1b5caefb32 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1510714510 4130818 830b209953aee53865f0a9eecaf74295 ""
   "/usr/local/texlive/2017/texmf.cnf" 1510714412 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "DDOS.aux" 1521444614 4512 3143029401558c4cde6c5ec836f5ace5 ""
-  "DDOS.bbl" 1521444571 4068 582d2e205c2d3b0a531a7ab39365e2b2 "bibtex DDOS"
-  "DDOS.tex" 1521444611 42928 691664c1fac52a5d55fd889ed7903362 ""
+  "DDOS.aux" 1521473020 4528 c4200135b8372edef33ae33bc8969c75 ""
+  "DDOS.bbl" 1521473598 4068 582d2e205c2d3b0a531a7ab39365e2b2 "bibtex DDOS"
+  "DDOS.tex" 1521473600 43608 2c5183bdc3cc541bbc2dc2d09f0bc9a2 ""
   "Data_Flow_Capture.jpg" 1516037944 12997 25c27d308d0bbac94791403ce66caa49 ""
   "RouterCommunication.png" 1517345722 33461 c13183f6f387582de3b6b22a270470b0 ""
   "Routers.jpg" 1515424659 21929 af415d385fd2815fdb5a02b1ca6b879e ""
@@ -106,8 +106,8 @@
   "elbow-method.png" 1521295141 39033 e77056ef643e40edf8bad43a7eea3953 ""
   "kemans-clustering.png" 1521325466 20875 e86d2944e45b5097a041eab4b462a411 ""
   "one-class-SVM.png" 1521432699 69665 ff129926a86fe6a320ef340e72d8a20c ""
-  "router-network-communication.png" 1521444499 9515 36cca92457ff853d7dbb6a9f43da8b6e ""
+  "router-network-communication" 0 -1 0 ""
   (generated)
-  "DDOS.pdf"
   "DDOS.log"
+  "DDOS.pdf"
   "DDOS.aux"
