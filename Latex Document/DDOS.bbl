@@ -50,15 +50,6 @@ sFlow.
 \newblock \url{http://www.sflow.org/using_sflow/index.php}.
 \newblock Online; accessed 16-November-2017.
 
-\bibitem{routingtablesize}
-Omar Santos.
-\newblock The size of the internet global routing table and its potential side
-  effects.
-\newblock
-  \url{https://supportforums.cisco.com/t5/network-infrastructure-documents/the-size-of-the-internet-global-routing-table-and-its-potential/ta-p/3136453},
-  May 2014.
-\newblock Online; accessed 22-August-2017.
-
 \bibitem{swithcrouter}
 Cisco.
 \newblock What is a network switch vs. a router?
@@ -70,6 +61,15 @@ Cisco.
 Network~Working Group.
 \newblock Icmp.
 \newblock \url{https://tools.ietf.org/html/rfc792}, Septmber 1981.
+
+\bibitem{routingtablesize}
+Omar Santos.
+\newblock The size of the internet global routing table and its potential side
+  effects.
+\newblock
+  \url{https://supportforums.cisco.com/t5/network-infrastructure-documents/the-size-of-the-internet-global-routing-table-and-its-potential/ta-p/3136453},
+  May 2014.
+\newblock Online; accessed 22-August-2017.
 
 \bibitem{machineLearning}
 Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
@@ -108,5 +108,11 @@ William~M. Rand.
 \newblock Objective criteria for the evaluation of clustering methods.
 \newblock {\em Journal of the American Statistical Association},
   66(336):846--850, 1971.
+
+\bibitem{svm-ml}
+Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
+\newblock {\em Mining of Massive Datasets}, chapter 12. Large-Scale Machine
+  Learning.
+\newblock Stanford University, 2014.
 
 \end{thebibliography}

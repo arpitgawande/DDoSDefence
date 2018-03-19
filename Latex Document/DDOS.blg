@@ -9,45 +9,45 @@ Too many commas in name 1 of "Tapas Kanungo, David M. Mount, Nathan S. Netanyahu
 while executing---line 944 of file unsrt.bst
 Too many commas in name 1 of "Tapas Kanungo, David M. Mount, Nathan S. Netanyahu, Christine D. Piatko, Ruth Silverman, and Angela Y. Wu" for entry kmeanClustering
 while executing---line 944 of file unsrt.bst
-You've used 17 entries,
+You've used 18 entries,
             1791 wiz_defined-function locations,
-            548 strings with 6338 characters,
-and the built_in function-call counts, 3216 in all, are:
-= -- 289
-> -- 93
-< -- 5
-+ -- 41
-- -- 24
-* -- 140
-:= -- 483
-add.period$ -- 58
-call.type$ -- 17
+            550 strings with 6376 characters,
+and the built_in function-call counts, 3385 in all, are:
+= -- 302
+> -- 97
+< -- 6
++ -- 43
+- -- 25
+* -- 146
+:= -- 508
+add.period$ -- 61
+call.type$ -- 18
 change.case$ -- 14
 chr.to.int$ -- 0
-cite$ -- 17
-duplicate$ -- 157
-empty$ -- 383
-format.name$ -- 24
-if$ -- 759
+cite$ -- 18
+duplicate$ -- 169
+empty$ -- 406
+format.name$ -- 25
+if$ -- 800
 int.to.chr$ -- 0
-int.to.str$ -- 17
-missing$ -- 12
-newline$ -- 94
-num.names$ -- 17
-pop$ -- 91
+int.to.str$ -- 18
+missing$ -- 14
+newline$ -- 99
+num.names$ -- 18
+pop$ -- 98
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 72
+skip$ -- 75
 stack$ -- 0
 substring$ -- 125
-swap$ -- 40
-text.length$ -- 5
+swap$ -- 42
+text.length$ -- 6
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 27
-width$ -- 19
-write$ -- 192
+while$ -- 28
+width$ -- 20
+write$ -- 203
 (There were 3 error messages)
