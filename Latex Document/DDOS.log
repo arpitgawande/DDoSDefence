@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  19 MAR 2018 11:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  19 MAR 2018 12:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -346,51 +346,36 @@ t line 254.
 Package pdftex.def Info: Requested size: 375.14705pt x 300.1156pt on input line
  254.
  [13 <./elbow-method.png>] [14 <./kemans-clustering.png>]
-Overfull \hbox (24.22565pt too wide) in paragraph at lines 298--299
-\OT1/cmr/m/n/10 ca-tion is based on the la-bel of the train-ing set. Con-sider 
-the train-ing set $\OMS/cmsy/m/n/10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; y[]
-\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; y[]\
-OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; ::; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; y
-[]\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 g$\OT1/cmr/m/n/10 ,
- []
-
 [15]
 <SVM.png, id=80, 464.73625pt x 342.27875pt>
 File: SVM.png Graphic file (type png)
 <use SVM.png>
-Package pdftex.def Info: SVM.png  used on input line 304. on input line 304.
+Package pdftex.def Info: SVM.png  used on input line 319. on input line 319.
 Package pdftex.def Info: Requested size: 232.36755pt x 171.13895pt on input lin
-e 304.
+e 319.
  [16 <./SVM.png>]
-<one-class-SVM.png, id=86, 722.7pt x 578.16pt>
+<one-class-SVM.png, id=85, 722.7pt x 578.16pt>
 File: one-class-SVM.png Graphic file (type png)
 <use one-class-SVM.png>
-Package pdftex.def Info: one-class-SVM.png  used on input line 346. on input li
-ne 346.
+Package pdftex.def Info: one-class-SVM.png  used on input line 365. on input li
+ne 365.
 Package pdftex.def Info: Requested size: 333.46758pt x 266.77727pt on input lin
-e 346.
+e 365.
  [17] [18 <./one-class-SVM.png>]
-
-./DDOS.tex:367: LaTeX Error: File `router-network-communication' not found.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.367 ...[scale=0.5]{router-network-communication}
-                                                  
-I could not locate the file with any of these extensions:
-.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-(./DDOS.bbl
+<router-network-communication.png, id=94, 634.37pt x 134.5025pt>
+File: router-network-communication.png Graphic file (type png)
+<use router-network-communication.png>
+Package pdftex.def Info: router-network-communication.png  used on input line 3
+84. on input line 384.
+Package pdftex.def Info: Requested size: 317.18422pt x 67.25107pt on input line
+ 384.
+ [19 <./router-network-communication.png>] (./DDOS.bbl
 Underfull \hbox (badness 6188) in paragraph at lines 15--21
 []\OT1/cmr/m/n/10 Cisco Se-cu-rity por-tal.  A cisco guide to de-fend-ing again
 st dis-tributed de-
  []
 
-[19]
+
 Underfull \hbox (badness 10000) in paragraph at lines 40--46
 \OT1/cmtt/m/n/10 collateral / ios-[]nx-[]os-[]software / ios-[]netflow / prod _
  white _ paper0900aecd80406232 .
@@ -416,13 +401,13 @@ and-[]its-[]potential / ta-[]p /
 
 [20]) [21] (./DDOS.aux) ) 
 Here is how much of TeX's memory you used:
- 3165 strings out of 492985
- 44801 string characters out of 6132570
- 106657 words of memory out of 5000000
- 6642 multiletter control sequences out of 15000+600000
+ 3159 strings out of 492985
+ 44928 string characters out of 6132570
+ 107666 words of memory out of 5000000
+ 6647 multiletter control sequences out of 15000+600000
  12324 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,8n,26p,1262b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,8n,26p,1396b,260s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
@@ -443,10 +428,10 @@ usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></us
 r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
 local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on DDOS.pdf (21 pages, 748899 bytes).
+Output written on DDOS.pdf (21 pages, 756169 bytes).
 PDF statistics:
- 170 PDF objects out of 1000 (max. 8388607)
+ 172 PDF objects out of 1000 (max. 8388607)
  109 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

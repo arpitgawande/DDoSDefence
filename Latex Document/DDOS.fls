@@ -146,6 +146,9 @@ INPUT ./SVM.png
 INPUT one-class-SVM.png
 INPUT ./one-class-SVM.png
 INPUT ./one-class-SVM.png
+INPUT router-network-communication.png
+INPUT ./router-network-communication.png
+INPUT ./router-network-communication.png
 INPUT DDOS.bbl
 INPUT DDOS.bbl
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
