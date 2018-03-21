@@ -1,40 +1,25 @@
-\documentclass[10pt,oneside,a4paper]{article}
+\documentclass[12pt,oneside,a4paper]{article}
 \usepackage{blindtext}
 \usepackage{setspace}
-\doublespacing
 \usepackage[left=1.5in, right=1in, top=1in, bottom=1in]{geometry}
 \usepackage{graphicx} %TO include graphics in document
 \usepackage{amssymb}
 \usepackage{algorithm}% http://ctan.org/pkg/algorithms
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+\usepackage{url} %for including urls in References
 \usepackage{cite}
-\usepackage{url}
+\usepackage{pdfpages} % To include title page pdf
 
-\title{DDoS Detection and Mitigation Using Machine Learning}
-\author{Arpit Gawande}
-\date{\today}
 \begin{document}
-\maketitle
-
-
-\begin{center}
-\vfill
-A thesis submitted to the Graduate School - Camden \par
-Rutgers, The State University of New Jersey \par
-\vspace{1cm}
-for the degree of Master of Science \par
-\vspace{1cm}
-Graduate Program in Scientific Computing \par
-\vspace{1cm}
-Written under the guidance of \par
-Dr. Jean-Camille Birget
-\vfill
-\end{center}
-
-\pagebreak
-
+\includepdf{title}
+\doublespacing
+\renewcommand{\thepage}{\roman{page}}% Roman numerals for page counter
+\setcounter{page}{2}% Start page number with 2
 \tableofcontents
 \newpage
+%For page numbering at top right of the page
+\pagestyle{myheadings}
+\renewcommand{\thepage}{\arabic{page}}% Arabic numerals for page counter
 
 \begin{abstract}
 Distributed Denial of Service (DDoS) attacks are very common these days\cite{ddos-attack-news}. So it is evident that current industry solutions such as completely relying on Internet Service Provider(ISP) or setting up DDoS defense infrastructure are not sufficient in detecting and mitigating DDoS attacks, hence consistent research is needed. Most of the current industry solutions involve setting up centralized expensive hardware system which can analyze the packets\footnote{Messages that are sent on Internet are broken into shorter messages for transmission. These short messages are called packets. Term coined by Donald Watts Davies.} \cite{network-data-packet} for probable DDoS attacks. Also each router provider has different protocols to communicate the between the DDoS attack detection system and the router limiting the reach of DDoS detection systems. In this paper we are going to discuss a way to detect DDoS attack using machine learning tools at the routers, also we will propose a communication architecture for mitigating it.
@@ -231,7 +216,7 @@ Following is Lloyd's algorithm  which is most popular heuristic algorithm for k-
 \end{algorithmic}
 \end{algorithm}
 
-Fo this paper we will be using the k-means++ algorithm\cite{k-means++} which is an improvisation of k-means, where arbitrarily initialization step is replaced by following simple, randomized seeding technique. This k-means++ algorithm is $O(log k)$-competitive with the optimal clustering.
+For this paper we will be using the k-means++ algorithm\cite{k-means++} which is an improvisation of k-means, where arbitrarily initialization step is replaced by following simple, randomized seeding technique. This k-means++ algorithm is $O(log k)$-competitive with the optimal clustering.
 
 Let $D(x)$ denote the shortest distance from a data point to the closest center we have already chosen, then following is the k-means++ algorithm.
 
@@ -411,9 +396,10 @@ To Communicate the destination network about the change in behavior, router can 
 Depending on the type and the severity of the situation, the destination system can decide whether or not to inform router to block the traffic coming from that router. We will let this decision to be taken at the destination system. There can be different parameter based on which the destination system can decide blocking the flow. Many questions can be asked before making the decision, such as how many routers have reported the change in traffic?, Is the attack information coming from the region which never had traffic in the past?
 \pagebreak
 \section{Conclusion}
-
 A novel way to identify and mitigate DDoS attack is discussed in this paper. With the advance of NVF(Network Virtual Functional) it is easy to push the learning algorithms to the routers allowing them to detect a DDoS attacks using machine learning algorithms. The DDoS detection and mitigation information can be communicated using existing ICMP protocol making system available to every one who want to use it. This approach has been tested with the small network so further experiments are needed to be performed on the larges networks.
 \pagebreak
+
+\singlespacing
 \bibliographystyle{unsrt}   % Unsorted order
 \bibliography{biblo}       % expects file "biblo.bib"
 
