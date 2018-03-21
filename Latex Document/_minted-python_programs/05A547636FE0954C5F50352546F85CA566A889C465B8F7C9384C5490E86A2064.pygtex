@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{bad\PYGZus{}ip\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}packet\PYGZus{}count\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{])}
+\PYG{k}{for} \PYG{n}{ip}\PYG{p}{,} \PYG{n}{row} \PYG{o+ow}{in} \PYG{n}{df}\PYG{o}{.}\PYG{n}{iterrows}\PYG{p}{():}
+    \PYG{n}{feature\PYGZus{}row} \PYG{o}{=} \PYG{n}{row}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{n}{cluster\PYGZus{}value} \PYG{o}{=} \PYG{n}{row}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{c+c1}{\PYGZsh{}cluster test}
+    \PYG{k}{if} \PYG{n}{ip} \PYG{o+ow}{in} \PYG{n}{train\PYGZus{}df}\PYG{o}{.}\PYG{n}{index}\PYG{p}{:}
+        \PYG{n}{packet\PYGZus{}count} \PYG{o}{=} \PYG{n}{feature\PYGZus{}row}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{()}
+        \PYG{n}{train\PYGZus{}cluster} \PYG{o}{=} \PYG{n}{train\PYGZus{}df}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{ip}\PYG{p}{][}\PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{]}
+        \PYG{c+c1}{\PYGZsh{}Compare each ip data with the train cluster}
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}value} \PYG{o}{==} \PYG{n}{train\PYGZus{}cluster}\PYG{p}{):}
+            \PYG{c+c1}{\PYGZsh{}SVM test: Check if its inside the boundry usinf one class svm}
+            \PYG{n}{X\PYGZus{}test\PYGZus{}tran} \PYG{o}{=} \PYG{n}{scaler\PYGZus{}dict}\PYG{p}{[}\PYG{n}{cluster\PYGZus{}value}\PYG{p}{]}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{([}\PYG{n}{feature\PYGZus{}row}\PYG{o}{.}\PYG{n}{values}\PYG{p}{])}
+            \PYG{n}{prediction} \PYG{o}{=} \PYG{n}{clf\PYGZus{}dict}\PYG{p}{[}\PYG{n}{cluster\PYGZus{}value}\PYG{p}{]}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test\PYGZus{}tran}\PYG{p}{)}
+            \PYG{k}{if} \PYG{n}{prediction} \PYG{o}{==} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{:}
+                \PYG{n}{s} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{Series}\PYG{p}{([}\PYG{n}{ip}\PYG{p}{,} \PYG{n}{packet\PYGZus{}count}\PYG{p}{,} \PYG{n}{cluster\PYGZus{}value}\PYG{p}{],} \PYG{n}{index}\PYG{o}{=}\PYG{n}{bad\PYGZus{}ip\PYGZus{}df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+                \PYG{n}{bad\PYGZus{}ip\PYGZus{}df} \PYG{o}{=} \PYG{n}{bad\PYGZus{}ip\PYGZus{}df}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{s}\PYG{p}{,} \PYG{n}{ignore\PYGZus{}index}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{s} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{Series}\PYG{p}{([}\PYG{n}{ip}\PYG{p}{,} \PYG{n}{packet\PYGZus{}count}\PYG{p}{,} \PYG{n}{cluster\PYGZus{}value}\PYG{p}{],} \PYG{n}{index}\PYG{o}{=}\PYG{n}{bad\PYGZus{}ip\PYGZus{}df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+            \PYG{n}{bad\PYGZus{}ip\PYGZus{}df} \PYG{o}{=} \PYG{n}{bad\PYGZus{}ip\PYGZus{}df}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{s}\PYG{p}{,} \PYG{n}{ignore\PYGZus{}index}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+
+\PYG{n}{bad\PYGZus{}ip\PYGZus{}df} \PYG{o}{=} \PYG{n}{bad\PYGZus{}ip\PYGZus{}df}\PYG{o}{.}\PYG{n}{set\PYGZus{}index}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{n}{bad\PYGZus{}ip\PYGZus{}df}\PYG{p}{)}
+\end{Verbatim}

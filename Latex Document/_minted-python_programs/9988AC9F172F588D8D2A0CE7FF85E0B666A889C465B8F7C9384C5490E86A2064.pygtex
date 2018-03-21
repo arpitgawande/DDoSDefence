@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Save train result to file}
+\PYG{n}{train\PYGZus{}tag\PYGZus{}filename} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}ip\PYGZus{}cluster\PYGZus{}tag\PYGZus{}train\PYGZsq{}}
+\PYG{n}{tag\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,}\PYG{n}{train\PYGZus{}tag\PYGZus{}filename}\PYG{p}{)}
+\PYG{n}{train\PYGZus{}df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{tag\PYGZus{}file}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}Save test result to file}
+\PYG{n}{test\PYGZus{}tag\PYGZus{}filename} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}ip\PYGZus{}cluster\PYGZus{}tag\PYGZus{}test\PYGZsq{}}
+\PYG{n}{tag\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,}\PYG{n}{test\PYGZus{}tag\PYGZus{}filename}\PYG{p}{)}
+\PYG{n}{test\PYGZus{}df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{tag\PYGZus{}file}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,71 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\PYGZpc{}}\PYG{n}{time}
+\PYG{c+c1}{\PYGZsh{}Write extraction result to}
+\PYG{n}{base\PYGZus{}directory} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}converted/test3/attack\PYGZus{}samples/1/\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{}Debugger for pyshark}
+\PYG{c+c1}{\PYGZsh{}file\PYGZus{}cap.set\PYGZus{}debug()}
+\PYG{c+c1}{\PYGZsh{}Attributes for sample size}
+\PYG{n}{startTime} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+\PYG{n}{endTime} \PYG{o}{=} \PYG{l+m+mf}{0.0}
+\PYG{n}{i} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+\PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+\PYG{c+c1}{\PYGZsh{}Sample Number}
+\PYG{n}{init\PYGZus{}sample} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{dfList} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{while}\PYG{p}{(}\PYG{n+nb+bp}{True}\PYG{p}{):}
+    \PYG{n}{i} \PYG{o}{+=} \PYG{l+m+mi}{1}
+    \PYG{c+c1}{\PYGZsh{}Each packet can have multiple layers (e.g eth, ip, tcp etc.).}
+    \PYG{c+c1}{\PYGZsh{}Combine them in list for a single packet.}
+    \PYG{n}{layerList} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{c+c1}{\PYGZsh{}pyshark not able to handle AttributeError, AssertionError and KeyError(index values)}
+    \PYG{k}{try}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{}Iterate through layer of packet}
+        \PYG{k}{for} \PYG{n}{layer} \PYG{o+ow}{in} \PYG{n}{file\PYGZus{}cap}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]:}
+            \PYG{c+c1}{\PYGZsh{} Slice Data according to time}
+            \PYG{n}{t} \PYG{o}{=} \PYG{n+nb}{float}\PYG{p}{(}\PYG{n}{file\PYGZus{}cap}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{sniff\PYGZus{}timestamp}\PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{}Initial setup}
+            \PYG{k}{if} \PYG{n}{startTime} \PYG{o}{==} \PYG{l+m+mf}{0.0}\PYG{p}{:}
+                \PYG{n}{startTime} \PYG{o}{=} \PYG{n}{t}
+                \PYG{n}{endTime} \PYG{o}{=} \PYG{n}{startTime} \PYG{o}{+} \PYG{l+m+mi}{300} \PYG{c+c1}{\PYGZsh{} 300 sec(5 min) is the sample size}
+                \PYG{n}{sample} \PYG{o}{=} \PYG{n}{init\PYGZus{}sample}
+                \PYG{k}{print}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{,} \PYG{n}{startTime}\PYG{p}{,} \PYG{n}{endTime}\PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{} Write every sample to csv file}
+            \PYG{k}{elif} \PYG{n}{t} \PYG{o}{\PYGZgt{}} \PYG{n}{endTime}\PYG{p}{:}
+                \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{exists}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{p}{):}
+                    \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{p}{)}
+                \PYG{n}{dfList}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{))}
+                \PYG{c+c1}{\PYGZsh{}Clear list after writing this would save memory}
+                \PYG{n}{startTime} \PYG{o}{=} \PYG{n}{endTime}
+                \PYG{n}{endTime} \PYG{o}{=} \PYG{n}{startTime} \PYG{o}{+} \PYG{l+m+mi}{300}
+                \PYG{n}{sample} \PYG{o}{+=} \PYG{l+m+mi}{1}
+                \PYG{c+c1}{\PYGZsh{}Reset after writing to file}
+                \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+                \PYG{k}{print}\PYG{p}{(}\PYG{n}{sample}\PYG{p}{,} \PYG{n}{startTime}\PYG{p}{,} \PYG{n}{endTime}\PYG{p}{)}
+                \PYG{n}{gc}\PYG{o}{.}\PYG{n}{collect}\PYG{p}{()}
+            \PYG{c+c1}{\PYGZsh{}We need only ip layer only}
+            \PYG{k}{if} \PYG{n}{layer}\PYG{o}{.}\PYG{n}{\PYGZus{}layer\PYGZus{}name} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{:}
+                \PYG{c+c1}{\PYGZsh{}Layer values are in the form of dictionary. Filter the attributes}
+                \PYG{n}{layer\PYGZus{}dict} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{n}{key}\PYG{p}{:}\PYG{n}{value} \PYG{k}{for} \PYG{n}{key}\PYG{p}{,} \PYG{n}{value} \PYG{o+ow}{in} \PYG{n}{layer}\PYG{o}{.}\PYG{n}{\PYGZus{}all\PYGZus{}fields}\PYG{o}{.}\PYG{n}{items}\PYG{p}{()}
+                              \PYG{k}{if} \PYG{n}{key} \PYG{o+ow}{in} \PYG{n}{required\PYGZus{}keys}\PYG{p}{\PYGZcb{}}
+                \PYG{c+c1}{\PYGZsh{}Create dataframe from dictionary}
+                \PYG{n}{layerList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{layer\PYGZus{}dict}\PYG{p}{,} \PYG{n}{index}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+                \PYG{c+c1}{\PYGZsh{}Add timestamp and sample number}
+                \PYG{n}{layerList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}sniff\PYGZus{}timestamp\PYGZsq{}}\PYG{p}{:}\PYG{n}{file\PYGZus{}cap}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{sniff\PYGZus{}timestamp}\PYG{p}{\PYGZcb{},}
+                                              \PYG{n}{index}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+                \PYG{n}{layerList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}sample\PYGZsq{}}\PYG{p}{:}\PYG{n}{sample}\PYG{p}{\PYGZcb{},} \PYG{n}{index}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+                \PYG{c+c1}{\PYGZsh{}Build packet dataframe from layer frames. Its single row dataframe}
+                \PYG{n}{cDf} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{concat}\PYG{p}{(}\PYG{n}{layerList}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{);}
+                \PYG{k}{if} \PYG{n}{first}\PYG{p}{:}
+                    \PYG{n}{dfList} \PYG{o}{=} \PYG{n}{cDf}
+                    \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{False}
+                \PYG{k}{else}\PYG{p}{:}
+                    \PYG{n}{dfList} \PYG{o}{=} \PYG{n}{dfList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{cDf}\PYG{p}{,} \PYG{n}{ignore\PYGZus{}index}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+    \PYG{k}{except} \PYG{p}{(}\PYG{n+ne}{AttributeError}\PYG{p}{,} \PYG{n+ne}{AssertionError}\PYG{p}{)} \PYG{k}{as} \PYG{n}{e}\PYG{p}{:}
+        \PYG{k}{continue}  \PYG{c+c1}{\PYGZsh{}print(\PYGZsq{}Ipv4 packet does not exist\PYGZsq{})}
+    \PYG{k}{except}  \PYG{n+ne}{KeyError}\PYG{p}{:}
+        \PYG{k}{break}\PYG{p}{;}
+
+\PYG{c+c1}{\PYGZsh{}If sample data is not written to file because for frame size}
+\PYG{k}{if}\PYG{p}{(}\PYG{n}{sample} \PYG{o}{==} \PYG{n}{init\PYGZus{}sample}\PYG{p}{):}
+    \PYG{n}{dfList}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{base\PYGZus{}directory}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{init\PYGZus{}sample}\PYG{p}{))}
+\end{Verbatim}

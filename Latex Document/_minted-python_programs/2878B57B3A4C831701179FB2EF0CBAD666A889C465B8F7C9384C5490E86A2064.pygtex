@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sample\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{4} \PYG{c+c1}{\PYGZsh{}Number of samples to be used for elbow method}
+\PYG{n}{cluster\PYGZus{}count} \PYG{o}{=} \PYG{n}{get\PYGZus{}optimal\PYGZus{}cluster\PYGZus{}count}\PYG{p}{(}\PYG{n}{train\PYGZus{}dfs}\PYG{p}{,} \PYG{n}{sample\PYGZus{}count}\PYG{p}{)}
+\end{Verbatim}

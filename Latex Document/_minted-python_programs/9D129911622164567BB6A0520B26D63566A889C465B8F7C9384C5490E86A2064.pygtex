@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{n}{required\PYGZus{}keys} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip.dst\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}ip.proto\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}tcp.flags.syn\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}tcp.flags.ack\PYGZsq{}}\PYG{p}{]}
+\end{Verbatim}

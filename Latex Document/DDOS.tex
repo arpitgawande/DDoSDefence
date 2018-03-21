@@ -10,10 +10,28 @@
 \usepackage{cite}
 \usepackage{url}
 
-\title{The Triangulation of Titling Data in Non-Linear Gaussian Fashion via $\rho$ Series\thanks{No procrastination}}
-\date{2017\\ December}
-\author{John Doe\\ Magic Department\thanks{I am no longer a member of this department}, Richard Miles University
-\and Richard Row, \LaTeX\ Academy}
+\title{DDoS Detection and Mitigation Using Machine Learning Tools}
+\author{Arpit Gawande}
+\date{\today}
+\begin{document}
+\maketitle
+
+
+\begin{center}
+\vfill
+A thesis submitted to the Graduate School - Camden \par
+Rutgers, The State University of New Jersey \par
+\vspace{1cm}
+for the degree of Master of Science \par
+\vspace{1cm}
+Graduate Program in Scientific Computing \par
+\vspace{1cm}
+Written under the guidance of \par
+Dr. Jean-Camille Birget
+\vfill
+\end{center}
+
+\pagebreak
 
 \begin{abstract}
 Distributed Denial of Service (DDoS) attacks are very common these days\cite{ddosattacknews}. So it is evident that current industry solutions such as completely relying on Internet Service Provider(ISP) or setting up DDoS defense infrastructure are not sufficient in detecting and mitigating DDoS attacks, hence consistent research is needed. Most of the current industry solutions involve setting up centralized expensive hardware system which can analyze the packets\footnote{Messages that are sent on Internet are broken into shorter messages for transmission. These short messages are called packets. Term coined by Donald Watts Davies.} \cite{networkdatapacket} for probable DDoS attacks. Also each router provider has different protocols to communicate the between the DDoS attack detection system and the router limiting the reach of DDoS detection systems. In this paper we are going to discuss a way to detect DDoS attack using machine learning tools at the routers, also we will propose a communication architecture for mitigating it.
@@ -49,7 +67,7 @@ A switch creates a network and router connects networks. A router links computer
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.80\textwidth]{Routers}
+\includegraphics[width=0.80\textwidth]{routers.jpg}
 \caption{Network Example} \label{fig:routers}
 \end{figure}
 
@@ -59,7 +77,7 @@ Using traceroute we can find out how many hops\footnote{hops are intermediate ro
 %\vspace{5mm} % vertical space
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{TraceRoute}
+\includegraphics[width=\textwidth]{TraceRoute.png}
 \caption{Trace Route: All the routers in the path to destination} \label{fig:traceroute}
 \end{figure}
 
@@ -75,7 +93,7 @@ With the advance of electronic and the Internet of things, processing and storag
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{RouterCommunication}
+\includegraphics[width=0.90\textwidth]{RouterCommunication.png}
 \caption{DDoS Attack path} \label{fig:attackpath}
 \end{figure}
 
@@ -89,7 +107,7 @@ In the proposed system, each router will itself act as a analyzer. Each packet w
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{Data_Flow_Capture}
+\includegraphics[width=0.90\textwidth]{Data_Flow_Capture.jpg}
 \caption{Data Flow Segments} \label{fig:flow}
 \end{figure}
 
@@ -113,7 +131,7 @@ To gather data for the demonstration, we have created a small network which has 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{demo_network}
+\includegraphics[width=0.90\textwidth]{demo_network.png}
 \caption{Demo Network: for purpose of demonstration} \label{fig:demonetwork}
 \end{figure}
 
@@ -229,7 +247,7 @@ Before doing the clustering, we have to first determine the number clusters and 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{elbow-method}
+\includegraphics[width=0.90\textwidth]{elbow-method.png}
 \caption{Elbow Method for cluster count detection} \label{fig:elbowmethod}
 \end{figure}
 
@@ -252,7 +270,7 @@ To have correct clustering we first run the k-means algorithm to determine the c
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{kemans-clustering}
+\includegraphics[width=0.90\textwidth]{kemans-clustering.png}
 \caption{Clustering using k-means++ algorithm} \label{fig:kmeans-clustering}
 \end{figure}
 
@@ -342,7 +360,7 @@ $\alpha^i$ here are the Lagrange multipliers and $x^i$ with $\alpha^i$ are calle
 
 The function $K(x,xi)=\phi(x)^T \phi(xi)$ is known as the kernel function. kernel function responsible for projecting data points to the hyperplane.
 
-\paragraph{One Class Support-Vector Machine}
+\paragraph{One Class Support-Vector Machine:}
 
 One Class Support-Vector Machine (One Class SVM) is the extension of SVM which detect boundaries of the training set so that every new training example will be classifies as belong to training set or not. It separates all the training set data point from feature space $F$ and maximizes the distance of hyperplane from $F$. This creates a binary function which returns +1 for the training example that fits in the trained set region, otherwise it will return -1.
 
@@ -363,20 +381,18 @@ Following is the result of modeling on the training data sets. Each cluster has 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.80\textwidth]{one-class-SVM}
+\includegraphics[width=0.80\textwidth]{one-class-SVM.png}
 \caption{One Class SVM} \label{fig:one-class-SVM}
 \end{figure}
 
 
-\subsubsection{Detection}
+\section{Detection}
 
 By this stage, we have all the destination IP address, at the router, labeled with cluster and their count of average number of packets during the flow. Also we have classifier models for each of the cluster.
 
 To detect the attack we capture the flow in the specified interval (e.g. 300 seconds, in which we have trained our models). We transformed the captured flow into a test set. The created test set is then clustered using already centroids which were calculated for the clustering of the training sets. Now we have each IP in the new test set labeled with the cluster number. If there is any destination IP address for which new cluster label does not match with the already known cluster label then that destination address added to the suspect list. If new label matches with the old then the feature vector for that destination address is passed to the cluster classifier to check it subsciption the cluster its found in. i.e. if an IP address is labeled with cluster number 0 then we use One Class SVM classifier for cluster number 0. If the output of the classifier is -1 then then that destination is added to the suspect list. For every destination from this compiled list, the number of packets observed is also recorded. If there is significant difference between the number of capture packet in the past and in the present then that destination is recorded as DDoS attack candidate because failing to found in the same cluster boundary it was in the past is a sign of the change in th behavior of the traffic for destination IP address on the router where this analysis is done.
 
 Using this we have successfully detected attack on the destination IP address 92.168.0.7 in our modeled network.
-
-<!-- Write own detection Algo here -->
 
 Next task of the router then will be to communicate the change in the behavior of traffic observed at that router for a that destination. The destination address here could be a router or an application server. Destination system i.e. either router of the server will collect the information received. This information can be used by destination to know the nature of the attack.
 

@@ -1,0 +1,33 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Find optimal number of clusters for k\PYGZhy{}means clustering using elbow method.}
+\PYG{k}{def} \PYG{n+nf}{elbow\PYGZus{}method}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{,} \PYG{n}{ax}\PYG{p}{,} \PYG{n}{title}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    For the k\PYGZhy{}means algorithm, elbow method check the percent of}
+\PYG{l+s+sd}{    variance explained as function of the number of clusters.}
+\PYG{l+s+sd}{    Variance for each cluster number is calculated and the cluster}
+\PYG{l+s+sd}{    number which produce less variance for the next cluster number}
+\PYG{l+s+sd}{    is selected as best choice.}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    X\PYGZus{}tran: vector}
+\PYG{l+s+sd}{        Standardize vector.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{elbow\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{n}{range\PYGZus{}val} \PYG{o}{=} \PYG{l+m+mi}{10}
+    \PYG{n}{nc} \PYG{o}{=} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{range\PYGZus{}val}\PYG{p}{)}
+    \PYG{n}{kmeans} \PYG{o}{=} \PYG{p}{[}\PYG{n}{KMeans}\PYG{p}{(}\PYG{n}{n\PYGZus{}clusters}\PYG{o}{=}\PYG{n}{i}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n}{nc}\PYG{p}{]}
+    \PYG{n}{score} \PYG{o}{=} \PYG{p}{[}\PYG{n}{kmeans}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{)}\PYG{o}{.}\PYG{n}{score}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{)} \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{kmeans}\PYG{p}{))]}
+    \PYG{n}{total\PYGZus{}diff} \PYG{o}{=} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{score}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{score}\PYG{p}{[}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{score}\PYG{p}{)} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{])}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{range\PYGZus{}val} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{2}\PYG{p}{):}
+        \PYG{n}{percent\PYGZus{}diff} \PYG{o}{=} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{score}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{score}\PYG{p}{[}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{])}\PYG{o}{/}\PYG{n}{total\PYGZus{}diff}
+        \PYG{k}{if} \PYG{n}{percent\PYGZus{}diff} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.01}\PYG{p}{:}
+            \PYG{n}{opt\PYGZus{}clust\PYGZus{}count} \PYG{o}{=} \PYG{n}{i}
+            \PYG{k}{break}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{nc}\PYG{p}{,}\PYG{n}{score}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Number of Clusters\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Score\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{n}{title}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{opt\PYGZus{}clust\PYGZus{}count}
+\end{Verbatim}

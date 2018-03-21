@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{train\PYGZus{}df} \PYG{o}{=} \PYG{n}{get\PYGZus{}best\PYGZus{}cluster\PYGZus{}sample\PYGZus{}count}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}train\PYGZus{}path}\PYG{p}{)}
+\PYG{n}{test\PYGZus{}df} \PYG{o}{=} \PYG{n}{get\PYGZus{}best\PYGZus{}cluster\PYGZus{}sample\PYGZus{}count}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}test\PYGZus{}path}\PYG{p}{)}
+\end{Verbatim}

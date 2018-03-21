@@ -1,0 +1,34 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}feature\PYGZus{}dataframe}\PYG{p}{(}\PYG{n}{sample\PYGZus{}file}\PYG{p}{,} \PYG{n}{features}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Create feature table from the sample file which has flow information}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    sample\PYGZus{}file: string}
+\PYG{l+s+sd}{        file(full path) containing IP layey information destination address,}
+\PYG{l+s+sd}{        protocol, time stamp.}
+
+\PYG{l+s+sd}{    features: list}
+\PYG{l+s+sd}{        list of feature we required for anlysis.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{sample\PYGZus{}file}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Filter Columns}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}ip.dst\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}ip.proto\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}sniff\PYGZus{}timestamp\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}sample\PYGZsq{}}\PYG{p}{]]}
+    \PYG{c+c1}{\PYGZsh{}Remove null destinations}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip.dst\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{notnull}\PYG{p}{()]}
+    \PYG{c+c1}{\PYGZsh{}Rename Columns}
+    \PYG{n}{df}\PYG{o}{.}\PYG{n}{columns} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}protocol\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}time\PYGZus{}stamp\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}sample\PYGZsq{}}\PYG{p}{]}
+    \PYG{c+c1}{\PYGZsh{}Get count for each ip}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}protocol\PYGZsq{}}\PYG{p}{])}\PYG{o}{.}\PYG{n}{size}\PYG{p}{()}\PYG{o}{.}\PYG{n}{unstack}\PYG{p}{()}\PYG{o}{.}\PYG{n}{fillna}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Drop row for given IP}
+    \PYG{c+c1}{\PYGZsh{}df = filter\PYGZus{}ip(df, \PYGZsq{}147.32.84.165\PYGZsq{})}
+    \PYG{k}{if}\PYG{p}{(}\PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)} \PYG{o}{!=} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{features}\PYG{p}{)):}
+        \PYG{n}{non\PYGZus{}columns} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{features}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n+nb}{set}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+        \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{non\PYGZus{}columns}\PYG{p}{:}
+            \PYG{n}{df}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{n}{features}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{c}\PYG{p}{),} \PYG{n}{column}\PYG{o}{=}\PYG{n}{c}\PYG{p}{,} \PYG{n}{value}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Select only required protocols which would be used as features}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{n}{features}\PYG{p}{]}
+    \PYG{k}{return} \PYG{n}{df}
+\end{Verbatim}

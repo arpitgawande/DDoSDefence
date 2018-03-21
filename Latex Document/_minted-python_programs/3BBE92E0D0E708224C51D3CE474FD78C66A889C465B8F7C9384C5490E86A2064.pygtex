@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{one\PYGZus{}class\PYGZus{}svm}\PYG{p}{(}\PYG{n}{feature\PYGZus{}vector}\PYG{p}{,} \PYG{n}{cluster}\PYG{p}{):}
+    \PYG{n}{X\PYGZus{}train} \PYG{o}{=} \PYG{n}{feature\PYGZus{}vector}
+    \PYG{c+c1}{\PYGZsh{}Get scaler}
+    \PYG{n}{scaler} \PYG{o}{=} \PYG{n}{preprocessing}\PYG{o}{.}\PYG{n}{StandardScaler}\PYG{p}{()}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Transform Traning data}
+    \PYG{n}{X\PYGZus{}trans} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{} fit the model}
+    \PYG{n}{clf} \PYG{o}{=} \PYG{n}{svm}\PYG{o}{.}\PYG{n}{OneClassSVM}\PYG{p}{(}\PYG{n}{nu}\PYG{o}{=}\PYG{l+m+mf}{0.01}\PYG{p}{,} \PYG{n}{kernel}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}rbf\PYGZdq{}}\PYG{p}{,} \PYG{n}{gamma}\PYG{o}{=}\PYG{l+m+mf}{0.1}\PYG{p}{)}
+    \PYG{n}{clf}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{)}
+    \PYG{n}{clf}\PYG{o}{.}\PYG{n}{name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}svm\PYGZsq{}}
+    \PYG{k}{return} \PYG{n}{clf}\PYG{p}{,} \PYG{n}{scaler}
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{get\PYGZus{}rand\PYGZus{}index\PYGZus{}score}\PYG{p}{(}\PYG{n}{train\PYGZus{}df}\PYG{p}{,} \PYG{n}{test\PYGZus{}df}\PYG{p}{)}
+\end{Verbatim}

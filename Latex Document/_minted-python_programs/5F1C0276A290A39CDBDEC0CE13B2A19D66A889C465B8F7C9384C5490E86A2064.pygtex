@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{plot\PYGZus{}count} \PYG{o}{=} \PYG{l+m+mi}{4}
+\PYG{n}{to\PYGZus{}print\PYGZus{}df} \PYG{o}{=} \PYG{n}{train\PYGZus{}dfs}\PYG{p}{[:}\PYG{n}{plot\PYGZus{}count}\PYG{p}{]}
+\PYG{n}{plot\PYGZus{}kmeans\PYGZus{}clusters}\PYG{p}{(}\PYG{n}{to\PYGZus{}print\PYGZus{}df}\PYG{p}{)}
+\end{Verbatim}

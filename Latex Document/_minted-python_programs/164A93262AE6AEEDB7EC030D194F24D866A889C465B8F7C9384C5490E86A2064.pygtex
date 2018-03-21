@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}optimal\PYGZus{}cluster\PYGZus{}count}\PYG{p}{(}\PYG{n}{df\PYGZus{}list}\PYG{p}{,} \PYG{n}{count}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Apply elbow method on all the sample vectors and get their mean as}
+\PYG{l+s+sd}{    the best cluster number for kmeans algorithm.}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    df\PYGZus{}list: list of dataframes}
+\PYG{l+s+sd}{        contain tables/dataframes for each sample data.}
+
+\PYG{l+s+sd}{    count: int}
+\PYG{l+s+sd}{        Number of sample to loop t.}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{elbow\PYGZus{}vals} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{row\PYGZus{}count} \PYG{o}{=} \PYG{n}{math}\PYG{o}{.}\PYG{n}{ceil}\PYG{p}{(}\PYG{n}{count}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{)}
+    \PYG{n}{fig} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{row\PYGZus{}count}\PYG{p}{),} \PYG{n}{dpi}\PYG{o}{=}\PYG{l+m+mi}{80}\PYG{p}{,} \PYG{n}{facecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}w\PYGZsq{}}\PYG{p}{,} \PYG{n}{edgecolor}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{fig}\PYG{o}{.}\PYG{n}{subplots\PYGZus{}adjust}\PYG{p}{(}\PYG{n}{hspace}\PYG{o}{=.}\PYG{l+m+mi}{5}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{}Adjust space between the subplot}
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{df} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{df\PYGZus{}list}\PYG{p}{[:}\PYG{n}{count}\PYG{p}{],} \PYG{l+m+mi}{1}\PYG{p}{):}
+        \PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{values}
+        \PYG{c+c1}{\PYGZsh{}Create scaling and transforme}
+        \PYG{n}{X\PYGZus{}trans} \PYG{o}{=} \PYG{n}{preprocessing}\PYG{o}{.}\PYG{n}{StandardScaler}\PYG{p}{()}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{}Create subplot}
+        \PYG{n}{ax} \PYG{o}{=} \PYG{n}{fig}\PYG{o}{.}\PYG{n}{add\PYGZus{}subplot}\PYG{p}{(}\PYG{n}{row\PYGZus{}count}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{i}\PYG{p}{)}
+        \PYG{n}{title} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Sample:\PYGZsq{}}\PYG{o}{+}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}
+        \PYG{n}{fig}\PYG{o}{.}\PYG{n}{suptitle}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Elbow Method\PYGZsq{}}\PYG{p}{,} \PYG{n}{fontsize}\PYG{o}{=}\PYG{l+m+mi}{16}\PYG{p}{)}
+        \PYG{n}{elbow} \PYG{o}{=} \PYG{n}{elbow\PYGZus{}method}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{,} \PYG{n}{ax}\PYG{p}{,} \PYG{n}{title}\PYG{p}{)}
+        \PYG{n}{elbow\PYGZus{}vals}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{elbow}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}elbow\PYGZhy{}method.png\PYGZsq{}}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{floor}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{elbow\PYGZus{}vals}\PYG{p}{)))}
+\end{Verbatim}

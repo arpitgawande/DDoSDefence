@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{create\PYGZus{}train\PYGZus{}test}\PYG{p}{(}\PYG{n}{sample\PYGZus{}path}\PYG{p}{,} \PYG{n}{features}\PYG{p}{,} \PYG{n}{merge\PYGZus{}count}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Seperate data into train and test for the evaluation of the algorithms}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    sample\PYGZus{}path: string}
+\PYG{l+s+sd}{        loation where all the packet sample files are kept}
+
+\PYG{l+s+sd}{    merge\PYGZus{}count: int, default 1}
+\PYG{l+s+sd}{        Number of files to be merged to create a feature table}
+
+\PYG{l+s+sd}{    feature: list}
+\PYG{l+s+sd}{        List of features to be considered for creating feature table}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{files} \PYG{o}{=} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{glob}\PYG{o}{.}\PYG{n}{glob}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{sample\PYGZus{}path}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}*\PYGZsq{}}\PYG{p}{)),}  \PYG{n}{key}\PYG{o}{=}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{getmtime}\PYG{p}{)}
+
+    \PYG{n}{test\PYGZus{}files} \PYG{o}{=} \PYG{n}{files}\PYG{p}{[:}\PYG{n}{merge\PYGZus{}count}\PYG{p}{]}
+    \PYG{n}{train\PYGZus{}files} \PYG{o}{=} \PYG{n}{files}\PYG{p}{[}\PYG{n}{merge\PYGZus{}count}\PYG{p}{:]}
+
+    \PYG{n}{test\PYGZus{}dfs} \PYG{o}{=} \PYG{n}{merge\PYGZus{}files}\PYG{p}{(}\PYG{n}{test\PYGZus{}files}\PYG{p}{,} \PYG{n}{merge\PYGZus{}count}\PYG{p}{,} \PYG{n}{features}\PYG{p}{)}
+    \PYG{n}{train\PYGZus{}dfs} \PYG{o}{=} \PYG{n}{merge\PYGZus{}files}\PYG{p}{(}\PYG{n}{train\PYGZus{}files}\PYG{p}{,} \PYG{n}{merge\PYGZus{}count}\PYG{p}{,} \PYG{n}{features}\PYG{p}{)}
+
+    \PYG{k}{return} \PYG{n}{train\PYGZus{}dfs}\PYG{p}{,} \PYG{n}{test\PYGZus{}dfs}\PYG{p}{,} \PYG{n}{merge\PYGZus{}count}
+\end{Verbatim}

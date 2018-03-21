@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1516999837 "appendix.tex" "appendix.pdf" "appendix" 1517000019
+["pdflatex"] 1516999837 "appendix.tex" "appendix.pdf" "appendix" 1521479251
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1480098701 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1480098701 1288 655e228510b4c2a1abe905c368440826 ""
@@ -18,6 +18,6 @@
   "appendix.aux" 1516999837 311 129c055b344eeeafea212399ae22c00f ""
   "appendix.tex" 1516999836 259 2915b2158adc62536d379a1997fd9795 ""
   (generated)
+  "appendix.log"
   "appendix.aux"
   "appendix.pdf"
-  "appendix.log"

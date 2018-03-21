@@ -1,0 +1,30 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{attack\PYGZus{}sample\PYGZus{}dir\PYGZus{}name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}attack\PYGZus{}samp\PYGZsq{}}
+\PYG{n}{attack\PYGZus{}sample\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{attack\PYGZus{}sample\PYGZus{}dir\PYGZus{}name}\PYG{p}{)}
+\PYG{n}{attack\PYGZus{}sample\PYGZus{}train\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{attack\PYGZus{}sample\PYGZus{}dir\PYGZus{}name}\PYG{o}{+}\PYG{l+s+s1}{\PYGZsq{}\PYGZus{}train\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{attack\PYGZus{}sample\PYGZus{}train\PYGZus{}path}\PYG{p}{,} \PYG{n}{exist\PYGZus{}ok}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+\PYG{n}{attack\PYGZus{}cluster\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{attack\PYGZus{}sample\PYGZus{}train\PYGZus{}path}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{attack\PYGZus{}cluster\PYGZus{}path}\PYG{p}{,} \PYG{n}{exist\PYGZus{}ok}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+
+\PYG{n}{files} \PYG{o}{=} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{glob}\PYG{o}{.}\PYG{n}{glob}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{attack\PYGZus{}sample\PYGZus{}path}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}*\PYGZsq{}}\PYG{p}{)),}  \PYG{n}{key}\PYG{o}{=}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{getmtime}\PYG{p}{)}
+\PYG{n}{merge\PYGZus{}count} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{genfromtxt}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}merge\PYGZus{}count\PYGZsq{}}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{}Get centroids and feature list}
+\PYG{n}{centroids}\PYG{p}{,} \PYG{n}{features} \PYG{o}{=} \PYG{n}{read\PYGZus{}centroid\PYGZus{}features}\PYG{p}{(}\PYG{n}{centroid\PYGZus{}filename}\PYG{p}{,} \PYG{n}{features\PYGZus{}filename}\PYG{p}{)}
+
+\PYG{n}{attack\PYGZus{}dfs} \PYG{o}{=} \PYG{n}{merge\PYGZus{}files}\PYG{p}{(}\PYG{n}{files}\PYG{p}{,} \PYG{n}{merge\PYGZus{}count}\PYG{p}{,} \PYG{n}{features}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Cluster all the samples and store them}
+\PYG{n}{centroids}\PYG{p}{,} \PYG{n}{features} \PYG{o}{=} \PYG{n}{read\PYGZus{}centroid\PYGZus{}features}\PYG{p}{(}\PYG{n}{centroid\PYGZus{}filename}\PYG{p}{,} \PYG{n}{features\PYGZus{}filename}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{attack\PYGZus{}df} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{attack\PYGZus{}dfs}\PYG{p}{):}
+    \PYG{n}{clustered\PYGZus{}df} \PYG{o}{=} \PYG{n}{kmeans\PYGZus{}clustering}\PYG{p}{(}\PYG{n}{attack\PYGZus{}df}\PYG{p}{,} \PYG{n}{centroids}\PYG{p}{)}
+    \PYG{n}{clustered\PYGZus{}df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{attack\PYGZus{}cluster\PYGZus{}path}\PYG{p}{,}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)))}
+
+\PYG{c+c1}{\PYGZsh{}Read clustered attack file}
+\PYG{n}{files} \PYG{o}{=} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{glob}\PYG{o}{.}\PYG{n}{glob}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{attack\PYGZus{}cluster\PYGZus{}path}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}*\PYGZsq{}}\PYG{p}{)),}  \PYG{n}{key}\PYG{o}{=}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{getmtime}\PYG{p}{)}
+\PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{files}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{n}{train\PYGZus{}tag\PYGZus{}filename} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}ip\PYGZus{}cluster\PYGZus{}tag\PYGZus{}train\PYGZsq{}}
+\PYG{n}{train\PYGZus{}tag\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,}\PYG{n}{train\PYGZus{}tag\PYGZus{}filename}\PYG{p}{)}
+\PYG{n}{train\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{train\PYGZus{}tag\PYGZus{}file}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,41 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}best\PYGZus{}cluster\PYGZus{}sample\PYGZus{}count}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Get all the trained IP address and then cobine training data}
+\PYG{l+s+sd}{    from all the sample to make best judgement about the cluster}
+\PYG{l+s+sd}{    in which IP address should be placed into. It also gives the}
+\PYG{l+s+sd}{    average number of packets flowing during the analysis time}
+\PYG{l+s+sd}{    which would help to determine if its truly attack or}
+\PYG{l+s+sd}{    just a misjudgement.}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    cluster\PYGZus{}path: string}
+\PYG{l+s+sd}{        directory location where the clustered samples are stored.}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{files} \PYG{o}{=} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{glob}\PYG{o}{.}\PYG{n}{glob}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}*\PYGZsq{}}\PYG{p}{)),}  \PYG{n}{key}\PYG{o}{=}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{getmtime}\PYG{p}{)}
+    \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+    \PYG{k}{for} \PYG{n+nb}{file} \PYG{o+ow}{in} \PYG{n}{files}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{first}\PYG{p}{:}
+            \PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n+nb}{file}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+            \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{False}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{temp\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n+nb}{file}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+            \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{temp\PYGZus{}df}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Fist reindex all data with IP}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{reset\PYGZus{}index}\PYG{p}{()}\PYG{o}{.}\PYG{n}{set\PYGZus{}index}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{])}
+
+    \PYG{n}{new\PYGZus{}columns} \PYG{o}{=}  \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}packet\PYGZus{}count\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{features} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{[:}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{])}
+    \PYG{n}{cluster\PYGZus{}column} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:])}
+    \PYG{c+c1}{\PYGZsh{}Average packet count across all the samples}
+    \PYG{n}{packet\PYGZus{}count} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{n}{features}\PYG{p}{]}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{()}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}int64\PYGZsq{}}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}most occuring cluster across all samples}
+    \PYG{n}{cluster} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{n}{cluster\PYGZus{}column}\PYG{p}{]}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{median}\PYG{p}{()}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}int64\PYGZsq{}}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Create new dataframe with cluster and packet count and return new table/dataframe}
+    \PYG{n}{new\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{concat}\PYG{p}{([}\PYG{n}{cluster}\PYG{p}{,} \PYG{n}{packet\PYGZus{}count}\PYG{p}{],} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{new\PYGZus{}df}\PYG{o}{.}\PYG{n}{columns} \PYG{o}{=} \PYG{n}{new\PYGZus{}columns}
+    \PYG{k}{return} \PYG{n}{new\PYGZus{}df}
+\end{Verbatim}

@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Create feature vector corrosponding to each cluster.}
+\PYG{c+c1}{\PYGZsh{}This feature vector would be used to define boundray using One Class SVM for the cluster.}
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}clusters\PYGZus{}feature\PYGZus{}vectors}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{p}{):}
+    \PYG{n}{cluster\PYGZus{}dict} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+    \PYG{n}{filenames} \PYG{o}{=} \PYG{n+nb}{sorted}\PYG{p}{(}\PYG{n}{glob}\PYG{o}{.}\PYG{n}{glob}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}path}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}*\PYGZsq{}}\PYG{p}{)),}  \PYG{n}{key}\PYG{o}{=}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{getmtime}\PYG{p}{)}
+    \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+    \PYG{k}{for} \PYG{n}{filename} \PYG{o+ow}{in} \PYG{n}{filenames}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{first}\PYG{p}{:}
+            \PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+            \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{False}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{temp\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{,} \PYG{n}{index\PYGZus{}col}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+            \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{temp\PYGZus{}df}\PYG{p}{)}
+            \PYG{c+c1}{\PYGZsh{}print(df)}
+            \PYG{k}{break}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{reset\PYGZus{}index}\PYG{p}{()}\PYG{o}{.}\PYG{n}{set\PYGZus{}index}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{])}
+    \PYG{n}{clusters} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{index}\PYG{o}{.}\PYG{n}{get\PYGZus{}level\PYGZus{}values}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{o}{.}\PYG{n}{unique}\PYG{p}{()}
+    \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{clusters}\PYG{p}{:}
+        \PYG{n}{cluster\PYGZus{}dict}\PYG{p}{[}\PYG{n}{c}\PYG{p}{]} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{c}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+    \PYG{k}{return} \PYG{n}{cluster\PYGZus{}dict}
+\end{Verbatim}

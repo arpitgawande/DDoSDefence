@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{plot\PYGZus{}outlier\PYGZus{}detecton}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{ax}\PYG{p}{,} \PYG{n}{title}\PYG{p}{):}
+    \PYG{k}{if} \PYG{n}{X}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{2}\PYG{p}{:}
+        \PYG{n}{reduced\PYGZus{}X} \PYG{o}{=} \PYG{n}{PCA}\PYG{p}{(}\PYG{n}{n\PYGZus{}components}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{n}{reduced\PYGZus{}X} \PYG{o}{=} \PYG{n}{X}
+
+    \PYG{n}{clf} \PYG{o}{=} \PYG{n}{svm}\PYG{o}{.}\PYG{n}{OneClassSVM}\PYG{p}{(}\PYG{n}{nu}\PYG{o}{=}\PYG{l+m+mf}{0.01}\PYG{p}{,} \PYG{n}{kernel}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}rbf\PYGZdq{}}\PYG{p}{,} \PYG{n}{gamma}\PYG{o}{=}\PYG{l+m+mf}{0.1}\PYG{p}{)}
+    \PYG{n}{clf}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{reduced\PYGZus{}X}\PYG{p}{)}
+    \PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{meshgrid}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{500}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{500}\PYG{p}{))}
+
+    \PYG{c+c1}{\PYGZsh{} plot the levels lines and the points}
+    \PYG{n}{Z} \PYG{o}{=} \PYG{n}{clf}\PYG{o}{.}\PYG{n}{decision\PYGZus{}function}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{(),} \PYG{n}{yy}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{()])}
+    \PYG{n}{Z} \PYG{o}{=} \PYG{n}{Z}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{)}
+
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{n}{title}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy}\PYG{p}{,} \PYG{n}{Z}\PYG{p}{,} \PYG{n}{levels}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{n}{Z}\PYG{o}{.}\PYG{n}{min}\PYG{p}{(),} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{7}\PYG{p}{),} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{PuBu}\PYG{p}{)}
+    \PYG{n}{a} \PYG{o}{=} \PYG{n}{ax}\PYG{o}{.}\PYG{n}{contour}\PYG{p}{(}\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy}\PYG{p}{,} \PYG{n}{Z}\PYG{p}{,} \PYG{n}{levels}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{linewidths}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{colors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}darkred\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy}\PYG{p}{,} \PYG{n}{Z}\PYG{p}{,} \PYG{n}{levels}\PYG{o}{=}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{Z}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()],} \PYG{n}{colors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}palevioletred\PYGZsq{}}\PYG{p}{)}
+
+    \PYG{n}{s} \PYG{o}{=} \PYG{l+m+mi}{40}
+    \PYG{n}{b1} \PYG{o}{=} \PYG{n}{ax}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{reduced\PYGZus{}X}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{reduced\PYGZus{}X}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{c}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{,} \PYG{n}{s}\PYG{o}{=}\PYG{n}{s}\PYG{p}{,} \PYG{n}{edgecolors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}ax.set\PYGZus{}axis(\PYGZsq{}tight\PYGZsq{})}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlim}\PYG{p}{((}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{))}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylim}\PYG{p}{((}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{))}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{([}\PYG{n}{a}\PYG{o}{.}\PYG{n}{collections}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{b1}\PYG{p}{],}
+           \PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}learned frontier\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}training observations\PYGZdq{}}\PYG{p}{],}
+           \PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}upper left\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

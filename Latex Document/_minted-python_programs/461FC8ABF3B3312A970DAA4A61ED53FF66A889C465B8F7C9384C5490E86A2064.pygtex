@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}First retrieve the centroids and features}
+\PYG{n}{centroids}\PYG{p}{,} \PYG{n}{features} \PYG{o}{=} \PYG{n}{read\PYGZus{}centroid\PYGZus{}features}\PYG{p}{(}\PYG{n}{centroid\PYGZus{}filename}\PYG{p}{,} \PYG{n}{features\PYGZus{}filename}\PYG{p}{)}
+\end{Verbatim}

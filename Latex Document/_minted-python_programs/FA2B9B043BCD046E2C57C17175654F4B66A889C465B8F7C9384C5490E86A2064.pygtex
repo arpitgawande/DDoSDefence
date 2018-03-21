@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{centroids}\PYG{p}{,} \PYG{n}{features} \PYG{o}{=} \PYG{n}{read\PYGZus{}centroid\PYGZus{}features}\PYG{p}{(}\PYG{n}{centroid\PYGZus{}filename}\PYG{p}{,} \PYG{n}{features\PYGZus{}filename}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{train\PYGZus{}df} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{train\PYGZus{}dfs}\PYG{p}{):}
+    \PYG{n}{clustered\PYGZus{}df} \PYG{o}{=} \PYG{n}{kmeans\PYGZus{}clustering}\PYG{p}{(}\PYG{n}{train\PYGZus{}df}\PYG{p}{,} \PYG{n}{centroids}\PYG{p}{)}
+    \PYG{n}{clustered\PYGZus{}df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}train\PYGZus{}path}\PYG{p}{,}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)))}
+\PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{test\PYGZus{}df} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{test\PYGZus{}dfs}\PYG{p}{):}
+    \PYG{n}{clustered\PYGZus{}df} \PYG{o}{=} \PYG{n}{kmeans\PYGZus{}clustering}\PYG{p}{(}\PYG{n}{test\PYGZus{}df}\PYG{p}{,} \PYG{n}{centroids}\PYG{p}{)}
+    \PYG{n}{clustered\PYGZus{}df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}test\PYGZus{}path}\PYG{p}{,}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)))}
+\end{Verbatim}

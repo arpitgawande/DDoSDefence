@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{cluster\PYGZus{}feature\PYGZus{}dict} \PYG{o}{=} \PYG{n}{get\PYGZus{}clusters\PYGZus{}feature\PYGZus{}vectors}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}train\PYGZus{}path}\PYG{p}{)}
+\end{Verbatim}

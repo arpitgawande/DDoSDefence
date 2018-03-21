@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Already define base directory path}
+\PYG{n}{base\PYGZus{}path} \PYG{o}{=} \PYG{n}{base\PYGZus{}path}
+\PYG{c+c1}{\PYGZsh{}File to store centroids}
+\PYG{n}{centroid\PYGZus{}filename} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}centroids.csv\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{}File to store feature list}
+\PYG{n}{features\PYGZus{}filename} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}features.csv\PYGZsq{}}
+
+\PYG{c+c1}{\PYGZsh{}Call to find median of centroid}
+\PYG{n}{centroids} \PYG{o}{=} \PYG{n}{get\PYGZus{}kmeans\PYGZus{}cluster\PYGZus{}centroids}\PYG{p}{(}\PYG{n}{train\PYGZus{}dfs}\PYG{p}{,} \PYG{n}{features}\PYG{p}{,} \PYG{n}{cluster\PYGZus{}count}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Save centroids and features in files for future use}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{savetxt}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{centroid\PYGZus{}filename}\PYG{p}{),}
+           \PYG{n}{np}\PYG{o}{.}\PYG{n}{asarray}\PYG{p}{(}\PYG{n}{centroids}\PYG{p}{),} \PYG{n}{delimiter}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{},\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{savetxt}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{features\PYGZus{}filename}\PYG{p}{),}
+           \PYG{n}{np}\PYG{o}{.}\PYG{n}{asarray}\PYG{p}{(}\PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{features}\PYG{p}{)),} \PYG{n}{delimiter}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{},\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

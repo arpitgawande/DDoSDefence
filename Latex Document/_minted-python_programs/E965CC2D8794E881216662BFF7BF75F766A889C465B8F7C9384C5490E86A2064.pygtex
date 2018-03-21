@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{clf\PYGZus{}dict} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+\PYG{n}{scaler\PYGZus{}dict} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{()}
+\PYG{k}{for} \PYG{n}{cluster}\PYG{p}{,} \PYG{n}{df} \PYG{o+ow}{in} \PYG{n}{cluster\PYGZus{}feature\PYGZus{}dict}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+    \PYG{n}{clf\PYGZus{}dict}\PYG{p}{[}\PYG{n}{cluster}\PYG{p}{],} \PYG{n}{scaler\PYGZus{}dict}\PYG{p}{[}\PYG{n}{cluster}\PYG{p}{]} \PYG{o}{=} \PYG{n}{one\PYGZus{}class\PYGZus{}svm}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,} \PYG{n}{cluster}\PYG{p}{)}
+\end{Verbatim}

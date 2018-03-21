@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{c+c1}{\PYGZsh{}Base Folder Paths}
+  \PYG{n}{base\PYGZus{}folder\PYGZus{}name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}converted\PYGZsq{}}
+  \PYG{n}{test\PYGZus{}folder\PYGZus{}name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}test2\PYGZsq{}}
+  \PYG{n}{base\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}folder\PYGZus{}name}\PYG{p}{,} \PYG{n}{test\PYGZus{}folder\PYGZus{}name}\PYG{p}{)}
+  \PYG{c+c1}{\PYGZsh{}Normal Sample and cluster paths}
+  \PYG{n}{sample\PYGZus{}dir\PYGZus{}name} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}samp\PYGZsq{}}
+  \PYG{n}{sample\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{sample\PYGZus{}dir\PYGZus{}name}\PYG{p}{)}
+  \PYG{c+c1}{\PYGZsh{}If sample folder exist}
+  \PYG{k}{if} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{isdir}\PYG{p}{(}\PYG{n}{sample\PYGZus{}path}\PYG{p}{):}
+      \PYG{c+c1}{\PYGZsh{}Test and Train data Folders}
+      \PYG{n}{sample\PYGZus{}train\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{sample\PYGZus{}dir\PYGZus{}name}\PYG{o}{+}\PYG{l+s+s1}{\PYGZsq{}\PYGZus{}train\PYGZsq{}}\PYG{p}{)}
+      \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{sample\PYGZus{}train\PYGZus{}path}\PYG{p}{,} \PYG{n}{exist\PYGZus{}ok}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+      \PYG{n}{sample\PYGZus{}test\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{sample\PYGZus{}dir\PYGZus{}name}\PYG{o}{+}\PYG{l+s+s1}{\PYGZsq{}\PYGZus{}test\PYGZsq{}}\PYG{p}{)}
+      \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{sample\PYGZus{}test\PYGZus{}path}\PYG{p}{,} \PYG{n}{exist\PYGZus{}ok}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+      \PYG{c+c1}{\PYGZsh{}Clustering folders}
+      \PYG{n}{cluster\PYGZus{}train\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{sample\PYGZus{}train\PYGZus{}path}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{)}
+      \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}train\PYGZus{}path}\PYG{p}{,} \PYG{n}{exist\PYGZus{}ok}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+      \PYG{n}{cluster\PYGZus{}test\PYGZus{}path} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{sample\PYGZus{}test\PYGZus{}path}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{)}
+      \PYG{n}{os}\PYG{o}{.}\PYG{n}{makedirs}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}test\PYGZus{}path}\PYG{p}{,} \PYG{n}{exist\PYGZus{}ok}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+\end{Verbatim}

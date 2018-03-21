@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Write train and test data to file}
+\PYG{n}{train\PYGZus{}files} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{df} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{train\PYGZus{}dfs}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{):}
+    \PYG{n}{train\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{sample\PYGZus{}train\PYGZus{}path}\PYG{p}{,}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{p}{))}
+    \PYG{n}{df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{train\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{train\PYGZus{}files}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{train\PYGZus{}file}\PYG{p}{)}
+\PYG{n}{test\PYGZus{}files} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{df} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{test\PYGZus{}dfs}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{):}
+    \PYG{n}{test\PYGZus{}file} \PYG{o}{=} \PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{sample\PYGZus{}test\PYGZus{}path}\PYG{p}{,}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{i}\PYG{p}{))}
+    \PYG{n}{df}\PYG{o}{.}\PYG{n}{to\PYGZus{}csv}\PYG{p}{(}\PYG{n}{test\PYGZus{}file}\PYG{p}{)}
+    \PYG{n}{test\PYGZus{}files}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{test\PYGZus{}file}\PYG{p}{)}
+\end{Verbatim}

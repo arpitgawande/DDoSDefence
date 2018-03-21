@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Base directory path}
+\PYG{n}{base\PYGZus{}path} \PYG{o}{=} \PYG{n}{base\PYGZus{}path} \PYG{c+c1}{\PYGZsh{}Already define}
+\PYG{c+c1}{\PYGZsh{}File to store centroids}
+\PYG{n}{centroid\PYGZus{}filename} \PYG{o}{=} \PYG{n}{centroid\PYGZus{}filename} \PYG{c+c1}{\PYGZsh{}Already define}
+\PYG{c+c1}{\PYGZsh{}File to store feature list}
+\PYG{n}{features\PYGZus{}filename} \PYG{o}{=} \PYG{n}{features\PYGZus{}filename} \PYG{c+c1}{\PYGZsh{}Already define}
+\PYG{c+c1}{\PYGZsh{}Get centroids and feature}
+\PYG{n}{centroids}\PYG{p}{,} \PYG{n}{features} \PYG{o}{=} \PYG{n}{read\PYGZus{}centroid\PYGZus{}features}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,}
+                                             \PYG{n}{centroid\PYGZus{}filename}\PYG{p}{,} \PYG{n}{features\PYGZus{}filename}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{read\PYGZus{}centroid\PYGZus{}features}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,} \PYG{n}{centroid\PYGZus{}filename}\PYG{p}{,} \PYG{n}{features\PYGZus{}filename}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Read previously calculated centroids and stored feature from the file system.}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    base\PYGZus{}path: string}
+\PYG{l+s+sd}{        folder location in which both controid and feature file are present}
+
+\PYG{l+s+sd}{    centroid\PYGZus{}filename: string}
+\PYG{l+s+sd}{        Name of the file in which centroid vector is stored.}
+
+\PYG{l+s+sd}{    features\PYGZus{}filename: string}
+\PYG{l+s+sd}{        Name of the file in which feature list is stored.}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{centroids} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{genfromtxt}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,}\PYG{n}{centroid\PYGZus{}filename}\PYG{p}{),} \PYG{n}{delimiter}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{},\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{features} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{genfromtxt}\PYG{p}{(}\PYG{n}{os}\PYG{o}{.}\PYG{n}{path}\PYG{o}{.}\PYG{n}{join}\PYG{p}{(}\PYG{n}{base\PYGZus{}path}\PYG{p}{,}\PYG{n}{features\PYGZus{}filename}\PYG{p}{),} \PYG{n}{delimiter}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{},\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{features} \PYG{o}{=} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{features}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}int64\PYGZsq{}}\PYG{p}{))}
+    \PYG{k}{return} \PYG{n}{centroids}\PYG{p}{,} \PYG{n}{features}
+\end{Verbatim}

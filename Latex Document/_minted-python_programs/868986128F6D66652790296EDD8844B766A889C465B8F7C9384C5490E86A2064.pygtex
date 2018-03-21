@@ -1,0 +1,30 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{kmeans\PYGZus{}clustering}\PYG{p}{(}\PYG{n}{feature\PYGZus{}df}\PYG{p}{,} \PYG{n}{centroids}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Clustering input vector using k\PYGZhy{}means algorithm}
+
+\PYG{l+s+sd}{    Parameter}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{    feature\PYGZus{}df: Object}
+\PYG{l+s+sd}{        Panda dataframe object containing input vector which}
+\PYG{l+s+sd}{        is to clustered using k\PYGZhy{}means.}
+
+\PYG{l+s+sd}{    centroids: vector}
+\PYG{l+s+sd}{        Vector containing centroid values. These centroids are}
+\PYG{l+s+sd}{        used for clutering.}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{X} \PYG{o}{=} \PYG{n}{feature\PYGZus{}df}\PYG{o}{.}\PYG{n}{values}
+    \PYG{c+c1}{\PYGZsh{}Create scaling}
+    \PYG{n}{scaler} \PYG{o}{=} \PYG{n}{preprocessing}\PYG{o}{.}\PYG{n}{StandardScaler}\PYG{p}{()}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Transform Training data}
+    \PYG{n}{X\PYGZus{}trans} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}k means clustering using provided centroids}
+    \PYG{n}{kmeans} \PYG{o}{=} \PYG{n}{KMeans}\PYG{p}{(}\PYG{n}{n\PYGZus{}clusters}\PYG{o}{=}\PYG{n}{centroids}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{init}\PYG{o}{=}\PYG{n}{centroids}\PYG{p}{)}
+    \PYG{n}{clusters} \PYG{o}{=} \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{fit\PYGZus{}predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Getting the labels/clusters for each IP}
+    \PYG{n}{cluster\PYGZus{}df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}cluster\PYGZsq{}}\PYG{p}{:} \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{labels\PYGZus{}}\PYG{p}{\PYGZcb{})}
+    \PYG{c+c1}{\PYGZsh{}Attaching labels to existing dataframe and return new dataframe}
+    \PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{concat}\PYG{p}{([}\PYG{n}{feature\PYGZus{}df}\PYG{o}{.}\PYG{n}{reset\PYGZus{}index}\PYG{p}{(),} \PYG{n}{cluster\PYGZus{}df}\PYG{p}{],} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{set\PYGZus{}index}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ip\PYGZsq{}}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{df}
+\end{Verbatim}

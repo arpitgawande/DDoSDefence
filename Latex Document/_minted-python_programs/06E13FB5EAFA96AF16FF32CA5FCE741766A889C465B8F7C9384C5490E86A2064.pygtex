@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Pandas for creating data\PYGZhy{}frames}
+\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k+kn}{as} \PYG{n+nn}{pd}
+
+\PYG{c+c1}{\PYGZsh{}Pyshark to capture packets}
+\PYG{k+kn}{import} \PYG{n+nn}{pyshark}
+\PYG{c+c1}{\PYGZsh{}For file operations}
+\PYG{k+kn}{import} \PYG{n+nn}{os}
+\PYG{k+kn}{import} \PYG{n+nn}{gc}
+\PYG{k+kn}{import} \PYG{n+nn}{sys}
+\end{Verbatim}

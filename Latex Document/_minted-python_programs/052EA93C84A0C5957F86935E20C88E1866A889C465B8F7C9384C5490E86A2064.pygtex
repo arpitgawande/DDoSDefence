@@ -1,0 +1,36 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}kmeans\PYGZus{}centroid}\PYG{p}{(}\PYG{n}{feature\PYGZus{}df}\PYG{p}{,} \PYG{n}{cluster\PYGZus{}count}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Run the k\PYGZhy{}means algorithm on input data vector and find out the}
+\PYG{l+s+sd}{    centroid for each cluster then return that centroid in the}
+\PYG{l+s+sd}{    form of table}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    feature\PYGZus{}df: table/dataframe}
+\PYG{l+s+sd}{        vector on which the k\PYGZhy{}means algorithm is be applyed}
+
+\PYG{l+s+sd}{    cluster\PYGZus{}count: int}
+\PYG{l+s+sd}{        Number of clusters to be used for k\PYGZhy{}means clustering}
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{df\PYGZus{}centroid} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+    \PYG{n}{X} \PYG{o}{=} \PYG{n}{feature\PYGZus{}df}\PYG{o}{.}\PYG{n}{values}
+    \PYG{c+c1}{\PYGZsh{}Create scaling}
+    \PYG{n}{scaler} \PYG{o}{=} \PYG{n}{preprocessing}\PYG{o}{.}\PYG{n}{StandardScaler}\PYG{p}{()}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Transform Traning data}
+    \PYG{n}{X\PYGZus{}trans} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Data Fitting using K\PYGZhy{}means}
+    \PYG{n}{kmeans} \PYG{o}{=} \PYG{n}{KMeans}\PYG{p}{(}\PYG{n}{n\PYGZus{}clusters}\PYG{o}{=}\PYG{n}{cluster\PYGZus{}count}\PYG{p}{)}
+    \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}trans}\PYG{p}{)}
+    \PYG{c+c1}{\PYGZsh{}Create clusetr dataframe for saving on file system}
+    \PYG{c+c1}{\PYGZsh{}Dataframe 0 contain all the clusters centers associated with 0th cluster}
+    \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{True}
+    \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{cluster\PYGZus{}centers\PYGZus{}}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]):}
+        \PYG{n}{s} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{Series}\PYG{p}{(}\PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{cluster\PYGZus{}centers\PYGZus{}}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{index}\PYG{o}{=}\PYG{n}{feature\PYGZus{}df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+        \PYG{k}{if}\PYG{p}{(}\PYG{n}{first}\PYG{p}{):}
+            \PYG{n}{df\PYGZus{}centroid} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{n}{feature\PYGZus{}df}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+            \PYG{n}{first} \PYG{o}{=} \PYG{n+nb+bp}{False}
+        \PYG{n}{df\PYGZus{}centroid} \PYG{o}{=} \PYG{n}{df\PYGZus{}centroid}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{s}\PYG{p}{,}\PYG{n}{ignore\PYGZus{}index}\PYG{o}{=}\PYG{n+nb+bp}{True}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{df\PYGZus{}centroid}
+\end{Verbatim}

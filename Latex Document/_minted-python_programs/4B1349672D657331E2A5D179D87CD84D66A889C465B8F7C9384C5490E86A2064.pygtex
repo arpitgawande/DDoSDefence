@@ -1,0 +1,37 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Merge sample files to create bigger samples}
+\PYG{k}{def} \PYG{n+nf}{merge\PYGZus{}files}\PYG{p}{(}\PYG{n}{files}\PYG{p}{,} \PYG{n}{merge\PYGZus{}count}\PYG{p}{,} \PYG{n}{features}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    Merge feature sample file to form bigger sample.}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+\PYG{l+s+sd}{    files: list}
+\PYG{l+s+sd}{        all the sample files,}
+
+\PYG{l+s+sd}{    merge\PYGZus{}count: int}
+\PYG{l+s+sd}{        number of files to be merged.}
+
+\PYG{l+s+sd}{    features: list}
+\PYG{l+s+sd}{        list of features}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{k}{if} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{files}\PYG{p}{)} \PYG{o}{\PYGZlt{}} \PYG{n}{merge\PYGZus{}count}\PYG{p}{:}
+        \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Too few file to merge\PYGZsq{}}\PYG{p}{)}
+        \PYG{k}{return}
+    \PYG{n}{dfs} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{n}{count} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{for} \PYG{n+nb}{file} \PYG{o+ow}{in} \PYG{n}{files}\PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{count} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{:}
+            \PYG{n}{df} \PYG{o}{=} \PYG{n}{get\PYGZus{}feature\PYGZus{}dataframe}\PYG{p}{(}\PYG{n+nb}{file}\PYG{p}{,} \PYG{n}{features}\PYG{p}{)}
+            \PYG{n}{count} \PYG{o}{+=} \PYG{l+m+mi}{1}
+        \PYG{k}{else}\PYG{p}{:}
+            \PYG{n}{temp\PYGZus{}df} \PYG{o}{=} \PYG{n}{get\PYGZus{}feature\PYGZus{}dataframe}\PYG{p}{(}\PYG{n+nb}{file}\PYG{p}{,} \PYG{n}{features}\PYG{p}{)}
+            \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{temp\PYGZus{}df}\PYG{p}{)}
+            \PYG{n}{count} \PYG{o}{+=} \PYG{l+m+mi}{1}
+        \PYG{k}{if} \PYG{n}{count} \PYG{o}{==} \PYG{n}{merge\PYGZus{}count}\PYG{p}{:}
+            \PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{index}\PYG{p}{)}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{()}
+            \PYG{n}{dfs}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+            \PYG{n}{count} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{return} \PYG{n}{dfs}
+\end{Verbatim}

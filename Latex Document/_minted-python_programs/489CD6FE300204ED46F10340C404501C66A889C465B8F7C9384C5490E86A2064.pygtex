@@ -1,0 +1,35 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{get\PYGZus{}kmeans\PYGZus{}cluster\PYGZus{}centroids}\PYG{p}{(}\PYG{n}{sample\PYGZus{}frames}\PYG{p}{,} \PYG{n}{features}\PYG{p}{,} \PYG{n}{cluster\PYGZus{}count}\PYG{p}{):}
+    \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{    This function will first find all cluster centroids for all the}
+\PYG{l+s+sd}{    training sample vectors and then calculate the median of each}
+\PYG{l+s+sd}{    cluster over all the samples. This median would be the best guess}
+\PYG{l+s+sd}{    of the centroid for all the training vectors and also would be use}
+\PYG{l+s+sd}{    for evaluation.}
+
+\PYG{l+s+sd}{    Parameters}
+\PYG{l+s+sd}{    \PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
+
+\PYG{l+s+sd}{    sample\PYGZus{}frames: list}
+\PYG{l+s+sd}{        list of feature vector datafames.}
+
+\PYG{l+s+sd}{    features: list}
+\PYG{l+s+sd}{        list of feature.}
+
+\PYG{l+s+sd}{    cluster\PYGZus{}count: int}
+\PYG{l+s+sd}{        number of clusters to be considered for k\PYGZhy{}means clustering.}
+
+\PYG{l+s+sd}{    \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+    \PYG{n}{df\PYGZus{}concat} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{n}{features}\PYG{p}{)}
+    \PYG{k}{for} \PYG{n}{df} \PYG{o+ow}{in} \PYG{n}{sample\PYGZus{}frames}\PYG{p}{:}
+        \PYG{c+c1}{\PYGZsh{}Run kmeans and get centroid}
+        \PYG{n}{df\PYGZus{}centroid} \PYG{o}{=} \PYG{n}{get\PYGZus{}kmeans\PYGZus{}centroid}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,} \PYG{n}{cluster\PYGZus{}count}\PYG{p}{)}
+        \PYG{c+c1}{\PYGZsh{}Create list of centroids}
+        \PYG{n}{df\PYGZus{}concat} \PYG{o}{=} \PYG{n}{df\PYGZus{}concat}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{df\PYGZus{}centroid}\PYG{p}{)}
+    \PYG{n}{centroids} \PYG{o}{=} \PYG{p}{[]}
+    \PYG{c+c1}{\PYGZsh{}Find median for each centroid and store them in file}
+    \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}count}\PYG{p}{):}
+        \PYG{n}{med} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{median}\PYG{p}{(}\PYG{n}{df\PYGZus{}concat}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{n}{c}\PYG{p}{],} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} e.g. df\PYGZus{}concat.loc[0] is df of clister 0}
+        \PYG{n}{centroids}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{med}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{centroids}
+\end{Verbatim}
