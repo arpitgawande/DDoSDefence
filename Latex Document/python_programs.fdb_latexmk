@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1521496554 "python_programs.tex" "python_programs.pdf" "python_programs" 1521496574
+["pdflatex"] 1521496554 "python_programs.tex" "python_programs.pdf" "python_programs" 1521632933
   "/dev/null" 1521287564 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1480098701 1328 c834bbb027764024c09d3d2bf908b5f0 ""
@@ -118,7 +118,7 @@
   "python_programs.pyg" 0 -1 0 ""
   "python_programs.tex" 1521496574 30881 ab63a145c3a54c0a5a8d0a8ca2ca31c7 ""
   (generated)
+  "python_programs.log"
   "python_programs.pdf"
   "python_programs.aux"
   "python_programs.pyg"
-  "python_programs.log"

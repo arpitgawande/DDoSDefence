@@ -1,17 +1,17 @@
 \begin{thebibliography}{10}
 
-\bibitem{ddosattacknews}
+\bibitem{ddos-attack-news}
 Derek Kortepeter.
 \newblock Destructive ddos attacks increasing at a rapid rate.
 \newblock \url{http://techgenix.com/ddos-attacks-increasing/}, December 2017.
 \newblock Online; accessed 22-August-2017.
 
-\bibitem{networkdatapacket}
+\bibitem{network-data-packet}
 D.~W. Davies.
 \newblock A communication network for real-time computer systems.
 \newblock {\em Radio and Electronic Engineer}, 37(1):47--51, January 1969.
 
-\bibitem{DDoSAttacks}
+\bibitem{DDoS-attacks}
 Cisco~Security portal.
 \newblock A cisco guide to defending against distributed denial of service
   attacks.
@@ -19,7 +19,7 @@ Cisco~Security portal.
   \url{https://www.cisco.com/c/en/us/about/security-center/guide-ddos-defense.html}.
 \newblock Online; accessed 1-August-2017.
 
-\bibitem{ipspoofing}
+\bibitem{ip-spoofing}
 S.~M. Bellovin.
 \newblock A look back at "security problems in the tcp/ip protocol suite".
 \newblock In {\em 20th Annual Computer Security Applications Conference}, pages
@@ -31,12 +31,12 @@ Ken Dunham and Jim Melnick.
   Underground of the Internet}, chapter 1. Introduction to Bots.
 \newblock CRC Press, August 2008,.
 
-\bibitem{networkTrafficFlow}
+\bibitem{network-traffic-flow}
 Network~Working Group.
 \newblock Traffic flow measurement: Architecture.
 \newblock \url{https://www.ietf.org/rfc/rfc2722.txt}, October 1999.
 
-\bibitem{cisconetflow}
+\bibitem{cisco-netflow}
 Cisco.
 \newblock Introduction to cisco ios netflow.
 \newblock
@@ -50,7 +50,7 @@ sFlow.
 \newblock \url{http://www.sflow.org/using_sflow/index.php}.
 \newblock Online; accessed 16-November-2017.
 
-\bibitem{swithcrouter}
+\bibitem{router-switch}
 Cisco.
 \newblock What is a network switch vs. a router?
 \newblock
@@ -62,7 +62,7 @@ Network~Working Group.
 \newblock Icmp.
 \newblock \url{https://tools.ietf.org/html/rfc792}, Septmber 1981.
 
-\bibitem{routingtablesize}
+\bibitem{routing-tablesize}
 Omar Santos.
 \newblock The size of the internet global routing table and its potential side
   effects.
@@ -71,12 +71,12 @@ Omar Santos.
   May 2014.
 \newblock Online; accessed 22-August-2017.
 
-\bibitem{machineLearning}
+\bibitem{machine-learning}
 Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
 \newblock {\em Mining of Massive Datasets}, chapter Clutering.
 \newblock Stanford University, 2014.
 
-\bibitem{SVM}
+\bibitem{svm}
 Bernhard Sch\"{o}lkopf, Robert Williamson, Alex Smola, John Shawe-Taylor, and
   John Platt.
 \newblock Support vector method for novelty detection.
@@ -84,7 +84,7 @@ Bernhard Sch\"{o}lkopf, Robert Williamson, Alex Smola, John Shawe-Taylor, and
   Information Processing Systems}, NIPS'99, pages 582--588, Cambridge, MA, USA,
   1999. MIT Press.
 
-\bibitem{kmeanClustering}
+\bibitem{k-means-clustering}
 Nathan S. Netanyahu Christine D. Piatko Ruth~Silverman Tapas~Kanungo, David
   M.~Mount and Angela~Y. Wu.
 \newblock An efficient k-means clustering algorithm: Analysis and

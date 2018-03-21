@@ -10,7 +10,7 @@
 \usepackage{cite}
 \usepackage{url}
 
-\title{DDoS Detection and Mitigation Using Machine Learning Tools}
+\title{DDoS Detection and Mitigation Using Machine Learning}
 \author{Arpit Gawande}
 \date{\today}
 \begin{document}
@@ -33,23 +33,28 @@ Dr. Jean-Camille Birget
 
 \pagebreak
 
+\tableofcontents
+\newpage
+
 \begin{abstract}
-Distributed Denial of Service (DDoS) attacks are very common these days\cite{ddosattacknews}. So it is evident that current industry solutions such as completely relying on Internet Service Provider(ISP) or setting up DDoS defense infrastructure are not sufficient in detecting and mitigating DDoS attacks, hence consistent research is needed. Most of the current industry solutions involve setting up centralized expensive hardware system which can analyze the packets\footnote{Messages that are sent on Internet are broken into shorter messages for transmission. These short messages are called packets. Term coined by Donald Watts Davies.} \cite{networkdatapacket} for probable DDoS attacks. Also each router provider has different protocols to communicate the between the DDoS attack detection system and the router limiting the reach of DDoS detection systems. In this paper we are going to discuss a way to detect DDoS attack using machine learning tools at the routers, also we will propose a communication architecture for mitigating it.
+Distributed Denial of Service (DDoS) attacks are very common these days\cite{ddos-attack-news}. So it is evident that current industry solutions such as completely relying on Internet Service Provider(ISP) or setting up DDoS defense infrastructure are not sufficient in detecting and mitigating DDoS attacks, hence consistent research is needed. Most of the current industry solutions involve setting up centralized expensive hardware system which can analyze the packets\footnote{Messages that are sent on Internet are broken into shorter messages for transmission. These short messages are called packets. Term coined by Donald Watts Davies.} \cite{network-data-packet} for probable DDoS attacks. Also each router provider has different protocols to communicate the between the DDoS attack detection system and the router limiting the reach of DDoS detection systems. In this paper we are going to discuss a way to detect DDoS attack using machine learning tools at the routers, also we will propose a communication architecture for mitigating it.
 \end{abstract}
 
 \section{Existing Systems}
 
+\subsection{What it DDoS attack}
 Distributed Denial of Service (DDoS) attack is the way to jam host network or its resources with large number of data packets or connection, so that host become disabled to serve. There are different types of DDoS attacks such as
 1. Volume based e.g. SYN Flood Attacks, in which victim is flooded with hight volume of packets or connection.
 2. Application based, in which application such as DNS, VOIP or HTTP where attacked.
 3. Low rate DDoS attacks, in which attacker exploit the vulnerability in application design, e.g. Slowloris.
-\cite{DDoSAttacks}
+\cite{DDoS-attacks}
 
-The real challenge in detecting and defending DDoS attack is because of its dynamic nature. The source\footnote{It is a system/device on the Internet which has an IP address and which is involved in DDoS attack} is not a single node or system on the Internet but there can be many systems participating in DDoS attack, and often these systems are distributed over different regions of the Internet. Also the source of the packet is often spoofed\footnote{spoofing is the way to change the source IP address of the message. This is a known issue in the protocol iteself not in the implementation}\cite{ipspoofing}, which makes harder to know the actual IP address of system from where attack is originated because original attack source is changed in spoofed data packet. On top of that, many times the source system itself is not aware that it is compromised and it is being used as a bot\cite{bot} by an attacker to launch DDoS attack.
+\subsection{Challenges in dealing with DDoS attacks}
+The real challenge in detecting and defending DDoS attack is because of its dynamic nature. The source\footnote{It is a system/device on the Internet which has an IP address and which is involved in DDoS attack} is not a single node or system on the Internet but there can be many systems participating in DDoS attack, and often these systems are distributed over different regions of the Internet. Also the source of the packet is often spoofed\footnote{spoofing is the way to change the source IP address of the message. This is a known issue in the protocol iteself not in the implementation}\cite{ip-spoofing}, which makes harder to know the actual IP address of system from where attack is originated because original attack source is changed in spoofed data packet. On top of that, many times the source system itself is not aware that it is compromised and it is being used as a bot\cite{bot} by an attacker to launch DDoS attack.
 
-Detecting and mitigating attack at the destination\footnote{System under DDoS attack} is not very useful as because destination may know that the attack is happening but to stop it happening it will have to block all the incoming traffic including the legitimate traffic, because source address can not be reliable way to know the attack source. To avoid this, many network device producing companies such as Cisco, Netgear have come up with some solutions. Many of the solutions provided by those giant or the research that is done in this field has been focusing on collecting network traffic flow information\cite{networkTrafficFlow} (we will call it just flow) at routers(gateways) and then send that information to the central system for analysis. Central system is a hardware and software infrastructure which is capable of processing and analyzing large flow information.\par
+Detecting and mitigating attack at the destination\footnote{System under DDoS attack} is not very useful as because destination may know that the attack is happening but to stop it happening it will have to block all the incoming traffic including the legitimate traffic, because source address can not be reliable way to know the attack source. To avoid this, many network device producing companies such as Cisco, Netgear have come up with some solutions. Many of the solutions provided by those giant or the research that is done in this field has been focusing on collecting network traffic flow information\cite{network-traffic-flow} (we will call it just flow) at routers(gateways) and then send that information to the central system for analysis. Central system is a hardware and software infrastructure which is capable of processing and analyzing large flow information.\par
 
-Some of the major protocols which are widely used for flow collection and analysis are, Internet Protocol Flow Information Export (IPFIX) protocol created by Internet Engineering Task Force (IETF), Ciscos NetFlow\cite{cisconetflow} and Sflow(Sampled flow)\cite{sflow}. These protocols have defined standard way to export flow information from router and similar devices. All these flow monitoring protocols gather information and send the consolidated flow information to the centralized server where user can login and perform functions; such as Security Monitoring, Bandwidth monitoring, Resource Management, Traffic Analysis, Performance Management etc. It will have some modules which are specifically used for anomaly/DDoS detection.\par
+Some of the major protocols which are widely used for flow collection and analysis are, Internet Protocol Flow Information Export (IPFIX) protocol created by Internet Engineering Task Force (IETF), Ciscos NetFlow\cite{cisco-netflow} and Sflow(Sampled flow)\cite{sflow}. These protocols have defined standard way to export flow information from router and similar devices. All these flow monitoring protocols gather information and send the consolidated flow information to the centralized server where user can login and perform functions; such as Security Monitoring, Bandwidth monitoring, Resource Management, Traffic Analysis, Performance Management etc. It will have some modules which are specifically used for anomaly/DDoS detection.\par
 
 E.g. Cisco netflow has flow exporter, collector and analysis modules. Flow exporter modules are installed on routers. The routers which are having flow exporter modules, send flow information to collector module installed on the server. Along with the collector module server also has analysis module which can be used to detect different patterns in the flow.\par
 
@@ -63,11 +68,12 @@ DDoS attacks can be detected by checking if there is any anomalous behavior in t
 
 \section{Network Functioning}
 
-A switch creates a network and router connects networks. A router links computers to the Internet through other routers. Routers are the backbone of the network who helps to forward packet from one point to other point on the Internet. Every packet traveling on Internet has to go through router\cite{swithcrouter}.Router knows where the packet is destine hence it could serve as first point of knowledge about the change in the flow information for a destine network. Each router has interfaces to which hosts or other network are connected. So router is aware to whom it is connected. Router uses protocol to communicate and by that they gather knowledge about other networks or router on the Internet. ICMP\cite{icmp} is one of the most frequently use protocol by routers to communicate.\par
+\subsection{Point of knowledge}
+A switch creates a network and router connects networks. A router links computers to the Internet through other routers. Routers are the backbone of the network who helps to forward packet from one point to other point on the Internet. Every packet traveling on Internet has to go through router\cite{router-switch}.Router knows where the packet is destine hence it could serve as first point of knowledge about the change in the flow information for a destine network. Each router has interfaces to which hosts or other network are connected. So router is aware to whom it is connected. Router uses protocol to communicate and by that they gather knowledge about other networks or router on the Internet. ICMP\cite{icmp} is one of the most frequently use protocol by routers to communicate.\par
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.80\textwidth]{routers.jpg}
+\includegraphics[width=0.70\textwidth]{routers.jpg}
 \caption{Network Example} \label{fig:routers}
 \end{figure}
 
@@ -77,23 +83,23 @@ Using traceroute we can find out how many hops\footnote{hops are intermediate ro
 %\vspace{5mm} % vertical space
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{TraceRoute.png}
+\includegraphics[width=0.90\textwidth]{TraceRoute.png}
 \caption{Trace Route: All the routers in the path to destination} \label{fig:traceroute}
 \end{figure}
 
 We can see that there are about 14 routers (if we don't consider the home router 192.168.0.1) to reach to the camden.rutgers.edu. This trace route is taken from a location in the New Jersey State.\par
 
-\section{Suggested Approach}
+\section{Our Approach}
 
 From Figure \ref{fig:routers} and \ref{fig:traceroute} we know that routers are located at different geographical locations and also there is pattern in which the particular destination website is getting accessed from the different regions. Some of the service providers such as  GeoIP or Google, can find out the location from where the traffic is coming in the network for a given destination, but that is approximate based on the source IP. In the case of DDoS attack this information is unreliable, because the packet source address is often spoofed. This makes difficult to know the actual geographical location from which the packet has come, but routers through which that packet has traveled can provide their own geographical information. Such information can be useful to understand the path through which packet has traveled and thus we can know the region from which the packet is originated.\par
 
 In the normal scenario there is some definite pattern in which the website is accessed from different geographical regions, and this pattern can be learned over the time. Thus finding this pattern in the flow\footnote{In this paper we will consider flow only in sense of destination address} at the router can form the basis of analysis in this paper. Whenever there is a deviation from the normal flow pattern learned in the past for a particular destination then that change in pattern as well as router geographical region information can be communicated to the destination network. The destination network on receiving that information, can decide, whether it want the reporting router to discard or forward the traffic for it. This is a selective process in which traffic from only specific router is blocked while traffic from other routers remain unaffected\par
 
-With the advance of electronic and the Internet of things, processing and storage capacity of the electronic devices has increased. Router are also not left behind, but storage capacity of router is always very less compared to storage server which collect flow data for network traffic analysis. If we use the learning techniques which don't need much storage then we don't have to store large chunk of packets on the router. Instead of storing data packets for longer time for analysis, we can learn from small number of packets and then discard packets once learning is done leaving behind only learned information on the router. This is necessary because the number of entries on the Internet routing table has steadily grown. Now that the table has passed 500,000 routes\cite{routingtablesize} so storing each and every flow information for these routes could be difficult.\par
+With the advance of electronic and the Internet of things, processing and storage capacity of the electronic devices has increased. Router are also not left behind, but storage capacity of router is always very less compared to storage server which collect flow data for network traffic analysis. If we use the learning techniques which don't need much storage then we don't have to store large chunk of packets on the router. Instead of storing data packets for longer time for analysis, we can learn from small number of packets and then discard packets once learning is done leaving behind only learned information on the router. This is necessary because the number of entries on the Internet routing table has steadily grown. Now that the table has passed 500,000 routes\cite{routing-tablesize} so storing each and every flow information for these routes could be difficult.\par
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.90\textwidth]{RouterCommunication.png}
+\includegraphics[width=0.70\textwidth]{RouterCommunication.png}
 \caption{DDoS Attack path} \label{fig:attackpath}
 \end{figure}
 
@@ -103,7 +109,7 @@ In the above figure an attack is initiated from the region where router R6 is lo
 To achieve this, we will gather the flow information during a time window (e.g 300 sec) whose size will be fixed at the beginning.
 These time windows can be combined to form a period which is a portion of a day during which traffic is measured. Once we have flow information we can apply learning techniques on each flow iteratively to gain deeper knowledge about normal behavior of the flow.\par
 
-In the proposed system, each router will itself act as a analyzer. Each packet will be analyzed and flow statistic is created based on the destination IP address. Based on the statistic, clustering of destination IP address using input feature vector is done. Clustering is the process of examining a collection of “points,” and grouping the points into “clusters” according to some distance measure. The goal is to minimize the distance of the point in the cluster to other points in the same clusters.\cite{machineLearning}.
+In the proposed system, each router will itself act as a analyzer. Each packet will be analyzed and flow statistic is created based on the destination IP address. Based on the statistic, clustering of destination IP address using input feature vector is done. Clustering is the process of examining a collection of “points,” and grouping the points into “clusters” according to some distance measure. The goal is to minimize the distance of the point in the cluster to other points in the same clusters.\cite{machine-learning}.
 
 \begin{figure}[H]
 \centering
@@ -187,9 +193,9 @@ According to Tom Mitchell (1998) A computer program is said to learn from experi
 A learning algorithm build the hypothesis using training set as input then that hypothesis is used to perform predictions. Most common categorization of machine learning algorithms is Supervised and Unsupervised.
 
 Let $f$ be the function which we need to guess from input vector $X$ = \{$x^{1}$, $x^{2}$, ..., $x^{m}$\}. This $X$ also called as training set where $x's$ represent an `input variable' or a `feature vector' and $m$ is number of feature vectors in the training set. Let $h$ be the hypothesis about the function $f$. $h \in H$ and $f \in H$, where $H$ is class of some functions. Both $f$ and $h$ can be vectors. We select $h$ based on a training set, $\Xi$, of $m$ input vector examples. In Supervised leaning we know the values of $f$ for $m$ samples in the training set
-$\Xi$. We assume that if we can find a hypothesis, $h$, that closely agrees with $f$ for the members of $\Xi$, then this hypothesis will be a good guess for $f$ when $\Xi$ is large. In Unsupervised learning, we simply have a training set of vectors without function values for them. The problem in this case, typically, is to partition the training set into subsets, $\Xi_1,.. ,\Xi_R$, in some appropriate way.\cite{machineLearning}
+$\Xi$. We assume that if we can find a hypothesis, $h$, that closely agrees with $f$ for the members of $\Xi$, then this hypothesis will be a good guess for $f$ when $\Xi$ is large. In Unsupervised learning, we simply have a training set of vectors without function values for them. The problem in this case, typically, is to partition the training set into subsets, $\Xi_1,.. ,\Xi_R$, in some appropriate way.\cite{machine-learning}
 
-Supervised algorithm such as One Class Support Vector Machine(One Class SVM)\cite{SVM} could be efficient to identify the anomalies in the data but this algorithm is process and memory intensive, hence training the algorithm for each and every IP address is very costly in terms of resources. Because of the resource constraints of the router, our approach is to first cluster the IP addresses based on the features using Unsupervised learning algorithms such as k-means and then apply One Class SVM on the clusters to decide on the boundaries of those clusters. kmeans algorithm is fast and consume less resource compared to One Class SVM, which make them good to be used on the devices such as router which has less processing power and less memory.
+Supervised algorithm such as One Class Support Vector Machine(One Class SVM)\cite{svm} could be efficient to identify the anomalies in the data but this algorithm is process and memory intensive, hence training the algorithm for each and every IP address is very costly in terms of resources. Because of the resource constraints of the router, our approach is to first cluster the IP addresses based on the features using Unsupervised learning algorithms such as k-means and then apply One Class SVM on the clusters to decide on the boundaries of those clusters. k-means algorithm is fast and consume less resource compared to One Class SVM, which make them good to be used on the devices such as router which has less processing power and less memory.
 
 \subsubsection{Feature Scaling}
 
@@ -203,13 +209,13 @@ Where $x$ is the feature vector, ${\bar{x}}$ is the mean and $\sigma$  is its st
 
 \subsubsection{Clustering}
 
-k-means clustering is one of the most efficient algorithm for creating clusters. The k-means problem is to find set of $K$ points $\{\mu_{1}, \mu_{2}, ..., \mu_{k}\}$ called centroids, where $\mu_{k}\in$ $\mathbb{R}^d$ and $K \in \mathbb{N}$, for training set $X = \{x^{1}, x^{2}, ..., x^{m}\}$, where $x^{i} \in \mathbb{R}^d$
-and $i= {1,2, ..m}$ is a training example, such that the mean square distance from each training example $x^{i}$ of training set, to its nearest center $\mu_{k}$ ($argmin_{k} || x^{i} {-} \mu_{k} ||^{2}$), is minimum. $m \in \mathbb{N}$, are the number of training examples.\cite{kmeanClustering}
+k-means clustering is one of the most efficient algorithm for creating clusters. The k-means problem is to find set of $k$ points $\{\mu_{1}, \mu_{2}, ..., \mu_{k}\}$ called centroids, $\mu_{k}\in$ $\mathbb{R}^d$ and $K \in \mathbb{N}$, for training set $X = \{x^{1}, x^{2}, ..., x^{m}\}$, where $x^{i} \in \mathbb{R}^d$
+and $i= {1,2, ..m}$ is a training example, such that the mean square distance from each training example $x^{i}$ of training set, to its nearest center $\mu_{k}$ ($argmin_{k} || x^{i} {-} \mu_{k} ||^{2}$), is minimum. $m \in \mathbb{N}$, are the number of training examples.\cite{k-means-clustering}
 
 Following is Lloyd's algorithm  which is most popular heuristic algorithm for k-means clustering. The clustering that we will be doing is of destination IP addresses, such that each cluster will have some number of destination IP addresses.
 
 \begin{algorithm}
-\caption{Lloyd's k-means algorithm}\label{kmeans}
+\caption{Lloyd's k-means algorithm}\label{k-means}
 \begin{algorithmic}
 \State {Arbitrarily initialize $K$ cluster centroids $\mu_{1}, \mu_{2}, ..., \mu_{k}$}
 \Repeat
@@ -225,12 +231,12 @@ Following is Lloyd's algorithm  which is most popular heuristic algorithm for k-
 \end{algorithmic}
 \end{algorithm}
 
-Fo this paper we will be using the k-means++ algorithm\cite{k-means++} which is an improvisation of kmeans, where arbitrarily initialization step is replaced by following simple, randomized seeding technique. This kmeans++ algorithm is $O(log k)$-competitive with the optimal clustering.
+Fo this paper we will be using the k-means++ algorithm\cite{k-means++} which is an improvisation of k-means, where arbitrarily initialization step is replaced by following simple, randomized seeding technique. This k-means++ algorithm is $O(log k)$-competitive with the optimal clustering.
 
 Let $D(x)$ denote the shortest distance from a data point to the closest center we have already chosen, then following is the k-means++ algorithm.
 
 \begin{algorithm}
-\caption{kmeans++}\label{kmeans++}
+\caption{k-means++}\label{k-means++}
 \begin{algorithmic}[1]
   \State{Take one center $\mu_{1}$, chosen uniformly at random from $X$.}
   \State{Take a new center $\mu_{k}$ , choosing $x \in X$ with probability $\frac{D(x)^{2}}{\sum_{x \in X} D(x)^{2}}$}
@@ -239,7 +245,7 @@ Let $D(x)$ denote the shortest distance from a data point to the closest center 
 \end{algorithmic}
 \end{algorithm}
 
-For our DDoS attack detection program, we will be using the Scikit-learn libraries. Scikit-learn is the most popular and rich open source machine learning software library for the Python programming language and they have implementation for both kmeans and One Class SVM machine learning algorithms, also they have data preprocessing programs such as feature scaling.
+For our DDoS attack detection program, we will be using the Scikit-learn libraries. Scikit-learn is the most popular and rich open source machine learning software library for the Python programming language and they have implementation for both k-means and One Class SVM machine learning algorithms, also they have data preprocessing programs such as feature scaling.
 
 We will be using training set in the format given in the figure \ref{table:feature} and we will be using k-means++ Scikit-learn library for clustering.
 
@@ -271,12 +277,12 @@ To have correct clustering we first run the k-means algorithm to determine the c
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.90\textwidth]{kemans-clustering.png}
-\caption{Clustering using k-means++ algorithm} \label{fig:kmeans-clustering}
+\caption{Clustering using k-means++ algorithm} \label{fig:k-means-clustering}
 \end{figure}
 
 To draw data points on 2 dimension space we had to reduce the 3 dimensional training example into 2 dimension without loosing much information. We have achieved this by using Principal-Component Analysis (PCA). PCA is a technique for taking a dataset consisting of a set of tuples representing points in the high-dimensional space and finding the directions along which the tuples line up best.\cite{pca}. We have used Scikit-learn PCA module for this purpose.
 
-Using the centroids obtained in he previous step we ran kmeans++ algorithm and then test it for accuracy. kmean++ algorithm gives label to an each training example. This label is the cluster number to which that training example has been assigned to. So the new labeled data look like following.
+Using the centroids obtained in he previous step we ran k-means++ algorithm and then test it for accuracy. k-means++ algorithm gives label to an each training example. This label is the cluster number to which that training example has been assigned to. So the new labeled data look like following.
 
 \begin{table}[H]
 \centering
@@ -292,7 +298,7 @@ Using the centroids obtained in he previous step we ran kmeans++ algorithm and t
 \end{table}
 
 
-We ran the kmeans++ for both training and testing set and produce labels for both. We then checked how similar the test set clustering is with train set clustering i.e. we are checking if the IP address has the same cluster number assigned in both training and test data. For measuring this similarity Rand Index(RI)\cite{ri-index} is used. RI is a measure of how many percent does the test clustering matches with the trained model.
+We ran the k-means++ for both training and testing set and produce labels for both. We then checked how similar the test set clustering is with train set clustering i.e. we are checking if the IP address has the same cluster number assigned in both training and test data. For measuring this similarity Rand Index(RI)\cite{ri-index} is used. RI is a measure of how many percent does the test clustering matches with the trained model.
 
 \hspace{4cm} $RI={\frac {TP+TN}{TP+FP+FN+TN}}$
 
@@ -331,7 +337,7 @@ For example the number of clusters we have create in our analysis are 4 in numbe
 
 Support-Vector Machine is a supervised learning algorithm which tries to classify data. Classification is based on the label of the training set. Consider the training set $\{(x^{1},y^{1}),(x^{2},y^{2}), .., (x^{m},y^{m})\}$, where $x^{i} \in \mathbb{R}^d$ is the training example and $y^{i} \in \{-1, +1\}$ is the label which is the classification value for $x^{i}$,
 
-SVM try to create non-linear separation boundary by projecting data points through a non-linear function $\phi$ to higher dimension space. The data points in space $I$ which can not be separated by a line are projected to the feature space $F$ where there can a hyperplane that separate data point of one class form another. If the hyperplane is projected back on original space $I$ then we get non-linear curve.\cite{SVM}
+SVM try to create non-linear separation boundary by projecting data points through a non-linear function $\phi$ to higher dimension space. The data points in space $I$ which can not be separated by a line are projected to the feature space $F$ where there can a hyperplane that separate data point of one class form another. If the hyperplane is projected back on original space $I$ then we get non-linear curve.\cite{svm}
 
 \begin{figure}[H]
 \centering
@@ -339,9 +345,7 @@ SVM try to create non-linear separation boundary by projecting data points throu
 \caption{Linear Separation using Support Vector} \label{fig:SVM}
 \end{figure}
 
-The hyperplane is represented with the equation $w^{T}x + b = 0$, where $w \in F$ and $b \in R$. This hyperplane separates the training example labeled with $-1$ and $1$ into different classes. The position of the hyperplane is such that the distance from the closest point from each class to the hyperplane is same. To avoid the over-fitting, slack variables $\xi^{i}$ are introduced. Over-fitting happen because the learned hypothesis fit training examples so well that it fails to generalize the new examples. The constant $C > 0$ is the regularization parameter. If $C$ is chosen large, miss-classification of training examples can be avoided. If chosen small, then we may miss-classify few examples, but the margin will be large, so that most of the points will be far away from the decision boundary.
-
-SVM optimization problem is stated as follows.\cite{SVM} \cite{svm-ml}
+The hyperplane is represented with the equation $w^{T}x + b = 0$, where $w \in F$ and $b \in R$. This hyperplane separates the training example labeled with $-1$ and $1$ into different classes. The position of the hyperplane is such that the distance from the closest point from each class to the hyperplane is same. To avoid the over-fitting, slack variables $\xi^{i}$ are introduced. Over-fitting happen because the learned hypothesis fit training examples so well that it fails to generalize the new examples. The constant $C > 0$ is the regularization parameter. If $C$ is chosen large, miss-classification of training examples can be avoided. If chosen small, then we may miss-classify few examples, but the margin will be large, so that most of the points will be far away from the decision boundary. The SVM optimization problem is stated as follows.\cite{svm} \cite{svm-ml}
 
 \begin{center}
   ${min}_{w,b,\xi^i} \ \frac{||w||^2}{2} + C \sum_{i=1}^m \xi^i$ \\
@@ -364,7 +368,7 @@ The function $K(x,xi)=\phi(x)^T \phi(xi)$ is known as the kernel function. kerne
 
 One Class Support-Vector Machine (One Class SVM) is the extension of SVM which detect boundaries of the training set so that every new training example will be classifies as belong to training set or not. It separates all the training set data point from feature space $F$ and maximizes the distance of hyperplane from $F$. This creates a binary function which returns +1 for the training example that fits in the trained set region, otherwise it will return -1.
 
-The minimization function of One Class SVM is slightly different than the SVM. \cite{SVM}
+The minimization function of One Class SVM is slightly different than the SVM. \cite{svm}
 
 \begin{center}
   ${min}_{w,\rho,\xi^i} \ \frac{||w||^2}{2} + \frac{1}{\nu n} \sum_{i=1}^m \xi^i - \rho$ \\
@@ -405,13 +409,11 @@ Next task of the router then will be to communicate the change in the behavior o
 To Communicate the destination network about the change in behavior, router can use the existing ICMP protocol. ICMP protocol is used to provide feedback about problems in the communication environment. ICMP messages are sent in several situations:  for example 1) when a datagram cannot reach its destination. 2) when the gateway does not have the buffering capacity to forward a datagram. 3) when the gateway can direct the host to send traffic on a shorter route.\cite{icmp} Similarly we can use ICMP protocol to inform destination system about the change in the traffic. ICMP protocol has many unused type code (there can be 0-255 types but as of now only 0-41 are in use) available. We can create a new ICMP `type' to send DDoS detection information from the router to the destination system and then destination system can send mitigation instructions to the routers.
 
 Depending on the type and the severity of the situation, the destination system can decide whether or not to inform router to block the traffic coming from that router. We will let this decision to be taken at the destination system. There can be different parameter based on which the destination system can decide blocking the flow. Many questions can be asked before making the decision, such as how many routers have reported the change in traffic?, Is the attack information coming from the region which never had traffic in the past?
-
+\pagebreak
 \section{Conclusion}
 
-A novel way to identify and mitigate DDoS attack is discussed in this paper. With the advance of NVF(Network Virtual Functional) it is easy to push the learning algorithms to the routers allowing them to detect a DDoS attacks using machine learning algorithms. The DDoS detection and mitigation information can be communicated using existing ICMP protocol making system available to every one who want to use it.
-
-This approach has been tested with the small network so further experiments are needed to be performed on the larges networks.
-
+A novel way to identify and mitigate DDoS attack is discussed in this paper. With the advance of NVF(Network Virtual Functional) it is easy to push the learning algorithms to the routers allowing them to detect a DDoS attacks using machine learning algorithms. The DDoS detection and mitigation information can be communicated using existing ICMP protocol making system available to every one who want to use it. This approach has been tested with the small network so further experiments are needed to be performed on the larges networks.
+\pagebreak
 \bibliographystyle{unsrt}   % Unsorted order
 \bibliography{biblo}       % expects file "biblo.bib"
 
