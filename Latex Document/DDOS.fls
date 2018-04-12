@@ -179,8 +179,6 @@ INPUT ./Wireshark_Tools.png
 INPUT demo_network.png
 INPUT ./demo_network.png
 INPUT ./demo_network.png
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 INPUT training_example.png
 INPUT ./training_example.png
 INPUT ./training_example.png

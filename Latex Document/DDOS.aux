@@ -5,7 +5,7 @@
 \citation{ip-spoofing}
 \citation{bot}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Existing Systems}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}What it DDoS attack}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}What is DDoS attack}{3}}
 \citation{network-traffic-flow}
 \citation{cisco-netflow}
 \citation{sflow}
@@ -14,32 +14,32 @@
 \citation{router-switch}
 \citation{icmp}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Network Functioning}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Point of knowledge}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Network Example}}{6}}
 \newlabel{fig:routers}{{1}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Trace Route: All the routers in the path to destination}}{7}}
 \newlabel{fig:traceroute}{{2}{7}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Our Approach}{7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Router as point of analysis}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}The router as a point of analysis}{7}}
 \citation{routing-tablesize}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Internet packet flow capturing at the router}{9}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces DDoS Attack path}}{9}}
 \newlabel{fig:attackpath}{{3}{9}}
 \citation{machine-learning}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 300 second time segment correspond to a flow information. The number of packets can vary in a flow.}}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces A 300 second time segment corresponds to a flow of information. The number of packets can vary in a flow.}}{10}}
 \newlabel{fig:flow}{{4}{10}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Analysis techniques to be implemented}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Analysis techniques to be implemented}{10}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Implementation}{11}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Wireshark Tool: snippet of captured packets}}{12}}
 \newlabel{fig:wireshark}{{5}{12}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Demo Network: for purpose of demonstration}}{12}}
-\newlabel{fig:demonetwork}{{6}{12}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Sample file snippet}}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Network for simulating DDoS detection}}{13}}
+\newlabel{fig:demonetwork}{{6}{13}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Sample file snippet (row represents an IP packet)}}{14}}
 \newlabel{table:sample-file-snippet}{{1}{14}}
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Training Set with three training examples}}{15}}
 \newlabel{table:feature}{{2}{15}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Machine Learning}{15}}
 \citation{machine-learning}
 \citation{svm}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Machine Learning}{16}}
 \citation{k-means-clustering}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Feature Scaling}{17}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Clustering}{17}}
@@ -50,11 +50,11 @@
 \newlabel{k-means++}{{2}{18}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces One training example}}{19}}
 \newlabel{fig:training_example}{{7}{19}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Elbow Method for cluster count detection}}{19}}
-\newlabel{fig:elbowmethod}{{8}{19}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces k-means cluster centroids}}{20}}
-\newlabel{table:centroids}{{3}{20}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Elbow Method for cluster count detection}}{20}}
+\newlabel{fig:elbowmethod}{{8}{20}}
 \citation{pca}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Example of cluster centroids: A row is a cluster and column is a feature}}{21}}
+\newlabel{table:centroids}{{3}{21}}
 \@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Clustering using k-means++ algorithm}}{21}}
 \newlabel{fig:k-means-clustering}{{9}{21}}
 \citation{ri-index}
