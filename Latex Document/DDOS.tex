@@ -279,16 +279,13 @@ Using the centroids obtained in the previous step, we ran k-means++ algorithm an
 \caption{Labeled Training Set (with cluster number)} \label{table:labeled-set}
 \end{table}
 
-
-We ran the k-means++ for both training and testing set and produce labels for both. We then checked how similar the test set clustering is with train set clustering i.e. we are checking if the IP address has the same cluster number assigned in both training and test data. For measuring this similarity Rand Index(RI)\cite{ri-index} is used. RI is a measure of how many percent does the test clustering matches with the trained model.
+We ran the k-means++ for both training and testing set, and produce labels for both. We then checked how similar the test set clustering is with train set clustering i.e. we are checking, whether an IP address has the same cluster number assigned in both the training and test sets or it differs. For measuring this similarity Rand Index(RI)\cite{ri-index} is used. RI is a measure of how many percent does the test clustering matches with the trained model.
 
 \hspace{4cm} $RI={\frac {TP+TN}{TP+FP+FN+TN}}$
 
-where $TP, TN, TN$ and $FN$ are the number of true positives, true negatives, false positives and false negatives respectively.
+where $TP, TN, FP$ and $FN$ are the number of true positives, true negatives, false positives and false negatives respectively. We have observed that, with more training sets, the RI index improves.
 
-We have observed that with more number of training sets RI index improves.
-
-Because of the reason that the training sets contain the flow information for different IP on a router during window of 300 seconds, there is a very high possibility that the same destination IP address is captured in multiple training set. Our goal it to find out the correct cluster for the destination IP address, and to achieve this goal, we check all the cluster assignment for a given destination IP address and we select the cluster which has the highest occurring frequency among all the training sets. We also count the average number of packets going to a given IP address which will help us reduce the error in detecting anomaly. We will save this labeling information and cluster count information for each IP destination on the file system.
+Because of the training sets contain the flow information for different IP addresses on a router during the window of 300 seconds, there is a very high possibility that the same destination IP address is captured in multiple training set. Our goal is to find the correct cluster for the destination IP address, and to achieve this goal, we check all the cluster assignments for a given destination IP address and we select the cluster which has the highest occurring frequency among all the training sets. We also count the average number of packets going to a given IP address which will help us reduce the error in detecting the anomaly. We will save this labeling information and cluster count information for each IP destination on the file system.
 
 \begin{table}[H]
 \centering
@@ -303,23 +300,24 @@ Because of the reason that the training sets contain the flow information for di
 \caption{Learned information after clustering} \label{table:learned-clustering}
 \end{table}
 
-This information tell us the normal behavior of the packets traveling from the router to a given destination. As we have fixed the centroids for the clustering algorithm, every time in the future we should expect the IP address to be found in the same cluster if flow of packets for a given destination is as per the previous knowledge. If there is a DDoS attack on a any destination with flooding, then we can expect to see the destination IP address assigned to different cluster.
+The clustering information tells us the normal behavior of the packets traveling from the router to a given destination. As we have fixed the centroids for the clustering, every time in the future we should expect an IP address to be found in the same cluster mentioned in the clustering information table. But If there is a DDoS attack on a any destination with flooding, then we can expect to see the destination IP address assigned to different cluster.
 
-But from the experiments on different data sets it is found that the destination under attack is labeled with the same cluster number when it was not under attack. This happened because there is no other cluster it can assigned to, so it gets assigned to cluster whose centroid is nearest.
+\subsubsection{Anomaly Detection using One Class Support Vector Machine}
 
-To avoid such situation, we will have to create the boundaries for the clusters. This scheme will make sure that the attack on the destination IP address will be detected even if the destination is assigned to the same cluster it was labeled in the past.
+\paragraph{Support Vector Machine:}
 
-To create cluster boundaries we have used One Class SVM, a supervised machine learning algorithm. Compute and storage requirements of SVM increase rapidly with the number of training vectors, because SVM is a quadratic programming problem (QP). So the approach presented in the paper is more efficient because the number of cluster are limited and always be far less than the number of destination IP address. Training one class SVM on clusters will be far less process and memory intensive than training on massive number of IP address.
+From the experiments on different data sets, it is found that the destination under attack is labeled with the same cluster number. This happened because there is no other cluster it can be assigned to, so it gets assigned to the cluster whose centroid is nearest.
 
-For example the number of clusters we have create in our analysis are 4 in number, while the number of IP addresses to which packets are flowing from our router are 268, which is more than 60 times the count of clusters we have created.
+To avoid such a situation, we will have to create boundaries for the clusters, and if any IP address is out side of the cluster boundries then that can be considered suspicious. This provision will make sure that the attack on the destination IP address will be detected even if the destination is assigned to the same cluster it was assigned in the past.
 
-\subsubsection{Anomaly Detection using One Class Support-Vector Machine}
+To create cluster boundaries we have used One Class SVM. One Class SVM is a supervised machine learning algorithm, which means, the training example will have label. I our case, cluster number will be treated as label for a training example (see table:labeled-set).
 
-\paragraph{Support-Vector Machine:}
+Because SVM solves a quadratic programming problem (QP), computing and storage requirements of SVM increases rapidly with the number of training vectors. The approach presented in this paper is more efficient because the number of cluster are limited and always be far less than the number of destination IP address. Training one class SVM on clusters will be far less process and memory intensive than training on massive number of IP addresses. E.g. In our simulation training sets we have 4 four clusters, while the unique number of destination IP addresses in all the training sets is 268, which is more than 60 times the count of clusters we have found.
 
-Support-Vector Machine is a supervised learning algorithm which tries to classify data. Classification is based on the label of the training set. Consider the training set $\{(x^{1},y^{1}),(x^{2},y^{2}), .., (x^{m},y^{m})\}$, where $x^{i} \in \mathbb{R}^d$ is the training example and $y^{i} \in \{-1, +1\}$ is the label which is the classification value for $x^{i}$,
+Support Vector Machine is a supervised learning algorithm which tries to classify training examples into two distinct classes. Classification is based on the labels of the training set.
+Consider the training set $\{(x^{1},y^{1}), .., (x^{m},y^{m})\}$, where $x^{i} \in \mathbb{R}^d$ is the training example and $y^{i} \in \{-1, +1\}$ is a label (or a class) for $x^{i}$. SVM will separates those classes using a line or a curve.
 
-SVM try to create non-linear separation boundary by projecting data points through a non-linear function $\phi$ to higher dimension space. The data points in space $I$ which can't be separated by a line are projected to the feature space $F$ where there can a hyperplane that separate data point of one class form another. If the hyperplane is projected back on original space $I$ then we get non-linear curve.\cite{svm}
+SVM tries to create a non-linear separation boundary by projecting data points through a non-linear function $\phi$ (kernel function) to higher dimension space. The data points in space $I$ which can't be separated by a line are projected to the feature space $F \in \mathbb{R}^d$ where there can be a hyperplane that separates data points of one class form another. If that separating hyperplane is projected back on the original space $I$ then we get a non-linear curve.\cite{svm}
 
 \begin{figure}[H]
 \centering
@@ -327,41 +325,39 @@ SVM try to create non-linear separation boundary by projecting data points throu
 \caption{Linear Separation using Support Vector} \label{fig:SVM}
 \end{figure}
 
-The hyperplane is represented with the equation $w^{T}x + b = 0$, where $w \in F$ and $b \in R$. This hyperplane separates the training example labeled with $-1$ and $1$ into different classes. The position of the hyperplane is such that the distance from the closest point from each class to the hyperplane is same. To avoid the over-fitting, slack variables $\xi^{i}$ are introduced. Over-fitting happen because the learned hypothesis fit training examples so well that it fails to generalize the new examples. The constant $C > 0$ is the regularization parameter. If $C$ is chosen large, miss-classification of training examples can be avoided. If chosen small, then we may miss-classify few examples, but the margin will be large, so that most of the points will be far away from the decision boundary. The SVM optimization problem is stated as follows.\cite{svm} \cite{svm-ml}
+The hyperplane is represented with the equation $w^{T} x + b = 0$, where $x \in \mathbb{R}^d$, $w \in F$ and $b \in \mathbb{R}$. $\phi$ is a kernel function. This hyperplane separates the training example labeled with $-1$ and $1$. The position of the hyperplane is such that the distance from the closest point from each class to the hyperplane is same. To avoid the over-fitting, slack variables $\xi^{i}$ are introduced. Over-fitting happens because the learned hypothesis fits training examples so well that it fails to generalize the new examples. The SVM classification is an optimization problem which is stated as follows.\cite{svm} \cite{svm-ml}
 
 \begin{center}
   ${min}_{w,b,\xi^i} \ \frac{||w||^2}{2} + C \sum_{i=1}^m \xi^i$ \\
   $\mbox{ subject to: }$ \\
   $y^i( w^T \phi(x^i) + b) \geq 1 - \xi^i \mbox{ for all } i = 1, \dots, m$ \\
-  \hspace{3cm} $\xi^i \geq 0 \mbox{ for all } i = 1, \dots, m$ \\
+  where $y^{i} \in \{-1, +1\}$, $x \in \mathbb{R}^d$, $b \in \mathbb{R}$ and $\xi^i \geq 0 \mbox{ for all } i = 1, \dots, m$ \\
 \end{center}
 
-If this minimization problem is solved using Lagrange multipliers then the classification function $f(x)$ can be stated as.
+ The constant $C > 0$ is the regularization parameter. If $C$ is chosen large, miss-classification of training examples can be avoided. If chosen small, then we may miss-classify few examples, but the margin will be large, so most of the points will be far away from the decision boundary. If this minimization problem is solved using Lagrange multipliers then the classification function is:
 
 \begin{center}
-$f(x)=sgn(\sum_{i=1}^m \alpha^i y^i K(x,x^i) \ + b)$
+$sign(\sum_{i=1}^m \alpha^i y^i K(x,x^i) \ + \rho)$
 \end{center}
 
-$\alpha^i$ here are the Lagrange multipliers and $x^i$ with $\alpha^i$ are called the Support Vectors.
+$\alpha^i$ is the Lagrange multipliers. $\alpha^i y^i$ called the support vectors. The function $K(x,x^i)=\phi(x)^T \phi(x^i)$ is the kernel and $\rho \in \mathbb{R}$ is the intersection.
 
-The function $K(x,xi)=\phi(x)^T \phi(xi)$ is known as the kernel function. kernel function responsible for projecting data points to the hyperplane.
+\paragraph{One Class Support Vector Machine:}
 
-\paragraph{One Class Support-Vector Machine:}
-
-One Class Support-Vector Machine (One Class SVM) is the extension of SVM which detect boundaries of the training set so that every new training example will be classifies as belong to training set or not. It separates all the training set data point from feature space $F$ and maximizes the distance of hyperplane from $F$. This creates a binary function which returns +1 for the training example that fits in the trained set region, otherwise it will return -1.
+One Class Support Vector Machine (SVM) is the extension of SVM which detects boundaries of the training set so that every new training example will be classifies as belong to training set or not. It separates all the training set data point from feature space $F$ and maximizes the distance of hyperplane from $F$. This creates a binary function which returns +1 for the training example that fits in the trained set region, otherwise it will return -1.
 
 The minimization function of One Class SVM is slightly different than the SVM. \cite{svm}
 
 \begin{center}
-  ${min}_{w,\rho,\xi^i} \ \frac{||w||^2}{2} + \frac{1}{\nu n} \sum_{i=1}^m \xi^i - \rho$ \\
+  ${min}_{w,\rho,\xi^i} \ \frac{||w||^2}{2} + \frac{1}{\nu m} \sum_{i=1}^m \xi^i - \rho$ \\
   $\mbox{ subject to: }$ \\
   $(w.\phi(x^i)) \geq \rho - \xi^i \mbox{ for all } i = 1, \dots, m$ \\
   \hspace{2cm} $\xi^i \geq 0 \mbox{ for all } i = 1, \dots, m$ \\
 \end{center}
 
-The new variable introduced $\nu$ in place of $C$ in previous SVM equation is used to set upper bound on outliers/anomalies and lower bound on the number of training examples.
+The new parameter $\nu \in (0,1]$ introduced in place of $C$ in previous SVM equation is used to set upper bound on outliers/anomalies and lower bound on the number of training examples.
 
-We are using Scikit-learn's `OneClassSVM' library to train the model and create classifier for each cluster. The input vector to the classifier is the set of all the training examples belonging to same clusters. Thus, if we have four clusters then we will have four classifier. The input vector to the classier will be of the form shown in Table \ref{table:labeled-set}.
+We are using Scikit-learn's `OneClassSVM' library to train the model and create classifier for each cluster. The input vector to the classifier is the set of all the training examples belonging to the same clusters. Thus, if we have four clusters then we will have four classifier. The input vector to the classier will be of the form shown in table \ref{table:labeled-set} on page \pageref{table:labeled-set}.
 
 Following is the result of modeling on the training data sets. Each cluster has it own model.
 
