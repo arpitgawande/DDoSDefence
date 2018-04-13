@@ -29,6 +29,7 @@
 \newlabel{fig:flow}{{4}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Analysis techniques to be implemented}{10}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Implementation}{11}}
+\newlabel{sec:Implementation}{{5}{11}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Wireshark Tool: snippet of captured packets}}{12}}
 \newlabel{fig:wireshark}{{5}{12}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Network for simulating DDoS detection}}{13}}
@@ -43,6 +44,7 @@
 \citation{k-means-clustering}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Feature Scaling}{17}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.2}Clustering}{17}}
+\newlabel{subsec:Clustering}{{5.1.2}{17}}
 \citation{k-means++}
 \@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces k-means}}{18}}
 \newlabel{k-means}{{1}{18}}
@@ -51,33 +53,42 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces One training example}}{19}}
 \newlabel{fig:training_example}{{7}{19}}
 \@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Elbow Method for cluster count detection}}{20}}
-\newlabel{fig:elbowmethod}{{8}{20}}
-\citation{pca}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Example of cluster centroids: A row is a cluster and column is a feature}}{21}}
-\newlabel{table:centroids}{{3}{21}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Clustering using k-means++ algorithm}}{21}}
-\newlabel{fig:k-means-clustering}{{9}{21}}
+\newlabel{fig:elbow-method}{{8}{20}}
 \citation{ri-index}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Labeled Training Set (with cluster number)}}{22}}
-\newlabel{table:labeled-set}{{4}{22}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Learned information after clustering}}{23}}
-\newlabel{table:learned-clustering}{{5}{23}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Anomaly Detection using One Class Support Vector Machine}{23}}
-\@writefile{toc}{\contentsline {paragraph}{Support Vector Machine:}{23}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Example of cluster centroids: A row is a cluster and column is a feature}}{21}}
+\newlabel{table:centroids-example}{{3}{21}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Learned information after clustering}}{22}}
+\newlabel{table:learned-clustering}{{4}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.3}Anomaly Detection using One Class Support Vector Machine}{22}}
+\@writefile{toc}{\contentsline {paragraph}{Support Vector Machine:}{22}}
 \citation{svm}
 \citation{svm}
 \citation{svm-ml}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Linear Separation using Support Vector}}{24}}
-\newlabel{fig:SVM}{{10}{24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Linear Separation using Support Vector}}{23}}
+\newlabel{fig:SVM}{{9}{23}}
 \citation{svm}
-\@writefile{toc}{\contentsline {paragraph}{One Class Support Vector Machine:}{25}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces One Class SVM}}{26}}
-\newlabel{fig:one-class-SVM}{{11}{26}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Detection}{27}}
+\@writefile{toc}{\contentsline {paragraph}{One Class Support Vector Machine:}{24}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Detection}{25}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Simulation}{26}}
+\citation{pca}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Elbow Method result}}{27}}
+\newlabel{fig:elbow-method-applied}{{10}{27}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Cluster centroids for our training examples}}{27}}
+\newlabel{table:centroids}{{5}{27}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Clustering using k-means++ algorithm}}{28}}
+\newlabel{fig:k-means-clustering}{{11}{28}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Labeled Training Set (with cluster number)}}{28}}
+\newlabel{table:labeled-set}{{6}{28}}
+\citation{nfv}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces One Class SVM}}{30}}
+\newlabel{fig:one-class-SVM}{{12}{30}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Mitigation}{30}}
 \citation{icmp}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Router Network Communication}}{28}}
-\newlabel{fig:router-network-communication}{{12}{28}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Blocking traffic at router: The out-bound traffic for S2 is blocked from router R6, because attack has been detected. While traffic from all other routers is unaffected}}{32}}
+\newlabel{fig:mitigation_path}{{13}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Router Network Communication}}{33}}
+\newlabel{fig:router-network-communication}{{14}{33}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{34}}
 \bibstyle{unsrt}
 \bibdata{biblo}
 \bibcite{ddos-attack-news}{1}
@@ -95,6 +106,7 @@
 \bibcite{svm}{13}
 \bibcite{k-means-clustering}{14}
 \bibcite{k-means++}{15}
-\bibcite{pca}{16}
-\bibcite{ri-index}{17}
-\bibcite{svm-ml}{18}
+\bibcite{ri-index}{16}
+\bibcite{svm-ml}{17}
+\bibcite{pca}{18}
+\bibcite{nfv}{19}
