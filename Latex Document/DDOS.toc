@@ -16,5 +16,5 @@
 \contentsline {paragraph}{One Class Support Vector Machine:}{24}
 \contentsline {section}{\numberline {6}Detection}{25}
 \contentsline {section}{\numberline {7}Simulation}{26}
-\contentsline {section}{\numberline {8}Mitigation}{30}
-\contentsline {section}{\numberline {9}Conclusion}{34}
+\contentsline {section}{\numberline {8}Mitigation}{29}
+\contentsline {section}{\numberline {9}Conclusion}{32}

@@ -279,7 +279,7 @@ Because of the training sets contain the flow information for different IP addre
 
 The clustering information tells us the normal behavior of the packets traveling from the router to a given destination. As we have fixed the centroids for the clustering, every time in the future we should expect an IP address to be found in the same cluster mentioned in the clustering information table. But If there is a DDoS attack on a any destination with flooding, then we can expect to see the destination IP address assigned to different cluster.
 
-\subsubsection{Anomaly Detection using One Class Support Vector Machine}
+\subsubsection{Anomaly Detection using One Class Support Vector Machine} \label{subsec:Anomaly_Detection}
 
 \paragraph{Support Vector Machine:}
 
@@ -334,7 +334,7 @@ The minimization function of One Class SVM is slightly different than the SVM. \
 
 The new parameter $\nu \in (0,1]$ introduced in place of $C$ in previous SVM equation is used to set upper bound on outliers/anomalies and lower bound on the number of training examples.
 
-\section{Detection}
+\section{Detection} \label{sec:Detection}
 
 To detect an attack, we capture the flow in any time interval (e.g. 300 seconds). It should be the same time window with which we have created our trained set. We transform the captured flow into a test set using same programs we have used to create training sets from the sample files. The created test set is then clustered using the kmeans++ algorithm with the centroids, that were found after clustering the training sets, as input. We then check cluster assigned of each example from the test set and if there is any destination IP address\footnote{a destination IP address is a label of a test example} for which the new cluster assignment does not match with the already known cluster for that destination IP address, then that destination IP address is suspected to be under the DDoS attack and so it is added to the suspect list. The suspect list will contain the IP addresses which are probably under DDoS attack, because they are not in the cluster they are supposed to.
 
@@ -342,18 +342,18 @@ In another scenario, If the test cluster label matches with the trained cluster 
 
 \section{Simulation}
 
-We have created a simulation for detecting DDoS attack using the approach proposed in this paper. As explained in section~\ref{sec:Implementation}, we have a small network created for the demonstration purpose. We captured normal as well as orchestrated DDoS attack traffic in the network. We have processed capture data to convert them into samples and use those samples to create training sets. We are using training sets created from the normal traffic for labeling IP addresses with cluster numbers and then training the classifier.
+We have created a simulation for detecting DDoS attack using the approach proposed in this paper. As explained in section~\ref{sec:Implementation} on page \pageref{sec:Implementation}, we have a small network of three computers and a router. We captured the normal as well as orchestrated DDoS attack traffic in the network. We processed the capture data, converted it into samples and use those samples to create training sets. We are using training sets created from the normal traffic for labeling IP addresses with cluster numbers, and then training the classifiers.
 
-We have first used elbow method explained in section \ref{subsec:Clustering} on page \pageref{subsec:Clustering} to detect the optimal cluster count. We were able to detect 4 clusters in our training set.
+We have first used the elbow method explained in section \ref{subsec:Clustering} on page \pageref{subsec:Clustering} to detect the optimal cluster count. Using that method, we were able to detect 4 clusters in our training sets.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.90\textwidth]{elbow-method-applied.png}
-\caption{Elbow Method result}
+\caption{Elbow method to find number of clusters}
 \label{fig:elbow-method-applied}
 \end{figure}
 
-We then applied kmeans++ clustering as explained in section \ref{subsec:Clustering} on page \pageref{subsec:Clustering}, to find the correct centroids for our training examples.
+We then applied kmeans++ clustering as explained in section \ref{subsec:Clustering} on page \pageref{subsec:Clustering}, to find the correct centroids for our training examples. We found following centroids for our training sets.
 
 \begin{table}[H]
 \centering
@@ -368,9 +368,7 @@ We then applied kmeans++ clustering as explained in section \ref{subsec:Clusteri
 \caption{Cluster centroids for our training examples} \label{table:centroids}
 \end{table}
 
-We then used these centroids to run kmeans++ algorithm and get correct clusters for our training sets.
-
-To draw data points in two dimensional space we had to reduce the three dimensional training example into two dimensions without loosing much information. We have achieved this by using Principal-Component Analysis (PCA). PCA is a technique for taking a dataset consisting of a set of tuples representing points in a high-dimensional space and finding the directions along which the tuples line up best.\cite{pca}. We have used the Scikit-learn PCA module for this purpose.
+We then used these centroids to cluster our training sets. To draw data points in two dimensional space we had to reduce the three dimensional training example into two dimensions without loosing much information. We have achieved this by using Principal-Component Analysis (PCA). PCA is a technique for taking a dataset consisting of a set of tuples representing points in a high-dimensional space and finding the directions along which the tuples line up best.\cite{pca}. We have used the Scikit-learn PCA module for this purpose.
 
 \begin{figure}[H]
 \centering
@@ -378,7 +376,7 @@ To draw data points in two dimensional space we had to reduce the three dimensio
 \caption{Clustering using k-means++ algorithm} \label{fig:k-means-clustering}
 \end{figure}
 
-Using the centroids obtained in the previous step, we ran k-means++ algorithm and then test it for accuracy. k-means++ algorithm gives label to each training example. This label is the cluster number to which that training example has been assigned to. So the new labeled data look like in \ref{table:labeled-set} below.
+k-means++ algorithm gives label to each training example. This label is the cluster number to which that training example has been assigned to. So the new labeled data look like in the table \ref{table:labeled-set} below.
 
 \begin{table}[H]
 \centering
@@ -393,15 +391,11 @@ Using the centroids obtained in the previous step, we ran k-means++ algorithm an
 \caption{Labeled Training Set (with cluster number)} \label{table:labeled-set}
 \end{table}
 
-We ran the k-means++ for all the training sets, and produce cluster labels. We then checked how similar the test set clustering is with train set clustering using the Rand Index. We have observed that, with more training sets, the RI index improves.
+We ran the k-means++ for all the training sets, and also on a test set created from the normal traffic flow in our network. Both the sets are are labeled with cluster numbers. We then checked how similar the test set clustering is with train set clustering using the Rand Index. We observed that, with more training sets, the RI index improves. A tag file which contains IP addresses, their cluster labels and average packet count. This tag file will be used for detecting anomaly in the network traffic.
 
-To have correct clustering we have checked all the cluster assignments for a given destination IP address and selected the cluster which has the highest occurring frequency among all the training sets. We have also count the average number of packets going to a given IP address which will help us reduce the error in detecting the anomaly. We saved this labeling information and cluster count information for each IP destination on the file system.
+As explained in the the section \ref{subsec:Anomaly_Detection} on page \pageref{subsec:Anomaly_Detection}, we then used the training sets, that are labeled with cluster number, to train the classifiers. We are using Scikit-learn's `OneClassSVM' library to train the model and create classifier for each cluster. The input vector to the classifier is the set of all the training examples belonging to the same cluster. Thus, for our four clusters, we have four classifier. The input vector to the classifier will be of the form shown in table \ref{table:labeled-set} on page \pageref{table:labeled-set}.
 
-We then used the training sets which are labeled with cluster number to train the classifier. Classifier would create boundaries around the clusters.
-
-We are using Scikit-learn's `OneClassSVM' library to train the model and create classifier for each cluster. The input vector to the classifier is the set of all the training examples belonging to the same clusters. Thus, for our four clusters, we have four classifier. The input vector to the classifier will be of the form shown in table \ref{table:labeled-set} on page \pageref{table:labeled-set}.
-
-Following is the result of modeling on the training data sets. Each cluster has it own model.
+Following is the result of modeling on the training data sets. Each cluster has it own model. We used PCA component analysis to draw the classification.
 
 \begin{figure}[H]
 \centering
@@ -409,15 +403,17 @@ Following is the result of modeling on the training data sets. Each cluster has 
 \caption{One Class SVM} \label{fig:one-class-SVM}
 \end{figure}
 
-Once all the training is done we have file which has IP addresses labeled with cluster number they belong to also we have classifier for each cluster.
+At the end of the training, we have a file containing the IP addresses labeled with a cluster number an IP address belong to also we have classifier for each cluster.
 
-Now we take the test set which was created by capturing packets during the DDoS attack and used detection techniques explained in section \ref{}. Using the detection techniques we have successfully detected an attack on the destination IP address 92.168.0.7 in our modeled network.
+We took the test set which was created by capturing packets during the orchestrated DDoS attack, and used detection techniques explained in section \ref{sec:Detection} on page \pageref{sec:Detection}. Using the detection techniques on our data, we have successfully detected an attack on the destination IP address 92.168.0.7 in our modeled network.
 
 \section{Mitigation}
 
-By now we have programs which can be run on the router and can be used to detect DDoS attack. As there are many routers through which a destination can be reached, so to correctly detect DDoS attack we should have these programs on every router in the network or all the routers in the Internet. One of the way to achieve this is by using Network function virtualization (NFV)\cite{nfv}. NFV is an advanced technology which allows to manage network devices remotely and also allows to add functionality to those network devices. Because of this technique we don't have to manually install computer programs on the routers rather we can do it any time remotely. Although this technology is new but its spreading very fast and soon will be available for every commercial router.
+By now we have a computer program (consist of many modules, e.g. clustering and classification) which can be run on a router and can be used to detect a DDoS attack. As there are many routers through which a destination can be reached, so to correctly detect DDoS attack we should have this programs on every router in the Internet. One of the way to achieve this is by using Network function virtualization (NFV)\cite{nfv}. NFV is an advanced technology which allows us to manage network devices remotely and also allows to add functionality to those network devices. Because of this technology, we don't have to manually install computer programs on the routers rather we can do it any time from anywhere. Although this technology is new, its spreading very fast and soon will be available for every commercial router.
 
-After detecting an attack, the router can choose to block all the packets going to the destination under attack or it can communicate the attack information to the destination, destination could be a server or a router. The attack information can contain region and packet count. Region is the geographical location where the router is situated and packet count is the number of packets observed at the router having a given destination. Communicating the attack information to destination can be more helpful, because the destination will be aware of the nature of the attack, i.e. from where it is originated and how intense the attack is. Destination can also query router for more information such as IP source of the attack packets. The control of blocking traffic at router can also be given to the destination. In this case, destination can perform its own analysis, understand the nature of attack and then can decide, whether to block incoming packets on the router. There can be different parameter based on which the destination server can decide blocking the flow. Many questions can be asked before making the decision, such as, how many routers have reported the change in traffic?, Is the attack information coming from the region which never had traffic in the past?
+After detecting an attack, a router can choose to block all the packets going to the destination under attack, or it can communicate the attack information to the destination. A destination can be a server or a router. The attack information can contain region name and packet count. Region is the geographical location where the router is situated and packet count is the number of packets observed at the router for the destination. Communicating the attack information to the destination can be more helpful, because the destination will be aware of the nature of the attack, i.e. for the information provided by router it will know from where attack is originated and how intense the attack is. The destination can also query router for more information such as IP source of the attack packets.
+
+The control of blocking traffic at router can also be given to the destination also. In this case, destination can perform its own analysis, understand the nature of attack and then can decide, whether to block incoming packets on the router. There can be different parameter based on which the destination server can decide blocking the flow. Many questions, such as, how many routers have reported the change in traffic?, Is the attack information coming from the region which never had traffic in the past? can be asked before making the decision.
 
 \begin{figure}[H]
 \centering
@@ -431,13 +427,12 @@ To Communicate the destination network about the attack, router can use the exis
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{router-network-communication}
-\caption{Router Network Communication} \label{fig:router-network-communication}
+\caption{Communication between router and destination server} \label{fig:router-network-communication}
 \end{figure}
 
-\pagebreak
-
 \section{Conclusion}
-A novel way to identify and mitigate DDoS attack is discussed in this paper. With the advance of NVF(Network Virtual Functional) it is easy to push the learning algorithms to the routers allowing them to detect a DDoS attacks using machine learning algorithms. The DDoS detection and mitigation information can be communicated using existing ICMP protocol making system available to every one who want to use it. This approach has been tested with the small network so further experiments are needed to be performed on the larges networks.
+We have found that DDoS attack is a real threat to every one and its detection is difficult because of the spoofing techniques employed. We discussed how we can combine two machine learning methods (clustering and classification) to efficiently detect DDoS attacks at the router. We also discussed that, the program which uses these algorithms can be installed on the router, thus eliminate need for extra infrastructure. With the advancement of Network Virtual Functional (NVF) it is easy to push the learning algorithms on the routers. We have also discussed few mitigation techniques which further needs to be studied and can be the future scope of this paper.
+
 \pagebreak
 
 \singlespacing

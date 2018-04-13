@@ -182,7 +182,9 @@ INPUT ./demo_network.png
 INPUT training_example.png
 INPUT ./training_example.png
 INPUT ./training_example.png
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
+INPUT elbow-method.png
+INPUT ./elbow-method.png
+INPUT ./elbow-method.png
 INPUT SVM.png
 INPUT ./SVM.png
 INPUT ./SVM.png
@@ -203,6 +205,7 @@ INPUT ./router-network-communication.png
 INPUT ./router-network-communication.png
 INPUT DDOS.bbl
 INPUT DDOS.bbl
+INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT DDOS.aux
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
