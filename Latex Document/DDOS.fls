@@ -197,6 +197,9 @@ INPUT ./kemans-clustering.png
 INPUT one-class-SVM.png
 INPUT ./one-class-SVM.png
 INPUT ./one-class-SVM.png
+INPUT detected_IP.png
+INPUT ./detected_IP.png
+INPUT ./detected_IP.png
 INPUT mitigation_path.png
 INPUT ./mitigation_path.png
 INPUT ./mitigation_path.png
