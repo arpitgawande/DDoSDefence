@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  19 MAR 2018 17:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  14 APR 2018 07:15
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -441,12 +441,12 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 
 (./_minted-python_programs/2878B57B3A4C831701179FB2EF0CBAD666A889C465B8F7C9384C
 5490E86A2064.pygtex)
-<elbow-method.png, id=32, 722.7pt x 578.16pt>
+<elbow-method.png, id=32, 642.4pt x 401.5pt>
 File: elbow-method.png Graphic file (type png)
 <use elbow-method.png>
 Package pdftex.def Info: elbow-method.png  used on input line 346. on input lin
 e 346.
-Package pdftex.def Info: Requested size: 427.1813pt x 341.74663pt on input line
+Package pdftex.def Info: Requested size: 427.1813pt x 266.99414pt on input line
  346.
  [8 <./elbow-method.png>]
 \openout3 = `python_programs.pyg'.
@@ -582,20 +582,20 @@ e 772.
 \openout3 = `python_programs.pyg'.
 
 
-(./_minted-python_programs/C082C42A6C4457F083465C93462A22AC66A889C465B8F7C9384C
+(./_minted-python_programs/153EED92670AD090F4BDAFCE6F76EA7866A889C465B8F7C9384C
 5490E86A2064.pygtex)
 \openout3 = `python_programs.pyg'.
 
 
 (./_minted-python_programs/68B329DA9893E34099C7D8AD5CB9C94066A889C465B8F7C9384C
-5490E86A2064.pygtex) [18] (./python_programs.aux)
+5490E86A2064.pygtex [18]) [19] (./python_programs.aux)
 runsystem(rm python_programs.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
  5540 strings out of 492985
  107235 string characters out of 6132570
- 222724 words of memory out of 5000000
+ 219315 words of memory out of 5000000
  8896 multiletter control sequences out of 15000+600000
  8231 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -607,10 +607,10 @@ Here is how much of TeX's memory you used:
 usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
 r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
 local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on python_programs.pdf (18 pages, 226387 bytes).
+Output written on python_programs.pdf (19 pages, 218125 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
+ 101 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 

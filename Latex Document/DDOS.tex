@@ -15,15 +15,14 @@
 \doublespacing
 \renewcommand{\thepage}{\roman{page}}% Roman numerals for page counter
 \setcounter{page}{2}% Start page number with 2
+\includepdf{abstract}
 \tableofcontents
 \newpage
 %For page numbering at top right of the page
 \pagestyle{myheadings}
-\renewcommand{\thepage}{\arabic{page}}% Arabic numerals for page counter
 
-\begin{abstract}
-Distributed Denial of Service (DDoS) attacks are very common these days\cite{ddos-attack-news}. It is evident that the current industry solutions, such as completely relying on Internet Service Provider(ISP) or setting up DDoS defense infrastructure, are not sufficient in detecting and mitigating DDoS attacks, hence consistent research is needed. Most of the current industry solutions involve setting up a centralized expensive hardware system which can analyze the data packets for probable DDoS attacks. Also, each router provider has different protocols to communicate between the DDoS attack detection system and the router/networking devices, limiting the reach of DDoS detection systems. In this paper we have discussed a way to detect DDoS attacks using machine learning tools at the routers, instead of setting a centralized analysis system. We have also proposed a standard communication architecture which can be used across all the networking devices for mitigating DDoS attacks.
-\end{abstract}
+\pagebreak
+\renewcommand{\thepage}{\arabic{page}}% Arabic numerals for page counter
 
 \section{Existing Systems}
 
@@ -46,11 +45,11 @@ E.g. Cisco netflow has flow exporter, collector and analysis modules. Flow expor
 These technologies scales well and can be sufficient to indicate trends in network traffic but they have limitations. 1) They are not cross platform, e.g. router with Sflow protocol can't work with Cisco routers. 2) They involve setting up expensive hardware which acts as collector server. 3) Source address is used for flow analysis which is not reliable due to IP spoofing in the case of DDoS attack.\par
 
 Now we know that the router-based flow analysis can be useful for anomaly detection, but it has limitations. We don't want to set up expensive hardware, we want to have a protocol or a system which is compatible with other routers. Also, we don't want source IP address for detection analysis. So, if we can come up with a way by which we can detect anomaly in the traffic at the intermediate devices on the Internet such as gateway devices(routers) and create a communication protocol between such gateway devices and the destination server or network, then better decisions on regulating the packet flow can be taken.
-
+\pagebreak
 \section{DDoS Detection and Mitigation}
 
 DDoS attacks can be detected by checking if there is any anomalous behavior in the network traffic, such as, a sudden increase in the number of packets going to a destination. This can be done at the server by observing all the incoming traffic or it can be done by observing all the outgoing/incoming traffic at the ISP's or at every router. Attack can be mitigated if the anomalous packets are blocked from reaching their destination.
-
+\pagebreak
 \section{Network Functioning}
 
 A switch creates a network and router connects those networks. A router links a computer to the Internet through other routers. Routers are the backbone of the network who helps to forward packet from one point to other point on the Internet. Every packet traveling on the Internet goes through a router\cite{router-switch}. Router knows where the packet is destined, hence it could serve as first point of knowledge about the change in the packet flow information for a destine network. Each router has interfaces to which hosts, or other network are connected. So, router is aware to whom it is connected. Router uses protocol to communicate between other networking devices and by that it gathers knowledge about other networks or routers on the Internet. ICMP\cite{icmp} is one of the most frequently use protocol by routers for communication.\par
@@ -71,7 +70,7 @@ Using traceroute we can see how many hops\footnote{hops are intermediate routers
 \end{figure}
 
 We can see that the packet traverse through the 15 routers to reach to camden.rutgers.edu server. This trace route is taken from a location in the New Jersey State.\par
-
+\pagebreak
 \section{Our Approach}
 
 \subsection{The router as a point of analysis}
@@ -104,7 +103,7 @@ To achieve this, we will gather the flow information during a time window (e.g. 
 In the proposed system, each router will itself act as an analyzer. Each packet will be analyzed, and a flow statistic will be created based on the destination IP address. Flow statistic will be used to create feature vectors and those feature vectors will be used for clustering destination IP address. Clustering is a process of examining the collection of “points,” and grouping the points into “clusters” according to some distance measure. The goal is to minimize the distance of every point in the cluster to other points in the same clusters.\cite{machine-learning}.
 
 Once the clustering is learned (i.e. we know which destination IP address is tending to be in which cluster), the learned information will be used as a benchmark for all future flows. The routers will constantly keep clustering destination IP addresses and if there is deviation for the normal traffic at a router for any destination then that will affect the clustering and it will cause the destination IP address to be placed in different cluster. This change in the cluster for a given destination IP address can be marked as a change in the behavior of the traffic for that destination. Along with the cluster we will also use the Novelty Detection algorithm to achieve more accurate result. This change in traffic behavior will be reported to destination network, which then decides on regulating the traffic coming to itself from the router which has sent the information.
-
+\pagebreak
 \section{Implementation} \label{sec:Implementation}
 
 As discussed previously, there are different types of DDoS attacks, such as volume-based, application-based and also low-rate DDoS attacks. Among these different types of DDoS attacks, the volume-based attacks are most common. In the volume-based attack, a victim is flooded with a high volume of Internet packets (TCP, UDP, HTTP or ICMP), which make it unable to serve the requests.
@@ -335,13 +334,13 @@ The new parameter $\nu \in (0,1]$ introduced in place of $C$ in previous SVM equ
 Because SVM solves a quadratic programming problem (QP), computing and storage requirements of SVM increases rapidly with the number of training vectors. The approach presented in this paper is more efficient because the number of cluster are limited and always be far less than the number of destination IP address. Training one class SVM on clusters will be far less process and memory intensive than training on massive number of IP addresses. E.g. In our simulation training sets we have 4 four clusters, while the unique number of destination IP addresses in all the training sets is 268, which is more than 60 times the count of clusters we have found.
 
 To classify whether a test example can be a part of a cluster, we need to have classifier for each cluster. I.e. If we have four clusters, we need to train four One Class SVM classifiers, one for each cluster.
-
+\pagebreak
 \section{Detection} \label{sec:Detection}
 
 To detect an attack, we have to capture the packet flow at the router during a time interval with which we have created our trained set (e.g. 300 second window). We have to transform the captured flow into a test set using same programs we have used to create training sets from the sample files. The created test set is then clustered using the k-means++ algorithm, using the centroids, that were found after clustering the training sets. We then check the cluster assignment for each example in the test set, and if there is any destination IP address\footnote{a destination IP address is a label of a test example} for which the new cluster assignment does not match with the already known cluster for that destination IP address, then that destination IP address is suspected to be under the DDoS attack and so it is added to the suspect list. The suspect list will contain the IP addresses which are probably under DDoS attack because they are not in the cluster they are supposed to.
 
 In another scenario, If the test cluster label for an IP address matches with the trained cluster label, then the feature vector for that destination IP address is passed to the cluster classifier to check if it is inside the boundary of that cluster. As explained in previous section, we will use One Class SVM classifier to decide the boundaries. E.g. if an IP address is labeled with cluster number 0, then we will use One Class SVM classifier that was trained on cluster 0. If the output of the classifier is -1 then that destination IP address is added to the suspect list. Failing to be in the same cluster boundary, that it was in the past, is a sign of significant change in the behavior of the traffic for a given destination IP address on the router where this analysis is done. For every destination from the compiled suspect list, the total number of packets observed in the test set are also recorded. The packet count will act as a filter, to eliminate any misclassification. If there is a significant difference between the number of captured packets in the training and in the test, then that destination IP address will be considered under DDoS attack.
-
+\pagebreak
 \section{Detection Simulation}
 
 We have created a simulation for detecting DDoS attack using the approach proposed in this paper. As explained in section~\ref{sec:Implementation} on page \pageref{sec:Implementation}, we have a small network of three computers and a router. We captured the normal as well as orchestrated DDoS attack traffic in the network. We processed the capture data, converted it into samples and use those samples to create training sets. We are using training sets created from the normal traffic for labeling IP addresses with cluster numbers, and then training the classifiers.
@@ -414,7 +413,7 @@ We took the test set which was created by capturing packets during the orchestra
 \includegraphics[width=0.80\textwidth]{detected_IP.png}
 \caption{Program output} \label{fig:detected_IP}
 \end{figure}
-
+\pagebreak
 \section{Mitigation}
 
 By now we have a computer program (consist of few modules, e.g. clustering, classification, detection) which can be run on a router and can be used to detect a DDoS attack. As there are many routers through which a destination can be reached, so to correctly detect DDoS attack we should have this programs on every router in the Internet. One of the way to achieve this is by using Network Function Virtualization (NFV)\cite{nfv}. NFV is an advanced technology which allows us to manage network devices remotely and also allows to add functionality to those networking devices. Because of this virtual technology, we don't have to manually install computer programs on the routers rather we can do it anytime from anywhere. Although this technology is new, its spreading very fast and soon will be available for every commercial router.
@@ -437,7 +436,7 @@ To Communicate the destination network about the attack, router can use the exis
 \includegraphics[scale=0.5]{router-network-communication}
 \caption{Communication between a router and a destination server} \label{fig:router-network-communication}
 \end{figure}
-
+\pagebreak
 \section{Conclusion}
 We have found that the DDoS attack is a real threat to everyone on the Internet, and its detection is difficult because of the spoofing techniques employed by attackers. We discussed how we can combine two machine learning methods (clustering and classification) to efficiently detect DDoS attacks at the router. We also discussed that, the program which uses these algorithms can be installed on the router, thus eliminate the need for extra infrastructure for detection of a DDoS attack. With the advancement of Network Function Virtualization (NFV), it is easy to push the learning programs on the routers. We have also discussed how a router can stop an attack and also how it can communicate the attack information with the stake holders (e.g. server) for better decisions on blocking the attack traffic.
 

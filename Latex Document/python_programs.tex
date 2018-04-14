@@ -825,9 +825,9 @@ train_tag_filename = 'ip_cluster_tag_train'
 train_tag_file = os.path.join(base_path,train_tag_filename)
 train_df = pd.read_csv(train_tag_file, index_col=0)
 \end{minted}
-\textbf{\Large{Detect an attack}}
+\textbf{\Large{Detection}}
 \begin{minted}{Python}
-bad_ip_df = pd.DataFrame(columns=['ip', 'packet_count', 'cluster'])
+bad_ip_df = pd.DataFrame(columns=['ip', 'packet_count', 'percent_increase', 'cluster'])
 for ip, row in df.iterrows():
     feature_row = row[:-1]
     cluster_value = row[-1]
@@ -835,16 +835,21 @@ for ip, row in df.iterrows():
     if ip in train_df.index:
         packet_count = feature_row.sum()
         train_cluster = train_df.loc[ip]['cluster']
-        #Compare each ip data with the train cluster
+        #Train packet count
+        train_packet_count = train_df.loc[ip]['packet_count']
+        #Check how many percent increase in the average packet count
+        percent_increase = ((packet_count - train_packet_count) / train_packet_count) * 100
+        #Check the cluster value
         if(cluster_value == train_cluster):
             #SVM test: Check if its inside the boundary using one class svm
             X_test_tran = scaler_dict[cluster_value].transform([feature_row.values])
+            #Check if its inside the cluster boundry using classifier
             prediction = clf_dict[cluster_value].predict(X_test_tran)
             if prediction == - 1:
-                s = pd.Series([ip, packet_count, cluster_value], index=bad_ip_df.columns)
+                s = pd.Series([ip, packet_count, percent_increase, cluster_value], index=bad_ip_df.columns)
                 bad_ip_df = bad_ip_df.append(s, ignore_index=True)
         else:
-            s = pd.Series([ip, packet_count, cluster_value], index=bad_ip_df.columns)
+            s = pd.Series([ip, packet_count, percent_increase, cluster_value], index=bad_ip_df.columns)
             bad_ip_df = bad_ip_df.append(s, ignore_index=True)
 
 bad_ip_df = bad_ip_df.set_index('ip')

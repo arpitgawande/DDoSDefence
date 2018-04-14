@@ -1,20 +1,20 @@
-\contentsline {section}{\numberline {1}Existing Systems}{3}
-\contentsline {subsection}{\numberline {1.1}What is DDoS attack}{3}
+\contentsline {section}{\numberline {1}Existing Systems}{4}
+\contentsline {subsection}{\numberline {1.1}What is DDoS attack}{4}
 \contentsline {subsection}{\numberline {1.2}Challenges in dealing with DDoS attacks}{4}
-\contentsline {section}{\numberline {2}DDoS Detection and Mitigation}{5}
-\contentsline {section}{\numberline {3}Network Functioning}{6}
-\contentsline {section}{\numberline {4}Our Approach}{7}
-\contentsline {subsection}{\numberline {4.1}The router as a point of analysis}{7}
-\contentsline {subsection}{\numberline {4.2}Internet packet flow capturing at the router}{9}
-\contentsline {subsection}{\numberline {4.3}Analysis techniques to be implemented}{10}
-\contentsline {section}{\numberline {5}Implementation}{11}
-\contentsline {subsection}{\numberline {5.1}Machine Learning}{16}
-\contentsline {subsubsection}{\numberline {5.1.1}Feature Scaling}{17}
-\contentsline {subsubsection}{\numberline {5.1.2}Clustering}{17}
-\contentsline {subsubsection}{\numberline {5.1.3}Anomaly Detection using One Class Support Vector Machine}{22}
-\contentsline {paragraph}{Support Vector Machine:}{22}
-\contentsline {paragraph}{One Class Support Vector Machine:}{24}
-\contentsline {section}{\numberline {6}Detection}{25}
-\contentsline {section}{\numberline {7}Detection Simulation}{26}
-\contentsline {section}{\numberline {8}Mitigation}{30}
-\contentsline {section}{\numberline {9}Conclusion}{32}
+\contentsline {section}{\numberline {2}DDoS Detection and Mitigation}{7}
+\contentsline {section}{\numberline {3}Network Functioning}{8}
+\contentsline {section}{\numberline {4}Our Approach}{10}
+\contentsline {subsection}{\numberline {4.1}The router as a point of analysis}{10}
+\contentsline {subsection}{\numberline {4.2}Internet packet flow capturing at the router}{11}
+\contentsline {subsection}{\numberline {4.3}Analysis techniques to be implemented}{12}
+\contentsline {section}{\numberline {5}Implementation}{14}
+\contentsline {subsection}{\numberline {5.1}Machine Learning}{18}
+\contentsline {subsubsection}{\numberline {5.1.1}Feature Scaling}{19}
+\contentsline {subsubsection}{\numberline {5.1.2}Clustering}{20}
+\contentsline {subsubsection}{\numberline {5.1.3}Anomaly Detection using One Class Support Vector Machine}{24}
+\contentsline {paragraph}{Support Vector Machine:}{24}
+\contentsline {paragraph}{One Class Support Vector Machine:}{26}
+\contentsline {section}{\numberline {6}Detection}{28}
+\contentsline {section}{\numberline {7}Detection Simulation}{29}
+\contentsline {section}{\numberline {8}Mitigation}{33}
+\contentsline {section}{\numberline {9}Conclusion}{36}

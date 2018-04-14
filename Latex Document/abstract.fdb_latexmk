@@ -1,12 +1,10 @@
 # Fdb version 3
-["pdflatex"] 1523707860 "title.tex" "title.pdf" "title" 1523708187
+["pdflatex"] 1523709932 "abstract.tex" "abstract.pdf" "abstract" 1523710034
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1480098701 1524 4414a8315f39513458b80dfc63bff03a ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1480098701 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1480098701 1288 655e228510b4c2a1abe905c368440826 ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmr17.tfm" 1480098701 1292 296a67155bdbfc32aa9c636f21e91433 ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1480098701 1124 6c73e740cf17375f03eec0ee63599741 ""
+  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1480098733 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1480098733 32722 d7379af29a190c3f453aba36302ff5a9 ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb" 1480098733 32362 179c33bbf43f19adbb3825bb4e36e57a ""
   "/usr/local/texlive/2017/texmf-dist/tex/generic/ifxetex/ifxetex.sty" 1480098815 1458 43ab4710dc82f3edeabecd0d099626b2 ""
   "/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty" 1490564930 1251 d170e11a3246c3392bc7f59595af42cb ""
   "/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifvtex.sty" 1480098815 6797 90b7f83b0ad46826bc16058b1e3d48df ""
@@ -19,9 +17,9 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1510714426 2484032 9d0351ec5b3f8da39b0a5e1b5caefb32 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1510714510 4130818 830b209953aee53865f0a9eecaf74295 ""
   "/usr/local/texlive/2017/texmf.cnf" 1510714412 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "title.aux" 1523707861 8 a94a2480d3289e625eea47cd1b285758 ""
-  "title.tex" 1523707860 990 d2fb11cc8ea0fbba2061acd48d7193c9 ""
+  "abstract.aux" 1523709933 36 7e783dfa67e436b7abf391d08fc57019 ""
+  "abstract.tex" 1523709936 1604 2cbff73653be8c98a2c4edb2cc01b585 ""
   (generated)
-  "title.aux"
-  "title.log"
-  "title.pdf"
+  "abstract.pdf"
+  "abstract.aux"
+  "abstract.log"
