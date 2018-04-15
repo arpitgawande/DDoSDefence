@@ -13,6 +13,12 @@ Cisco~Security portal.
   \url{https://www.cisco.com/c/en/us/about/security-center/guide-ddos-defense.html}.
 \newblock Online; accessed 1-August-2017.
 
+\bibitem{ddos-attack-news}
+Derek Kortepeter.
+\newblock Destructive ddos attacks increasing at a rapid rate.
+\newblock \url{http://techgenix.com/ddos-attacks-increasing/}, December 2017.
+\newblock Online; accessed 22-August-2017.
+
 \bibitem{ip-spoofing}
 S.~M. Bellovin.
 \newblock A look back at "security problems in the tcp/ip protocol suite".

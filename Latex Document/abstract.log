@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  14 APR 2018 08:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  14 APR 2018 09:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -115,14 +115,10 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.21 \\~
-        \\~\\~\\
+        \\~\\~\\ %4 spaces
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
-
-
-LaTeX Warning: Citation `ddos-attack-news' on page ii undefined on input line 2
-2.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 21--23
@@ -137,25 +133,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--23
 [2
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./abstract.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+(./abstract.aux) ) 
 Here is how much of TeX's memory you used:
- 760 strings out of 492985
- 10618 string characters out of 6132570
+ 757 strings out of 492985
+ 10579 string characters out of 6132570
  70652 words of memory out of 5000000
- 4383 multiletter control sequences out of 15000+600000
- 4543 words of font info for 17 fonts, out of 8000000 for 9000
+ 4381 multiletter control sequences out of 15000+600000
+ 4236 words of font info for 16 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,4n,21p,1027b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on abstract.pdf (1 page, 27025 bytes).
+ 23i,4n,19p,975b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr12.pfb>
+Output written on abstract.pdf (1 page, 19375 bytes).
 PDF statistics:
- 16 PDF objects out of 1000 (max. 8388607)
- 10 compressed objects within 1 object stream
+ 12 PDF objects out of 1000 (max. 8388607)
+ 7 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

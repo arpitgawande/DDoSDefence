@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  14 APR 2018 07:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  14 APR 2018 21:51
 entering extended mode
- \write18 enabled.
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **python_programs.tex
 (./python_programs.tex
@@ -162,7 +163,7 @@ LaTeX Info: Redefining \addtolength on input line 81.
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/tools/shellesc.sty
 Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
-Package shellesc Info: Unrestricted shell escape enabled on input line 67.
+Package shellesc Info: Restricted shell escape enabled on input line 69.
 )
 (/usr/local/texlive/2017/texmf-dist/tex/latex/ifplatform/ifplatform.sty
 Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
@@ -178,14 +179,11 @@ Package pdftexcmds Info: \pdfdraftmode found.
 (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/catchfile.sty
 Package: catchfile 2016/05/16 v1.7 Catch the contents of a file (HO)
 )
-runsystem(uname -s > "python_programs.w18")...executed.
 
+Package ifplatform Warning: 
+    shell escape is disabled, so I can only detect \ifwindows.
 
-(./python_programs.w18)
-runsystem(rm -- "python_programs.w18")...executed.
-
-)
-(/usr/local/texlive/2017/texmf-dist/tex/generic/xstring/xstring.sty
+) (/usr/local/texlive/2017/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/local/texlive/2017/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write4
 \integerpart=\count115
@@ -217,8 +215,21 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@every@listing=\toks19
 \c@listing=\count120
 )
-runsystem(mkdir -p _minted-python_programs)...executed.
+runsystem(mkdir -p _minted-python_programs)...disabled (restricted).
 
+
+
+./python_programs.tex:6: Package minted Error: You must invoke LaTeX with the -
+shell-escape flag.
+
+See the minted package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.6 \usepackage
+               {graphicx} %TO include graphics in document
+Pass the -shell-escape flag to LaTeX. Refer to the minted.sty documentation for
+ more information.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
@@ -257,10 +268,22 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 )
-runsystem(which pygmentize && touch python_programs.aex)...executed.
+runsystem(which pygmentize && touch python_programs.aex)...disabled (restricted
+).
 
-runsystem(rm python_programs.aex)...executed.
 
+
+./python_programs.tex:7: Package minted Error: You must have `pygmentize' insta
+lled to use this package.
+
+See the minted package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 \begin{document}
+                    
+Refer to the installation instructions in the minted documentation for more inf
+ormation.
 
 (./python_programs.aux)
 \openout1 = `python_programs.aux'.
@@ -584,19 +607,23 @@ e 772.
 
 (./_minted-python_programs/153EED92670AD090F4BDAFCE6F76EA7866A889C465B8F7C9384C
 5490E86A2064.pygtex)
-\openout3 = `python_programs.pyg'.
-
-
-(./_minted-python_programs/68B329DA9893E34099C7D8AD5CB9C94066A889C465B8F7C9384C
-5490E86A2064.pygtex [18]) [19] (./python_programs.aux)
-runsystem(rm python_programs.pyg)...executed.
+<detected_IP.png, id=70, 803.0pt x 301.125pt>
+File: detected_IP.png Graphic file (type png)
+<use detected_IP.png>
+Package pdftex.def Info: detected_IP.png  used on input line 860. on input line
+ 860.
+Package pdftex.def Info: Requested size: 379.72073pt x 142.39717pt on input lin
+e 860.
+ [18] [19 <./detected_IP.png (PNG copy)>]
+(./python_programs.aux)
+runsystem(rm python_programs.pyg)...disabled (restricted).
 
  ) 
 Here is how much of TeX's memory you used:
- 5540 strings out of 492985
- 107235 string characters out of 6132570
- 219315 words of memory out of 5000000
- 8896 multiletter control sequences out of 15000+600000
+ 5539 strings out of 492985
+ 106961 string characters out of 6132570
+ 223246 words of memory out of 5000000
+ 8900 multiletter control sequences out of 15000+600000
  8231 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,6n,35p,884b,343s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -607,10 +634,10 @@ Here is how much of TeX's memory you used:
 usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
 r/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
 local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on python_programs.pdf (19 pages, 218125 bytes).
+Output written on python_programs.pdf (19 pages, 249260 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
+ 102 PDF objects out of 1000 (max. 8388607)
  66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
