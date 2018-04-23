@@ -5,14 +5,14 @@
 \contentsline {section}{\numberline {3}Network Functioning}{8}
 \contentsline {section}{\numberline {4}Our Approach}{10}
 \contentsline {subsection}{\numberline {4.1}The router as a point of analysis}{10}
-\contentsline {subsection}{\numberline {4.2}Internet packet flow capturing at the router}{11}
+\contentsline {subsection}{\numberline {4.2}Internet packet flow capturing at the router}{12}
 \contentsline {subsection}{\numberline {4.3}Analysis techniques to be implemented}{12}
 \contentsline {section}{\numberline {5}Implementation}{14}
 \contentsline {subsection}{\numberline {5.1}Machine Learning}{18}
 \contentsline {subsubsection}{\numberline {5.1.1}Feature Scaling}{19}
 \contentsline {subsubsection}{\numberline {5.1.2}Clustering}{20}
 \contentsline {subsubsection}{\numberline {5.1.3}Anomaly Detection using One Class Support Vector Machine}{24}
-\contentsline {paragraph}{Support Vector Machine:}{24}
+\contentsline {paragraph}{Support Vector Machine (SVM):}{25}
 \contentsline {paragraph}{One Class Support Vector Machine:}{26}
 \contentsline {section}{\numberline {6}Detection}{28}
 \contentsline {section}{\numberline {7}Detection Simulation}{29}
