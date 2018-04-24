@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  23 APR 2018 07:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  24 APR 2018 14:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -660,7 +660,7 @@ fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
 /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
-Output written on DDOS.pdf (38 pages, 812563 bytes).
+Output written on DDOS.pdf (38 pages, 812429 bytes).
 PDF statistics:
  247 PDF objects out of 1000 (max. 8388607)
  153 compressed objects within 2 object streams

@@ -216,7 +216,7 @@ For this paper we will be using the k-means++ algorithm\cite{k-means++} which is
 \caption{k-means++}\label{k-means++}
 \begin{algorithmic}[1]
   \State{Take one centroid $\mu_1$, chosen uniformly at random from $X$}
-  \State{Take a new centroid $\mu_j \neq \mu_1$, by choosing $\mu_j \in X$ with probability $\frac{D(\mu_j)^{2}}{\sum_{x \in X} D(x)^{2}}$}
+  \State{Take a new centroid $\mu_j$, by choosing $\mu_j \in X$ with probability $\frac{D(\mu_j)^{2}}{\sum_{x \in X} D(x)^{2}}$}
   \State{Repeat Step 2. until we have taken $k$ centers altogether}
   \State{Proceed with the Lloyd's k-means algorithm skipping random the initialization stage}
 \end{algorithmic}
