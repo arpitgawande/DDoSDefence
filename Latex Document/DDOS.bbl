@@ -76,6 +76,12 @@ Jeffrey D.~Ullman Jure~Leskovec, Anand~Rajaraman.
 \newblock {\em Mining of Massive Datasets}, chapter Clutering.
 \newblock Stanford University, 2014.
 
+\bibitem{machine-learning-def}
+T.M. Mitchell.
+\newblock {\em Machine Learning}.
+\newblock McGraw-Hill international editions - computer science series.
+  McGraw-Hill Education, 1997.
+
 \bibitem{svm}
 Bernhard Sch\"{o}lkopf, Robert Williamson, Alex Smola, John Shawe-Taylor, and
   John Platt.
