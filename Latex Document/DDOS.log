@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  27 APR 2018 16:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  28 APR 2018 07:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -452,26 +452,32 @@ e 61.
 <TraceRoute.png, id=54, 1468.48625pt x 499.8675pt>
 File: TraceRoute.png Graphic file (type png)
 <use TraceRoute.png>
-Package pdftex.def Info: TraceRoute.png  used on input line 70. on input line 7
-0.
+Package pdftex.def Info: TraceRoute.png  used on input line 71. on input line 7
+1.
 Package pdftex.def Info: Requested size: 375.14705pt x 127.69716pt on input lin
-e 70.
- [8 <./TraceRoute.png (PNG copy)>]
+e 71.
+
+Overfull \hbox (18.43065pt too wide) in paragraph at lines 75--75
+[]\OT1/cmr/m/n/12 We can see that the packet trav-eled through 15 routers to re
+ach cam-den.rutgers.edu
+ []
+
+[8 <./TraceRoute.png (PNG copy)>]
 <attack_path.png, id=58, 525.965pt x 416.55624pt>
 File: attack_path.png Graphic file (type png)
 <use attack_path.png>
-Package pdftex.def Info: attack_path.png  used on input line 85. on input line 
-85.
+Package pdftex.def Info: attack_path.png  used on input line 86. on input line 
+86.
 Package pdftex.def Info: Requested size: 291.78174pt x 231.0961pt on input line
- 85.
+ 86.
  [9] [10 <./attack_path.png>]
 <Data_Flow_Capture.png, id=67, 720.6925pt x 228.855pt>
 File: Data_Flow_Capture.png Graphic file (type png)
 <use Data_Flow_Capture.png>
-Package pdftex.def Info: Data_Flow_Capture.png  used on input line 100. on inpu
-t line 100.
+Package pdftex.def Info: Data_Flow_Capture.png  used on input line 101. on inpu
+t line 101.
 Package pdftex.def Info: Requested size: 375.14705pt x 119.1275pt on input line
- 100.
+ 101.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
@@ -488,36 +494,36 @@ Missing character: There is no ù in font cmr12!
 <Wireshark_Tools.png, id=75, 1615.03375pt x 835.12pt>
 File: Wireshark_Tools.png Graphic file (type png)
 <use Wireshark_Tools.png>
-Package pdftex.def Info: Wireshark_Tools.png  used on input line 120. on input 
-line 120.
+Package pdftex.def Info: Wireshark_Tools.png  used on input line 121. on input 
+line 121.
 Package pdftex.def Info: Requested size: 375.14705pt x 193.98499pt on input lin
-e 120.
+e 121.
  [13]
 <demo_network.png, id=80, 592.2125pt x 347.2975pt>
 File: demo_network.png Graphic file (type png)
 <use demo_network.png>
-Package pdftex.def Info: demo_network.png  used on input line 128. on input lin
-e 128.
+Package pdftex.def Info: demo_network.png  used on input line 129. on input lin
+e 129.
 Package pdftex.def Info: Requested size: 375.14705pt x 220.00682pt on input lin
-e 128.
+e 129.
  [14 <./Wireshark_Tools.png (PNG copy)> <./demo_network.png>] [15] [16] [17] [1
 8] [19] [20]
 <training_example.png, id=114, 363.3575pt x 134.5025pt>
 File: training_example.png Graphic file (type png)
 <use training_example.png>
-Package pdftex.def Info: training_example.png  used on input line 233. on input
- line 233.
+Package pdftex.def Info: training_example.png  used on input line 234. on input
+ line 234.
 Package pdftex.def Info: Requested size: 291.78174pt x 108.01054pt on input lin
-e 233.
+e 234.
 <elbow-method.png, id=115, 642.4pt x 401.5pt>
 File: elbow-method.png Graphic file (type png)
 <use elbow-method.png>
-Package pdftex.def Info: elbow-method.png  used on input line 241. on input lin
-e 241.
+Package pdftex.def Info: elbow-method.png  used on input line 242. on input lin
+e 242.
 Package pdftex.def Info: Requested size: 375.14705pt x 234.47527pt on input lin
-e 241.
+e 242.
  [21 <./training_example.png> <./elbow-method.png>] [22] [23]
-Overfull \hbox (15.90408pt too wide) in paragraph at lines 296--298
+Overfull \hbox (15.90408pt too wide) in paragraph at lines 297--299
 \OT1/cmr/m/n/12 based on the la-bels of the train-ing set. Con-sider the train-
 ing set $\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]; y[]\OT1/cmr/m
 /n/12 )\OML/cmm/m/it/12 ; ::; \OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]; y[]\OT1/cm
@@ -527,22 +533,22 @@ r/m/n/12 )\OMS/cmsy/m/n/12 g$\OT1/cmr/m/n/12 ,
 <SVM.png, id=127, 464.73625pt x 342.27875pt>
 File: SVM.png Graphic file (type png)
 <use SVM.png>
-Package pdftex.def Info: SVM.png  used on input line 303. on input line 303.
+Package pdftex.def Info: SVM.png  used on input line 304. on input line 304.
 Package pdftex.def Info: Requested size: 232.36755pt x 171.13895pt on input lin
-e 303.
+e 304.
 [24 <./SVM.png>]
-./DDOS.tex:322: Missing $ inserted.
+./DDOS.tex:323: Missing $ inserted.
 <inserted text> 
                 $
-l.322 ...imensional feature space by function \Phi
+l.323 ...imensional feature space by function \Phi
                                                   . The intercept term $ \in...
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-./DDOS.tex:322: Missing $ inserted.
+./DDOS.tex:323: Missing $ inserted.
 <inserted text> 
                 $
-l.322 ...y function \Phi. The intercept term $ \in
+l.323 ...y function \Phi. The intercept term $ \in
                                                    \mathbb{R}$.
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
@@ -551,49 +557,49 @@ you left one out. Proceed, with fingers crossed.
 <elbow-method-applied.png, id=142, 722.7pt x 578.16pt>
 File: elbow-method-applied.png Graphic file (type png)
 <use elbow-method-applied.png>
-Package pdftex.def Info: elbow-method-applied.png  used on input line 357. on i
-nput line 357.
+Package pdftex.def Info: elbow-method-applied.png  used on input line 358. on i
+nput line 358.
 Package pdftex.def Info: Requested size: 375.14705pt x 300.1156pt on input line
- 357.
+ 358.
  [28 <./elbow-method-applied.png>]
 <kemans-clustering.png, id=147, 722.7pt x 578.16pt>
 File: kemans-clustering.png Graphic file (type png)
 <use kemans-clustering.png>
-Package pdftex.def Info: kemans-clustering.png  used on input line 381. on inpu
-t line 381.
+Package pdftex.def Info: kemans-clustering.png  used on input line 382. on inpu
+t line 382.
 Package pdftex.def Info: Requested size: 375.14705pt x 300.1156pt on input line
- 381.
+ 382.
  [29 <./kemans-clustering.png>]
 <one-class-SVM.png, id=152, 722.7pt x 578.16pt>
 File: one-class-SVM.png Graphic file (type png)
 <use one-class-SVM.png>
-Package pdftex.def Info: one-class-SVM.png  used on input line 408. on input li
-ne 408.
+Package pdftex.def Info: one-class-SVM.png  used on input line 409. on input li
+ne 409.
 Package pdftex.def Info: Requested size: 333.46758pt x 266.77727pt on input lin
-e 408.
+e 409.
 [30]
 <detected_IP.png, id=156, 803.0pt x 301.125pt>
 File: detected_IP.png Graphic file (type png)
 <use detected_IP.png>
-Package pdftex.def Info: detected_IP.png  used on input line 418. on input line
- 418.
+Package pdftex.def Info: detected_IP.png  used on input line 419. on input line
+ 419.
 Package pdftex.def Info: Requested size: 333.46758pt x 125.05183pt on input lin
-e 418.
+e 419.
  [31 <./one-class-SVM.png> <./detected_IP.png (PNG copy)>] [32]
 <mitigation_path.png, id=165, 460.72125pt x 413.545pt>
 File: mitigation_path.png Graphic file (type png)
 <use mitigation_path.png>
-Package pdftex.def Info: mitigation_path.png  used on input line 432. on input 
-line 432.
+Package pdftex.def Info: mitigation_path.png  used on input line 433. on input 
+line 433.
 Package pdftex.def Info: Requested size: 276.43488pt x 248.1289pt on input line
- 432.
+ 433.
 <router-network-communication.png, id=166, 651.43375pt x 216.81pt>
 File: router-network-communication.png Graphic file (type png)
 <use router-network-communication.png>
 Package pdftex.def Info: router-network-communication.png  used on input line 4
-41. on input line 441.
+42. on input line 442.
 Package pdftex.def Info: Requested size: 325.71606pt x 108.40472pt on input lin
-e 441.
+e 442.
  [33 <./mitigation_path.png>] [34 <./router-network-communication.png>] [35] (.
 /DDOS.bbl
 Underfull \hbox (badness 3701) in paragraph at lines 9--15
@@ -676,7 +682,7 @@ fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
 /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
-Output written on DDOS.pdf (37 pages, 814883 bytes).
+Output written on DDOS.pdf (37 pages, 814361 bytes).
 PDF statistics:
  244 PDF objects out of 1000 (max. 8388607)
  151 compressed objects within 2 object streams
