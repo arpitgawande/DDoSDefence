@@ -45,7 +45,7 @@ For example, Cisco netflow has a flow exporter, flow collector, and analysis mod
 
 These technologies scale well and can be sufficient to indicate trends in network traffic; however, they have limitations. 1) They are not cross platform, e.g., the router with Sflow protocol won't work with Cisco routers. 2) They involve setting up expensive hardware, which acts as a collector server. 3) The source address is used for flow analysis, which is not reliable due to IP spoofing in the case of a DDoS attack.\par
 
-\subsection{A DDoS attack Detection and Mitigation}
+\subsection{A DDoS attack detection and mitigation}
 
 A DDoS attacks can be detected by checking if there is any anomalous behavior in the network traffic, such as a sudden increase in the number of packets going to a destination. Detection can occur at the server by observing all of the incoming traffic or it can be done by observing all of the outgoing/incoming traffic at the ISP's or at every router. The attack can be mitigated if the anomalous packets are blocked from reaching their destination.
 
@@ -79,7 +79,7 @@ We can see that the packet traveled through 15 routers to reach camden.rutgers.e
 \subsection{The router as a point of analysis}
 From Figure \ref{fig:routers} and \ref{fig:traceroute} we know that routers are located at different geographical locations and also there are specific regions from which a given website or web server is accessed (with few exceptions). To know the locations from where the web server/site has been accessed we can use services, called GeoIP services. These services can detect the geographical location of the system from where the IP packet has originated, but that is just an approximation, based on the source IP and is not always correct. In the case of a DDoS attack, this information is unreliable because the packet source address is often spoofed, hence it is difficult to know the actual geographical location from which the packet has come. If the router through which that packet has traveled can provide its own geographical information, then such information can be useful to understand the path through which the packet has traveled and thus we can know the region from where the packet originated.\par
 
-Also, in a normal scenario, there is a consistency in which a website is accessed from different geographical regions, and this consistency can be found by measuring the features, e.g., number of packets traveled from a router to a destination server. This behavior, i.e., the consistency in which different feature appears in the traffic, can be learned over time. Thus, finding this behavior in the traffic at the router can form the basis of analysis in this thesis. If there is a deviation from the learned behavior of accessing a particular destination, then that change in behavior, as well as router geographical region information can be communicated to the destination which is under a DDoS attack. The destination on receiving that information, can decide whether it wants the reporting router to discard or forward the traffic for it. This is a selective process in which traffic from only a specific router is blocked while traffic from other routers remain unaffected.
+Also, in a normal scenario, there is a consistency in which a website is accessed from different geographical regions, and this consistency can be found by measuring the features, e.g., number of packets traveled from a router to a destination server. This behavior, i.e., the consistency in which different feature appears in the traffic, can be learned over time. Thus, learning this behavior in the traffic at the router can form the basis of analysis in this thesis. For learning the behavior we will be using the clustering and the one-class classifier algorithms (we are going to explain both these algorithm in detail in coming sections). If there is a deviation from the learned behavior of accessing a particular destination, then that change in behavior, as well as router geographical region information can be communicated to the destination which is under a DDoS attack. The destination on receiving that information, can decide whether it wants the reporting router to discard or forward the traffic for it. This is a selective process in which traffic from only a specific router is blocked while traffic from other routers remain unaffected.
 
 \begin{figure}[H]
 \centering
@@ -102,19 +102,20 @@ To do the analysis, we have to first gather the flow information during a time w
 \caption{A 300 second time segment corresponds to a flow of information. The number of packets can vary in a flow.} \label{fig:flow}
 \end{figure}
 
-\subsection{Analysis techniques to be implemented}
-In the proposed system, each router will itself act as an analyzer. A packet flow will be captured on a router. Captured flow will then be analyzed and features will be extracted from it. The extracted feature information will be used for clustering based on destination IP address. Clustering is a process of examining the collection of “points,” and grouping the points into “clusters” according to some distance measure. The goal is to minimize the distance of every point in the cluster to other points in the same clusters.\cite{machine-learning}.
+\subsection{Analysis technique}
+In the proposed system, each router will itself act as an analyzer. An Internet traffic will be captured on a router. Captured traffic will then be analyzed and features will be extracted from it. Features will be based on the destination IP address (e.g., how many packets of different protocols are observed traveling to a given destination). The extracted features will be used for training a learning algorithm. A learning algorithm creates a model which can be used to predict the behavior of a traffic for a destination. If at any moment in time, the predicted behavior of a traffic for a destination does not match with the actual behavior, then we can say that the destination is under a DDoS attack.
 
-Once the clustering is learned (i.e. we know which destination IP address is tending to be in which cluster), the learned information will be used as a benchmark for all future flows. The routers will constantly keep clustering destination IP addresses and if there is deviation for the normal traffic at a router for any destination then that will affect the clustering and it will cause the destination IP address to be placed in different cluster. This change in the cluster for a given destination IP address can be marked as a change in the behavior of the traffic for that destination. Along with the cluster we will also use the Novelty Detection algorithm to achieve more accurate result. This change in traffic behavior will be reported to destination network, which then decides, buy doing its own analysis, on regulating the traffic coming to itself from the router which has sent the information.
+A router will constantly keep learning and updating the learned parameters as per decided a schedule. A schedule could be any time window in a day, week, or month. Before learning from a traffic for a destination, it will use previous learned information to verify that the current traffic for a destination is not an attack traffic.
+
 \pagebreak
 
 \section{Implementation} \label{sec:Implementation}
 
-As discussed previously, there are different types of DDoS attacks, such as volume-based, application-based and also low-rate DDoS attacks. Among these different types of DDoS attacks, the volume-based attacks are most common. In the volume-based attack, a victim is flooded with a high volume of Internet packets (TCP, UDP, HTTP or ICMP), which make it unable to serve the requests.
+As discussed previously, there are different types of DDoS attacks, such as volume-based, application-based, and also low-rate DDoS attacks. Among these different types of attacks, the volume-based attack is most common. In a volume-based attack, a destination server is flooded with a high volume of Internet packets (TCP, UDP, HTTP or ICMP), that make the server unable to serve the requests.
 
-For the demonstration of the suggested approach we are simulating a volume-based bot attack. In the real world, the volume-based attacks are orchestrated using bots. Bots use compromised computer systems, controlled by an attacker for launching an attack. They are not bounded by geographical boundaries, so they can be anywhere in the Internet. Botnet (i.e. network of bots) are employed by an attacker to launch a DDoS attack. As we know that the Internet is connection of different computer system that communicate with each other, through different channels such as cables, satellite or radio device and these communication channels run throughout the globe; connecting different computer systems at different locations. For our simulation, instead of any bot program, we are using Low Orbit Ion Canon(LOIC) tool which is a free DDoS attack launching tool. This tool is even used by attackers in the real world to launch a DDoS attacks.
+For the demonstration of the suggested approach, we are simulating a volume-based attack. In a real world, volume-based attacks are orchestrated using bots. Bot\cite{bot} is computer program designed to perform a particular task and is under the control of an attacker. Bots are installed on compromised computer systems by an attacker for launching an attack. Bots are not bounded by geographical boundaries, they can be anywhere on the Internet. Botnet (i.e. network of bots) are employed by an attacker to launch a DDoS attack. The Internet is connection of different computer systems communicating with each other through different channels, such as cables, satellite or radio device, and these communication channels run throughout the globe. For our simulation, instead of designing a bot program, we are using Low Orbit Ion Canon(LOIC) tool which is a free DDoS attack launching tool. This tool is even used by attackers in the real world to launch a DDoS attacks.
 
-We used Wireshark, an open source tool, for capturing Internet packets. Wireshark can capture all digital information received or sent through different devices such as Ethernet or Wi-Fi devices, which connect computers to the Internet. It also helps identify different protocol packets (e.g., TCP, UDP) within the wrapper packet created at Data Link Layer packet.\par
+We are using Wireshark, an open source tool, for capturing Internet traffic. Wireshark can capture all digital information received or sent through different devices such as Ethernet or Wi-Fi devices. It also helps identify different protocol packets (e.g., TCP, UDP) within the wrapper packet created at Data Link Layer packet.\par
 
 \begin{figure}[H]
 \centering
@@ -122,7 +123,7 @@ We used Wireshark, an open source tool, for capturing Internet packets. Wireshar
 \caption{Wireshark Tool: snippet of captured packets} \label{fig:wireshark}
 \end{figure}
 
-To gather data for the demonstration, we have created a small network which has one router and couple of host machine. Each machine can be a victim of a DDoS attack. We have installed Wireshark tool on one of the machine in  this network. For capturing traffic in the network, we are using the Promiscuous mode of Wireshark. In Promiscuous mode, a network interface can record not only the traffic that is intended to itself but all the traffic on the network, so we can see all in/out traffic in our setup network. This setup is similar to any router on the Internet which is connected with different routers and hosts.
+For the demonstration of our approach, we have created a small network which has one router and couple of host machines. Each machine can be a victim of a DDoS attack. We have installed Wireshark tool on one of the machine in this network. For capturing traffic in the network, we are using the Promiscuous mode of Wireshark. In a Promiscuous mode, a network interface can record not only the traffic that is intended to itself, but all the traffic on the network. This allows us to capture all the traffic on the network. This setup is similar to a router on the Internet which captures all the traffic going to different destination though it.
 
 \begin{figure}[H]
 \centering
@@ -130,13 +131,11 @@ To gather data for the demonstration, we have created a small network which has 
 \caption{Network for simulating a DDoS attack detection} \label{fig:demonetwork}
 \end{figure}
 
-To collect packets traveling in our network, we start the Wireshark tool. We let it run for a while and then we orchestrate a DDoS attack on one of the host (e.g., 192.168.0.7 in Figure \ref{fig:demonetwork}) in the network. This attack is engineered using the Low Orbit Ion Canon(LOIC) tool that is installed on one of the host (e.g., 192.168.0.10 in Figure \ref{fig:demonetwork}) in our network. This tool allows us to launch TCP and UDP flood attack on any destination. In this thesis we are analyzing the flow-based TCP and UDP attack, which is one of the most common type of DDoS attacks.
+To start capturing a normal traffic, we run Wireshark tool and let it run for couple of hours. To capture attack traffic, we orchestrate a DDoS attack on one of the host (e.g., 192.168.0.7 in Figure \ref{fig:demonetwork}) in our network and then collect captured data created by Wireshark. This attack is engineered using the Low Orbit Ion Canon(LOIC) tool that is installed on another host (e.g., 192.168.0.10 in Figure \ref{fig:demonetwork}). This tool allows us to launch TCP and UDP flood attack on any destination.
 
-In the LOIC tool we need to give the IP address and the port number of the destination where we want to orchestrate attack while rest of the work is done by it. This tool floods destination with packets and if we choose TCP then it will try to create multiple connections and send packets over them. We start flood attack on one of the system (e.g., 192.168.0.7) in demo network and let it continue for few minutes. We launched such attacks few times in between the packet capturing session.
+All the traffic, including the normal and the attack traffic, will get captured using Wireshark. Packets are captured for about five hours in the given network. Once the packets are captured they are saved as pcapng file, which is a Wireshark file format for captured packets. Captured packets during a normal traffic and during an attack are saved separately on the file system. The normal captured traffic information is used for training and testing the learning algorithms (we will explain them in later sections), while an attack traffic  information is used for detecting the attack. Wireshark captures every detail of a packet, but we don't need all of the information, we are interested only in the IP layer information of a packet. Most routers analyze IP layer information of a packet for routing, having said that, there is no reason that information present at other layers of a packet cannot be analyzed, but for our demonstration purpose we are analyzing only IP layer information of a packets.\par
 
-All the traffic, including the normal and the attack traffic, will get captured using Wireshark. Packets are captured for about five hours in the given network. Once the packets are captured they are saved as pcapng file, which is a Wireshark file format for captured packets. Captured packets during the normal operation and during the attacks are saved separately. The normal packet flow information is used for training and testing the learning algorithms (we will explain it in later sections) while attack packets flow information is used for detecting the attack. Wireshark captures every detail of the packets, but we don't need all of the information, we are interested only in the IP layer information of the packet. Most of the routers analyze IP layer of the packet for routing, having said that, there is no reason that other layers of the packet cannot be analyzed, but for our demonstration purpose we are analyzing only IP packets.\par
-
-A data extraction program is written in Python language to extract IP layer information from the captured packets. This program extracts address, port and time information from each of the captured IP packets\footnote{packets containing IP information}.
+A data extraction program is written in a Python language to extract IP layer information from a captured packet. This program extracts address, port and time information from each captured IP-packet\footnote{A packet containing IP layer information}.
 
 \begin{table}[H]
 \centering
@@ -151,11 +150,9 @@ A data extraction program is written in Python language to extract IP layer info
 \caption{Sample file snippet (row represents an IP packet)} \label{table:sample-file-snippet}
 \end{table}
 
-Our data extraction program also divides the captured data into 300 seconds capture windows, thus creating sample data which are a collection of IP packets captured over the time of 300 seconds. It then writes each sample in the separate file for further processing. This sampling of the packets is the continuous process. We then run another program which extracts the flow information from those sample files. One `flow' contains the number of different packets capture for a given destination. We will store this flow information as sample flow. Then we will train learning algorithms using those sample flows. Once learning is done, those sample files will be discarded, and new samples will be created for further training. This training process has to be continuous process in order to correctly reflect the current status of the flow at given router. Whatever the new information learned, is augmented with the previous learning to have the correct understanding of the flow. This learning can be done for the time during a day or during a week of a year, e.g., We can have separate learning information for flow from morning 9 am to 12 pm and also can have information for evening 6 pm to 12 pm.
+The data extraction program also divides a captured traffic into samples. In our case, a sample is a traffic captured during a 300 seconds time window. Samples are stores on a file system for further processing. This sampling of traffic is a continuous process. We then run another program to extract the flow information from a sample file. A ``flow'' for a destination contains number of different types of packets captured for a destination in a sample file. This flow will represents a ``training example'' for our learning algorithm.
 
-Flow based model is built, as it is more reliable and fast. Packet analyzing is often difficult due to the size and encryption. Also, destination port number is not a reliable information in detecting attacks because of the fact that attacker uses different ports during an attack.
-
-Creating a training set for the learning algorithms is an intermediate step in which IP packet count for each destination for a given protocol (e.g., TCP, UDP) is calculated. The training set gives us the flow information for each destination (i.e. how many packets of a particular protocol are recorded for a given destination IP address during a time window, e.g., 300 seconds).
+We will store flow information for every destinations that present in packets captured in a sample file and that will represent a ``training set'' for our learning algorithm. A flow information for a single destination is regarded as a training example and flow information for all the destinations in a sample file regarded as one training set. Each training example is labeled with destination IP address.
 
 \begin{table}[H]
 \centering
@@ -168,28 +165,34 @@ Creating a training set for the learning algorithms is an intermediate step in w
     65.19.96.252    & 5     & 0     & 192 \\ \hline
     68.67.178.134   & 0     & 78    & 0 \\ \hline
   \end{tabular}
-\caption{Training Set with three training examples} \label{table:feature}
+\caption{Three training examples represent ``flow'' for three destination addresses} \label{table:feature}
 \end{table}
 
-We are using a Python program to create training sets, as given in above table \ref{table:feature}, from the sample files. Each row in a training set is one training example with destination IP address as label. A training example is an $\mathbb{R}^3$ vector whose elements are the number of packets observed for a particular protocol for a destination during a fixed time (e.g., 300 second). There are around 150 protocols managed and assigned by the Internet Assigned Numbers Authority (IANA) but most commonly used protocols in a DDoS attack are ICMP, TCP and UDP protocols. For the training and analysis purpose we are using only these three protocols as the desired feature. In the larger system such as routers managed by ISP, other protocols can also be used as features if required.
+In above figure \ref{table:feature}, ICMP, TCP, and UDP packets count for each destination is calculated during a time window of 300 seconds, so, it is a training set with three training examples. We are using few training sets for testing our algorithms.
 
-Each sample file is processed, and corresponding train/test set file is created. Train and test sets files are stored on the file systems, so that those can be used by other programs for training and testing the learning algorithms.
+We trained our algorithms using multiple training sets. After training, a trained model is stored on file system, sample files are discarded, and new samples are created for further training. This training process has to be continuous process in order to correctly reflect the overall traffic behavior at a router. Every time the new information is learned, it is augmented with the previous learned information, to have a correct model for a DDoS attack detection. This learning can be done for some specific time during a day or for specific day in a week, e.g., we can have separate learning information for traffic during morning 9 a.m. to 12 p.m., also we can have different information for traffic from evening 6 p.m. to 12 p.m. Thus, a router will have multiple trained models, one model for one specific time span.
+
+Because an attacker oftentimes uses different ports and employ spoofing technique for a DDoS attack, destination port number and source IP address are not reliable features for detecting a DDoS attack. Packet analyzing is often difficult due to the size and the encryption, while flow based model is more reliable and fast. Due to these reasons, we are not considering features hidden deep down inside the packet and also not considering a source IP address or a destination port information for building trained models.
+
+We are using a Python program to create training sets, as given in above table \ref{table:feature}. Each row in a training set is one training example with destination IP address as label. A training example is an $\mathbb{R}^3$ vector whose elements are the number of packets observed for a particular protocol for a destination during a fixed time (e.g., 300 second). There are around 150 protocols managed and assigned by the Internet Assigned Numbers Authority (IANA), but most commonly used protocols in a DDoS attack are ICMP, TCP, and UDP protocols. For the training and analysis purpose we are using only these three protocols as the desired feature. In the larger system such as routers managed by ISP, other protocols can also be used as features.
+
+Each sample file is processed, and corresponding train/test set is created. Train and test sets are stored on the file systems, so that, those can be used by our programs for training the algorithms and testing the model.
 
 \subsection{Machine Learning}
 
 According to Tom Mitchell\cite{machine-learning-def}, a computer program is said to learn from an experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience.
 
-A learning algorithm builds a hypothesis using a training set as input. Then that hypothesis is used to perform predictions. The most common categorization of machine learning algorithms is Supervised and Unsupervised.
+A learning algorithm builds a hypothesis using a training set as an input. The hypothesis is then used to perform predictions. Most common categorization of machine learning algorithms is Supervised and Unsupervised.
 
-Let $f: \mathbb{R}^d \rightarrow \mathbb{R}^d$ be the function that we need to guess from input vectors $x^{1}, x^{2}, ..., x^{n}$ also called as `input variables' or `feature vectors'. Let $\Xi$ be the set of such input vectors. Let $n$ be the number of input vectors in a training set $\Xi$. Let $H$ be the set of some functions from $\mathbb{R}^d$ to $\mathbb{R}^d$. Let $h \in H$ be the hypothesis about function $f \in H$. We select $h$ based on a training set $X \subseteq \Xi$, of $m$ input vectors. In Supervised learning we know the values of $f$ for $m$ samples in the training set $X$. We assume that if we can find a hypothesis $h$ that closely agrees with $f$ for the members of $X$, then this hypothesis will be a good guess for $f$ when $X$ is large. In Unsupervised learning, we simply have a training set of vectors without function values for them. The problem in this case, typically, is to partition the training set into subsets, $X_1,.. ,X_{N}$, in some appropriate way.\cite{machine-learning}
+Let $f: \mathbb{R}^d \rightarrow \mathbb{R}^d$ be the function that we need to guess from input vectors $x^{1}, x^{2}, ..., x^{n}$, also called as `input variables' or `feature vectors'. Let $\Xi$ be the set of such input vectors. Let $n$ be the number of input vectors in training set $\Xi$. Let $H$ be the set of some functions $\mathbb{R}^d \rightarrow \mathbb{R}^d$. Let $h \in H$ be the hypothesis about function $f \in H$. We select $h$ based on training set $X \subseteq \Xi$, of $m$ input vectors. In supervised learning, we know the values of $f$ for $m$ samples, in training set $X$. We assume, if we can find hypothesis $h$ that closely agrees with $f$ for the members of $X$, then this hypothesis will be a good guess for $f$ when $X$ is large. In unsupervised learning, we simply have a training set of vectors without function values for them. The problem in this case, typically, is to partition the training set into subsets, $X_1,.. ,X_{N}$, in some appropriate way.\cite{machine-learning}
 
-A supervised algorithm such as One Class Support Vector Machine (SVM)\cite{svm} is efficient at identifying the anomalies in the data but this algorithm is process and memory intensive, so training the algorithm for each and every IP address is very costly in terms of resources. Because of the resource constraints of the router, our approach is to first cluster the IP addresses based on the features using Unsupervised learning algorithms such as k-means and then apply One Class SVM on the clusters to decide on the boundaries of those clusters. The k-means algorithm is fast and consumes less resource compared to One Class SVM, that makes it good choice to be used on the devices such as routers which have less processing power and less memory.
+A supervised algorithm such as one-class Support Vector Machine (one-class SVM)\cite{svm} is efficient at identifying anomalies in a data, but this algorithm is process and memory intensive. Training such algorithm for each and every IP address is very costly in terms of resources. So, our approach is to first cluster the IP addresses based on the features, using unsupervised learning algorithm, such as k-means, and then apply one-class SVM on the clusters to decide boundaries of the clusters. K-means algorithm is fast and consumes less resource compared to one-class SVM, that makes it good first choice for routers (traditionally router has less processing power and less memory).
 
 \subsubsection{Feature Scaling}
 
-Before feeding training data, that were acquired in an earlier stage, to a learning algorithm, we have to do feature scaling, also called Standardizing. Feature scaling is done by subtracting the mean and scaling the feature to a unit variance value. It is necessary because  different features which are at different scales could cause one feature dominating the others in the algorithm output result, e.g., consider two vectors (1, 2, 3000), (1, 3, 2000). If we calculate the Euclidean distance between these two vectors using the formula $\sqrt{\sum_{i=1}^n (p_i - q_i)^2}$, then the distance will be $\sqrt{(1-1)^2 + (2-3)^2 + (3000-2000)^2}$ . Form this, it is evident that the larger term is dominating the result.
+Before feeding training data, acquired in an earlier stage, to a learning algorithm, we have to do feature scaling (also called Standardizing). Feature scaling is done by subtracting the mean and scaling the feature to a unit variance value. It is necessary because  different features which are at different scales could cause one feature dominating others in the algorithm output result, e.g., consider two vectors (1, 2, 3000), (1, 3, 2000). If we calculate the Euclidean distance between these two vectors using formula $\sqrt{\sum_{i=1}^n (p_i - q_i)^2}$, then the distance is $\sqrt{(1-1)^2 + (2-3)^2 + (3000-2000)^2}$ . This show that, the larger term is dominating the resultant distance.
 
-First, we will convert training examples into vectors. Each vector is one training example and each coordinate in the vector is a feature. To standardize the input vector, the mean and the standard deviation are calculated for the set of input vectors. Then a new vector is created by subtracting the mean from each feature vector and dividing that feature vector by its standard deviation. The new vector created after this step is standardized vector. A set of such standardized vectors is used as input to the learning algorithms.
+If we consider a training example without a label (i.e., without destination IP address) as a vector, then each coordinate in the vector is a feature. To standardize the that vector---mean and standard deviation are calculated for the set of input vectors. Then a new vector is created by subtracting the mean from each feature vector and dividing that feature vector by its standard deviation. The new vector created after this step is standardized vector. A set of such standardized vectors is used as input to learning algorithms.
 
 \hspace{2cm} Standardization formula: $x' = \frac{x - \bar{x}}{\sigma}$
 
@@ -197,23 +200,21 @@ where $x$ is a feature vector, ${\bar{x}}$ is the mean and $\sigma$  is its stan
 
 \subsubsection{Clustering} \label{subsec:Clustering}
 
-k-means\cite{k-means-clustering} clustering is one of the most efficient algorithms for creating clusters. This algorithm takes any $k$ randomly chosen points as centroids (also called, cluster centers) $\mu_{1}, \mu_{2}, ..., \mu_{k}$ as input from the training set $X = \{x^{1}, x^{2}, ..., x^{m}\}$, $x^{i} \in \mathbb{R}^d$, $i= {1,2, ..m}$.
-
-The following is Lloyd's algorithm which is the most popular heuristic algorithm for k-means clustering. The clustering that we will do is of destination IP addresses, such that each cluster will have some number of destination IP addresses.
+A clustering algorithm will take training vectors as input, and then group them with some scheme. K-means\cite{k-means-clustering} clustering is one of the most efficient algorithms for creating clusters. This algorithm takes any $k$ randomly chosen points as centroids (also called, cluster centers) $\mu_{1}, \mu_{2}, ..., \mu_{k}$ as input from the training set $X = \{x^{1}, x^{2}, ..., x^{m}\}$, $x^{i} \in \mathbb{R}^d$, $i= {1,2, ..m}$, and then group elements in training set based on how close they are with each other. Following is Lloyd's algorithm. It is most popular heuristic algorithm for k-means clustering.
 
 \begin{algorithm}[H]
 \caption{k-means}\label{k-means}
 \begin{algorithmic}[1]
   \State{Random choose any $k$ points $\in X$ as centroids.}
   \Repeat
-  \State{Calculate the distance for each element (or data point) of the training set to all the centroids.}
-  \State{For each element, assign the element to the centroid which is nearest.}
-  \State{Recalculate the new centroid for all the element in one cluster by taking the mean. If ${x^j_1, x^{j_2}, ..., x^{j_n}}$ are the elements of the cluster $j$, then for cluster $j$, the new centroid will be $\mu_{j} = \frac{1}{n} [x^{j_1} + x^{j_2} + ... + x^{j_n}]$, where $n$ is number of points assigned to cluster $j$. Do this for all the clusters.}
+  \State{Calculate distance for each element (or data point) of the training set to all the centroids.}
+  \State{For each element, assign centroid which is nearest to it.}
+  \State{Recalculate new centroid for all the element in one cluster by taking the mean. If ${x^j_1, x^{j_2}, ..., x^{j_n}}$ are the elements of the cluster $j$, then for cluster $j$, new centroid will be $\mu_{j} = \frac{1}{n} [x^{j_1} + x^{j_2} + ... + x^{j_n}]$, where $n$ is the number of points assigned to cluster $j$. Do this for all the clusters.}
   \Until{No data point is reassigned to a different centroid.}
 \end{algorithmic}
 \end{algorithm}
 
-For this thesis we will be using the k-means++ algorithm, which is an improvement of k-means, where an arbitrarily initialization step is replaced by simple, randomized seeding technique. K-means++ tries to find the centroids as far as away from each other. If $D(x)$ is the shortest distance from a data point $x \in X$ to the closest centroid we have already chosen, then the following is the k-means++ algorithm\cite{k-means++}.
+For this thesis we are using k-means++ algorithm, which is an improvement of k-means. In k-means++ algorithm an arbitrarily initialization step is replaced by simple, randomized seeding technique. K-means++ tries to find the centroids as far away from each other. If $D(x)$ is the shortest distance from a data point $x \in X$ to the closest centroid we have already chosen, then following is k-means++ algorithm\cite{k-means++}.
 
 \begin{algorithm}[H]
 \caption{k-means++}\label{k-means++}
@@ -221,13 +222,13 @@ For this thesis we will be using the k-means++ algorithm, which is an improvemen
   \State{Select a centroid $\mu_1$, chosen uniformly at random from $X$, as first centroid.}
   \State{Choose a new centroid $\mu_i \in X$, such that the probability $\frac{D(\mu_i)^{2}}{\sum_{x \in X} D(x)^{2}}$ is highest.}
   \State{Repeat Step 2. until all $k$ centroids are taken.}
-  \State{Proceed with the Lloyd's k-means algorithm skipping random initialization stage.}
+  \State{Proceed with the Lloyd's k-means algorithm, skipping random initialization stage.}
 \end{algorithmic}
 \end{algorithm}
 
-For our DDoS attack detection program, we will be using the Scikit-learn libraries. Scikit-learn is the most popular and rich open-source machine learning software library for the Python programming language and it has implementation for both k-means++ and One Class SVM machine learning algorithms, also it has data preprocessing programs such as feature scaling.
+For our DDoS attack detection program, we are using Scikit-learn libraries. Scikit-learn is most popular and rich open-source machine learning software library for Python programming language, and it has implementation for both k-means++ and one-class SVM machine learning algorithms. It also has data preprocessing programs, such as feature scaling.
 
-We will take a training set (in the format given in figure \ref{table:feature}) and we will cluster training examples from that training set to using the k-means++ clustering algorithm from Scikit-learn library.
+We are taking a training set (in the format given in figure \ref{table:feature}) and we are clustering them using k-means++ clustering algorithm from Scikit-learn.
 
 \begin{figure}[H]
 \centering
@@ -235,7 +236,7 @@ We will take a training set (in the format given in figure \ref{table:feature}) 
 \caption{One training example} \label{fig:training_example}
 \end{figure}
 
-Before doing the clustering, we have to first determine the number of clusters and centroids.\footnote{The centroid is a vectors which is the arithmetic mean of all the points in the cluster.} Deciding on the number of clusters is important, because randomly choosing the number of clusters will not have correct clustering. So, we will use the Elbow method to find the optimal number of clusters in our training set. The Elbow method checks the portion of the variance explained by function of the number of clusters. Following is the example of a Elbow diagram.
+Before doing clustering, we have to first determine the number of clusters and centroids\footnote{A centroid is a vectors which is an arithmetic mean of all the points in a cluster.}. A centroid represents a cluster in a training set. Deciding number of clusters is important, because randomly choosing the number of clusters may not have correct clustering. TO find the optimal number of clusters in our training set we are using Elbow method. Elbow method checks the portion of the variance explained by function of the number of clusters. This variance is used to check cluster number that has produced least variance for the next cluster number. That cluster number is selected as best choice for clustering our training set. Following is the elbow diagram produced by Elbow method, where x-axis is number of clusters and y-axis is variance explained. Less the variance, better the cluster number choice.
 
 \begin{figure}[H]
 \centering
@@ -243,9 +244,7 @@ Before doing the clustering, we have to first determine the number of clusters a
 \caption{Elbow Method for cluster count detection} \label{fig:elbow-method}
 \end{figure}
 
-Using the elbow method, the variance for each cluster number is calculated and the cluster number which produces less variance for the next cluster number is selected as best choice for the give training set.
-
-To have correct clustering we first run the k-means++ algorithm to determine the central vectors called centroids. Clusters are represented by these centroids. As we have multiple training sets (also called `samples'), we have cluster centroids for each sample. But in the future, we will require only one set of centroids which would be the more accurate clustering for all our training sets. To achieve this, we will save all the centroids, and then find the median of those centroids after removing the outliers, and that will give us a good estimate of centroids. These estimated centroids are used for clustering the samples in the future. Following is the example of centroid vector, where a row represents a cluster and a column represents a feature.
+As we have multiple training sets. We first run k-means++ algorithm on all training sets using the number of clusters found in previous step as input. After clustering is done, we get one centroid set for each training set (One centroid in a centroid set represents one cluster in a training set). For our detection technique, we need only one set of centroids, which can correctly cluster the traffic. If we choose $k$ number of clusters for the clustering, then this set will contain $k$ centroids. To determine such centroids (i.e., centroids set), we first remove the outliers among all the centroids (one per training set), and then find the median of all the remaining centroids. Such median will be a good estimate of all the centroids. These estimated centroids are used for clustering the samples in the future. Following is the example of centroid vectors with two clusters. A row represents a cluster and a column represents a feature.
 
 \begin{table}[H]
 \centering
@@ -258,16 +257,16 @@ To have correct clustering we first run the k-means++ algorithm to determine the
 \caption{Example of cluster centroids: A row is a cluster and a column is a feature} \label{table:centroids-example}
 \end{table}
 
-Once we have centroids we can use them to cluster training set again and get the correct clustering based on the centroid.
+Once we have estimated the centroids, we will use them to again cluster all the training sets, and then label each training example with cluster number.
 
-After clustering is done, it needs to be tested for the accuracy. I.e. how similar the test set clustering is with training set clustering. This can be done by checking, whether an IP address has the same cluster number assigned in both the training and the test sets or it differs. For measuring this similarity, Rand Index(RI)\cite{ri-index} is used. RI is a measure of how well does the test clustering matches with the trained model:
+After clustering is done, it needs to be tested for accuracy, i.e., how similar the test set clustering is with training set clustering. This can be done by checking, whether an IP address has the same cluster number assigned in both the training and the test sets, or it differs. For measuring this similarity, Rand Index(RI)\cite{ri-index} is used. RI is a measure of how well does the test clustering matches with the trained model:
 
 \hspace{4cm} $RI={\frac {TP+TN}{TP+FP+FN+TN}}$,
 
 where,
 $TP= true\ positives$, $TN=true\ negatives$, $FP= false\ positives$, and $FN= false\ negatives$
 
-Because the training sets contain the flow information for different IP addresses on a router during the window of 300 seconds, there is a very high possibility that the same destination IP address is captured in multiple training set. Our goal is to find the correct cluster for the destination IP address, and to achieve this goal, we have labeled IP address with cluster in which it is found most of the time in all our training sets, e.g., If an IP address is assigned cluster `0' in five training sets and cluster `1' in two training sets, then that IP address would be assigned cluster `0' in the result, that we store for future referencing.
+Because the training sets contain the flow information for different IP addresses on a router during a fixed time window, there is very high possibility that the same destination IP address is captured in multiple training set. Our goal is to find correct cluster for each destination IP address, and to achieve this goal, we labeled IP address with cluster in which it is found most of the time, e.g., if an IP address is assigned cluster `0' in five training sets and cluster `1' in two training sets, then that IP address will be assigned cluster `0' as a label. We also find the total packet count for a destination.
 
 \begin{table}[H]
 \centering
@@ -282,22 +281,20 @@ Because the training sets contain the flow information for different IP addresse
 \caption{Learned information after clustering} \label{table:learned-clustering}
 \end{table}
 
-The clustering information tells us the normal behavior of the packets traveling from the router to a given destination. As we have fixed the centroids for the clustering, every time in the future we should expect an IP address to be found in the same cluster mentioned in the clustering information table. But If there is a flooding DDoS attack on a destination, then we can expect to see that destination IP address assigned to a different cluster.
+Clustering information tells us the normal behavior of packets traveling from a router to a destination, i.e., for normal traffic, every time we do clustering, we should expect an IP address to be found in the same cluster it was found during the training, but if there is a DDoS attack on a destination, then the destination IP address can be found in different cluster.
 
-\subsubsection{Anomaly Detection using One Class Support Vector Machine} \label{subsec:Anomaly_Detection}
+\subsubsection{Anomaly Detection using one-class Support Vector Machine} \label{subsec:Anomaly_Detection}
 
-From the experiments on different data sets, it is found that the destination under attack is labeled with the same cluster number. This happened because there is no other cluster it can be assigned to, so it gets assigned to the cluster whose centroid is nearest.
+From the experiments on different training sets, it is found that the destination under attack is sometime labeled with the same cluster number as we have after training. Because we have a fixed number of clusters, it gets assigned to the cluster whose centroid is nearest (which could be the same cluster it was found in the training). To avoid such a situation, we will have to create boundaries for the clusters, and if any IP address is found outside of the cluster boundaries, then traffic fot that destination can be considered suspicious. This provision will make sure that the attack on a destination IP address will be detected even if traffic for that destination is assigned to the same cluster it was assigned in the past.
 
-To avoid such a situation, we will have to create boundaries for the clusters, and if any IP address is outside of the cluster boundaries then that can be considered suspicious. This provision will make sure that the attack on the destination IP address will be detected even if the destination is assigned to the same cluster it was assigned in the past.
-
-To create cluster boundaries, we have used One Class SVM classifier. One Class SVM is a type of Support Vector Machine (SVM). SVM is a supervised machine learning algorithm, which means, the training example will have label. I our case, a cluster number will be treated as label for a training example (see table:labeled-set).
+To create cluster boundaries, we have used one-class SVM classifier. One-class SVM is used when we have only one type of training examples. It classifies those training examples into one class. In our case, we have training examples from a cluster as one type. So, for each cluster we will have one classifier that can classify whether a training example is inside the cluster or not.
 
 \paragraph{Support Vector Machine (SVM):}
 
 SVM is a supervised learning algorithm which tries to classify training examples into two distinct classes. Classification is based on the labels of the training set.
-Consider the training set $\{(x^{1},y^{1}), .., (x^{m},y^{m})\}$, where $x^{i} \in \mathbb{R}^d$ is the training example and $y^{i} \in \{-1, +1\}$ is a label (or a class) for $x^{i}$. SVM will separates those classes using a line or a curve.
+Consider training set $\{(x^{1},y^{1}), .., (x^{m},y^{m})\}$, where $x^{i} \in \mathbb{R}^d$ is the training example and $y^{i} \in \{-1, +1\}$ is the label (or a class) for $x^{i}$. SVM will separates those classes using a line or a curve.
 
-SVM tries to create a non-linear separation boundary by projecting data points using a non-linear function $\Phi:x \rightarrow \phi(x)$ (called ``kernel'' trick) to higher dimension space. The data points in space $I$ which can't be separated by a line are projected to the feature space $F \subseteq \mathbb{R}^d$ where there can be a hyperplane that separates data points of one class form another. If that separating hyperplane is projected back on the original space $I$ then we get a non-linear curve.\cite{svm}
+SVM tries to create a non-linear separation boundary by projecting data points using a non-linear function $\Phi:x \rightarrow \phi(x)$ (called ``kernel'' trick) to higher dimension space. The data points in space $I$ which can't be separated by a line are projected to feature space $F \subseteq \mathbb{R}^d$ where, there can be a hyperplane that separates data points of one-class form another. If that separating hyperplane is projected back on the original space $I$ then we get a non-linear curve.\cite{svm}
 
 \begin{figure}[H]
 \centering
@@ -305,7 +302,7 @@ SVM tries to create a non-linear separation boundary by projecting data points u
 \caption{Linear Separation using Support Vector} \label{fig:SVM}
 \end{figure}
 
-The hyperplane is represented with the equation $w^{T} \phi(x) + b = 0$, where $x \in \mathbb{R}^d$, $w \in F$ and $b \in \mathbb{R}$. This hyperplane separates the training example labeled with $-1$ and $1$. The position of the hyperplane is such that the distance from the closest point from each class to the hyperplane is same. To avoid the over-fitting, slack variables $\xi^{i}$ are introduced. Over-fitting happens because the learned hypothesis fits training examples so well that it fails to generalize the new examples. The SVM classification is an optimization problem which is stated as follows.\cite{svm} \cite{svm-ml}
+The hyperplane is represented with the equation $w^{T} \phi(x) + b = 0$, where $x \in \mathbb{R}^d$, $w \in F$ and $b \in \mathbb{R}$. This hyperplane separates the training examples labeled with $-1$ and $1$. The position of the hyperplane is such that, the distance from the closest point in each class to the hyperplane is same. To avoid the over-fitting, slack variable $\xi^{i}$ is introduced. Over-fitting happens because the learned hypothesis fits training examples so well that it fails to generalize new examples. The SVM classification is an optimization problem stated as follows:\cite{svm} \cite{svm-ml}
 
 \begin{center}
   ${min}_{w,b,\xi^i} \ \frac{||w||^2}{2} + C \sum_{i=1}^m \xi^i$ \\
@@ -314,19 +311,19 @@ The hyperplane is represented with the equation $w^{T} \phi(x) + b = 0$, where $
   where $y^{i} \in \{-1, +1\}$, $x \in \mathbb{R}^d$, $b \in \mathbb{R}$ and $\xi^i \geq 0 \mbox{ for all } i = 1, \dots, m$ \\
 \end{center}
 
- The constant $C > 0$ is the regularization parameter. If $C$ is chosen large, misclassification of training examples can be avoided. If chosen small, then we may misclassify few examples, but the margin will be large, so most of the points will be far away from the decision boundary. If this minimization problem is solved using Lagrange multipliers, then the classification function is:
+ The constant $C > 0$ is the regularization parameter. If $C$ is chosen large, misclassification of training examples can be avoided. If chosen small, then we may misclassify few examples, but the margin will be large. So, most of the points will be far away from the decision boundary. If this optimization problem is solved using Lagrange multipliers, then the classification function is:
 
 \begin{center}
 $sign(\sum_{i=1}^m \alpha^i y^i K(x,x^i) \ + b)$
 \end{center}
 
-The $\alpha^i$ are the Lagrange multipliers, the $\alpha^i y^i$ are called the support vectors and the function $K(x,x^i) \Rightarrow \phi(x)^T \phi(x^i)$ is the kernel function. Kernel function is a similarity function that is a dot product of data points which are mapped in the higher dimensional feature space by function \Phi. The intercept term $ \in \mathbb{R}$.
+$\alpha^i$ are the Lagrange multipliers, $\alpha^i y^i$ are called the support vectors and function $K(x,x^i) \Rightarrow \phi(x)^T \phi(x^i)$ is the kernel function. Kernel function is a similarity function which is a dot product of data points mapped in the higher dimensional feature space by function \Phi.
 
-\paragraph{One Class Support Vector Machine:}
+\paragraph{One-class Support Vector Machine:}
 
-One Class Support Vector Machine (SVM) is the extension of SVM which detects boundaries of the training set so that every new training example will be classifies as belong to training set or not. It separates all the training set data point from feature space $F$ and maximizes the distance of hyperplane from $F$. This creates a binary function which returns +1 for the training example that fits in the trained set region, otherwise it will return -1.
+One-class SVM is an extension of SVM which detects boundaries of the training sets, so that, every new training example can be classified inside or outside the boundary. It separates all data point in feature space $F$, and maximizes the distance of hyperplane from $F$. This creates a binary function which returns +1 for the training example that fits in the trained region, otherwise it will return -1.
 
-The minimization function of One Class SVM is slightly different than the SVM. \cite{svm}
+The optimization function of one-class SVM is slightly different than the SVM. \cite{svm}
 
 \begin{center}
   ${min}_{w,\rho,\xi^i} \ \frac{||w||^2}{2} + \frac{1}{\nu m} \sum_{i=1}^m \xi^i - \rho$ \\
@@ -335,23 +332,25 @@ The minimization function of One Class SVM is slightly different than the SVM. \
   \hspace{2cm} $\xi^i \geq 0 \mbox{ for all } i = 1, \dots, m$ \\
 \end{center}
 
-The new parameter $\nu \in (0,1]$ introduced in place of $C$ in previous SVM equation is used to set upper bound on outliers/anomalies and lower bound on the number of training examples.
+New parameter $\nu \in (0,1]$ introduced in place of $C$ (from previous SVM equation) is used to set upper bound on outliers/anomalies, and lower bound on the number of training examples.
 
-Because SVM solves a quadratic programming problem (QP), computing and storage requirements of SVM increase rapidly with the number of training vectors. The approach presented in this thesis is more efficient because the number of clusters is limited and always be far less than the number of destination IP addresses. Training one class SVM on clusters will be far less process and memory intensive than training on a massive number of IP addresses, e.g., in our simulation training sets we have 4 four clusters, while the unique number of destination IP addresses in all the training sets is 268, which is more than 60 times the count of clusters we have found.
+Because SVM solves a quadratic programming problem (QP), compute and storage requirements of SVM increase rapidly with the number of training vectors. The approach presented in this thesis is more efficient because the number of clusters is limited and always be far less than the number of destination IP addresses. Creating small number of classifier for clusters will be far less process and memory intensive than creating classifiers for a large number of IP addresses, e.g., in our simulation training sets we have 4 four clusters, while the unique number of destination IP addresses is 268, which is more than 60 times the count of clusters we have found.
 
-To classify whether a test example can be a part of a cluster, we need to have classifier for each cluster. I.e. If we have four clusters, we need to train four One Class SVM classifiers, one for each cluster.
+To classify a test example to be part of a cluster or not, we need to have classifier for each cluster. i.e., If we have four clusters, we need to create four one-class SVM classifiers, one for each cluster.
 \pagebreak
 \section{Detection} \label{sec:Detection}
 
-To detect an attack, we have to capture the packet flow at the router during a time interval with which we have created our trained set (e.g., 300 second window). We have to transform the captured flow into a test set using same programs we have used to create training sets from the sample files. The created test set is then clustered using the k-means++ algorithm, using the centroids, that were found after clustering the training sets. We then check the cluster assignment for each example in the test set, and if there is any destination IP address\footnote{a destination IP address is a label of a test example} for which the new cluster assignment does not match with the already known cluster for that destination IP address, then that destination IP address is suspected to be under the DDoS attack and so it is added to the suspect list. The suspect list will contain the IP addresses which are probably under attack because they are not in the cluster they are supposed to.
+To detect an attack, we captured Internet traffic at the router during a time interval we fixed while creating training sets (e.g., 300 second window). We have transformed captured flow into a detection set using same programs used to create training sets from the sample files.
 
-In another scenario, if the test cluster label for an IP address matches with the trained cluster label, then the feature vector for that destination IP address is passed to the cluster classifier to check if it is inside the boundary of that cluster. As explained in previous section, we will use One Class SVM classifier to decide the boundaries, e.g., if an IP address is labeled with cluster number 0, then we will use One Class SVM classifier that was trained on cluster 0. If the output of the classifier is -1 then that destination IP address is added to the suspect list. Failing to be in the same cluster boundary, that it was in the past, is a sign of significant change in the behavior of the traffic for a given destination IP address on the router where this analysis is done. For every destination from the compiled suspect list, the total number of packets observed in the test set are also recorded. The packet count will act as a filter, to eliminate any misclassification. If there is a significant difference between the number of captured packets in the training and in the test, then that destination IP address will be considered under a DDoS attack.
+Detection is a two pass process. In the first pass---detection set is clustered using k-means++ algorithm by giving already calculated centroids as input (We found that after clustering the training sets). We then check the cluster assignment for each example in the detection set. If there is any destination IP address for which the new cluster assignment does not match with the cluster label it was assigned during training, then that destination IP address is suspected to be under the DDoS attack. Every such suspected IP address is added to the suspect list.
+
+In second pass---if the cluster label for an IP address matches with the cluster label it was assigned during training, then the feature vector for that destination IP address is passed to the cluster classifier. Classifier checks if an IP address is inside the boundary of the cluster or no. As explained in previous section, we have used one-class SVM classifier to decide the boundaries, e.g., if an IP address is labeled with cluster number 0, then we will use one-class SVM classifier trained on cluster 0. If the output of the classifier is -1, then the destination IP address is added to the suspect list. Being not identified inside the cluster boundary it was in the past, is a sign of significant change in the behavior of the traffic for a given destination IP address. We also recorded the average number of packets observed. The packet count will act as a filter to eliminate any misclassification after predictions.
 \pagebreak
 \section{Detection Simulation}
 
-We have created a simulation for detecting DDoS attacks using the approach proposed in this thesis. As explained in section~\ref{sec:Implementation} on page \pageref{sec:Implementation}, we have a small network of three computers and a router. We captured the normal as well as orchestrated DDoS attacks traffic in the network. We processed the capture data, converted it into samples and use those samples to create training sets. We are using training sets created from the normal traffic for labeling IP addresses with cluster numbers, and then training the classifiers.
+We have created a simulation for detecting DDoS attacks using the approach proposed in this thesis. As explained in section~\ref{sec:Implementation} on page \pageref{sec:Implementation}, we have a small network of three computers and a router.Normal as well as orchestrated DDoS attacks traffic is capture in that network. Captured traffic is then converted into samples for creating training sets. Training sets created from the normal traffic are used for labeling IP addresses with cluster numbers, and then training the classifiers.
 
-We have first used the elbow method explained in section \ref{subsec:Clustering} on page \pageref{subsec:Clustering} to detect the optimal cluster count. Using that method, we were able to detect 4 clusters in our training sets.
+Elbow method explained in section \ref{subsec:Clustering} on page \pageref{subsec:Clustering} is used to detect the optimal cluster count, which is found to be 4 for our training sets.
 
 \begin{figure}[H]
 \centering
@@ -375,7 +374,7 @@ We then applied k-means++ clustering, as explained in section \ref{subsec:Cluste
 \caption{Cluster centroids for our training examples} \label{table:centroids}
 \end{table}
 
-We then used these centroids to cluster our training sets. To draw the clusters in two dimensional space we had to reduce the three- dimensional training example into two-dimensions without losing much information. We have achieved this by using Principal-Component Analysis (PCA). PCA is a technique for taking a dataset consisting of a set of tuples representing points in a high-dimensional space and finding the directions along which the tuples line up best.\cite{pca}. We have used the Scikit-learn PCA module for this purpose.
+Those centroids are used for clustering our training sets. To draw the clusters in two dimensional space we had to reduce the three- dimensional training example into two-dimensions without losing much information. This was achieved by using Principal-Component Analysis (PCA). PCA is a technique which takes a set of tuples representing points in a high-dimensional space, and finds the directions along which the tuples line up best.\cite{pca}. We have used the Scikit-learn PCA module for this purpose.
 
 \begin{figure}[H]
 \centering
@@ -383,7 +382,7 @@ We then used these centroids to cluster our training sets. To draw the clusters 
 \caption{Clustering using k-means++ algorithm} \label{fig:k-means-clustering}
 \end{figure}
 
-k-means++ algorithm gives label to each training example. This label is the cluster number to which that training example has been assigned to. So, the new labeled data look like below (table \ref{table:labeled-set}).
+k-means++ algorithm gives label to each training example. This label is the cluster number to which a training example is assigned to. The labeled training sets look like below (table \ref{table:labeled-set}).
 
 \begin{table}[H]
 \centering
@@ -398,21 +397,21 @@ k-means++ algorithm gives label to each training example. This label is the clus
 \caption{Labeled Training Set (with cluster number)} \label{table:labeled-set}
 \end{table}
 
-We also checked the clustering accuracy using the Rand Index explained in the section \ref{subsec:Clustering} on page \pageref{subsec:Clustering}. We observed that, with more training sets, the RI index improves. A tag file which contains IP addresses, their cluster labels and average packet count is created. This tag file will be used for detecting anomaly in the network traffic.
+We also checked the clustering accuracy using the Rand Index explained in the section \ref{subsec:Clustering} on page \pageref{subsec:Clustering}. With more training sets, we observed that the RI index improves. A tag file which contains IP addresses, their cluster labels and average packet count is created. This tag file is used in first pass for detecting anomaly in the network traffic.
 
-As explained in the section \ref{subsec:Anomaly_Detection} on page \pageref{subsec:Anomaly_Detection}, we used the training sets, that are labeled with cluster number, to get classifiers. We are using Scikit-learn's `OneClassSVM' library to train the model and create classifier for each cluster. The input vector to the classifier is the set of all the training examples belonging to the same cluster. Thus, for our four clusters, we have four classifiers. The input vector to the classifier will be of the form shown in table \ref{table:labeled-set} on page \pageref{table:labeled-set}.
+As explained in the section \ref{subsec:Anomaly_Detection} on page \pageref{subsec:Anomaly_Detection}, we trained the model and created classifier for each cluster. We have used Scikit-learn's `OneClassSVM' library to achieve this. The input vector to the classifier is the set of all the training examples belonging to the same cluster. Thus, for our four clusters, we have four classifiers. The input vector to the classifier will be of the form shown in table \ref{table:labeled-set} on page \pageref{table:labeled-set}.
 
 Following is the result of modeling on the training data sets. Each cluster has its own model. We used PCA component analysis to draw the model.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.80\textwidth]{one-class-SVM.png}
-\caption{One Class SVM} \label{fig:one-class-SVM}
+\caption{one-class SVM} \label{fig:one-class-SVM}
 \end{figure}
 
-At the end of the training, we have a file containing the IP addresses labeled with the cluster numbers and four classifiers for four clusters.
+At the end of the training, we have a file that contains IP addresses labeled with the cluster numbers, and four classifiers for four clusters.
 
-We took the test set which was created by capturing packets during the orchestrated DDoS attacks and used detection techniques explained in section \ref{sec:Detection} on page \pageref{sec:Detection}. Using the detection techniques on our data, we have successfully detected an attack on the destination IP address 92.168.0.7 in our modeled network.
+We applied detection techniques explained in section \ref{sec:Detection} on page \pageref{sec:Detection} on the detection set that was created by capturing packets during the orchestrated DDoS attacks (IP address 92.168.0.7 was attacked), and then using the detection techniques we were able to detected an attack on destination IP address 92.168.0.7 in our modeled network.
 
 \begin{figure}[H]
 \centering
@@ -422,9 +421,11 @@ We took the test set which was created by capturing packets during the orchestra
 \pagebreak
 \section{Mitigation}
 
-By now we have a computer program (consist of few modules, e.g., clustering, classification, detection) which can be run on a router and can be used to detect a DDoS attack. As there are many routers through which a destination can be reached, so to correctly detect a DDoS attack we should have this programs on every router in the Internet. One of the way to achieve this is by using Network Function Virtualization (NFV)\cite{nfv}. NFV is an advanced technology which allows us to manage network devices remotely and also allows to add functionality to those networking devices. Because of this virtual technology, we don't have to manually install computer programs on the routers rather we can do it anytime from anywhere. Although this technology is new, its spreading very fast and soon will be available for every commercial router.
+By now we have a computer program (consist of few modules, e.g., clustering, classification, detection) which can run on a router and can be used to detect a DDoS attack. There are many routers through which a destination can be reached, so, to correctly detect a DDoS attack we should have our programs on every router on the Internet. We can do this either by manually installing program on each router or we can use Network Function Virtualization (NFV)\cite{nfv} to install program on routers. NFV is an advanced technology which allows us to manage network devices remotely and also allows us to add functionality to those networking devices. Because of this virtual technology, we don't have to manually install computer programs on routers, rather we can do it anytime from anywhere. Although this technology is new, its spreading very fast, and soon it will be available for every commercial router.
 
-After detecting an attack, a router can choose to block all the packets going to the destination under attack, or it can communicate the attack information to the destination. A destination can be a server or a router. The attack information can contain region name and packet count. Region is the geographical location where the router is situated, and packet count is the average number of packets observed at the router for the destination during attack. Communicating the attack information to the destination can be more helpful because the destination will be aware of the nature of the attack, i.e. for the information provided by router it will know from where attack is originated and how intense the attack is. The destination can also query router for more information such as IP source of the attack packets.
+After detecting an attack, a router can choose to block all the packets going to the destination under attack, or it can communicate the attack information to the destination. The attack information can contain region name and packet count. Region is the geographical location where the router is located, and packet count is the average number of packets observed at the router for the destination during an attack.
+
+If an attack information is communicated to the destination is helpful because the destination will be aware of the nature of the attack, i.e. for the information provided by router it will know from where attack is originated and how intense the attack is. The destination can also query router for more information such as IP source of the attack packets.
 
 The control of blocking the traffic at the router can also be given to the destination. In this case, destination can perform its own analysis, understand the nature of the attack and then decide whether the incoming packets from the reporting router should be block or not. There can be different parameter based on which the destination server can decide to block the flow and those can be provided by the router as additional information. Many questions can be asked before making the decision at a destination, such as, How many routers have reported the change in traffic? Is the attack information coming from the region which never had traffic in the past?
 

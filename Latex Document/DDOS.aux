@@ -10,7 +10,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Challenges in dealing with a DDoS attack}{4}}
 \citation{cisco-netflow}
 \citation{sflow}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}A DDoS attack Detection and Mitigation}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}A DDoS attack detection and mitigation}{6}}
 \citation{router-switch}
 \citation{icmp}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Network Functioning}{7}}
@@ -23,27 +23,27 @@
 \citation{routing-tablesize}
 \@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces DDoS Attack path}}{10}}
 \newlabel{fig:attackpath}{{3}{10}}
-\citation{machine-learning}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Internet packet flow capturing at the router}{11}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces A 300 second time segment corresponds to a flow of information. The number of packets can vary in a flow.}}{11}}
 \newlabel{fig:flow}{{4}{11}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Analysis techniques to be implemented}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Analysis technique}{11}}
+\citation{bot}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Implementation}{13}}
 \newlabel{sec:Implementation}{{4}{13}}
 \@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Wireshark Tool: snippet of captured packets}}{14}}
 \newlabel{fig:wireshark}{{5}{14}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Network for simulating a DDoS attack detection}}{14}}
-\newlabel{fig:demonetwork}{{6}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Network for simulating a DDoS attack detection}}{15}}
+\newlabel{fig:demonetwork}{{6}{15}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Sample file snippet (row represents an IP packet)}}{16}}
 \newlabel{table:sample-file-snippet}{{1}{16}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Three training examples represent ``flow'' for three destination addresses}}{16}}
+\newlabel{table:feature}{{2}{16}}
 \citation{machine-learning-def}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Training Set with three training examples}}{17}}
-\newlabel{table:feature}{{2}{17}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Machine Learning}{17}}
 \citation{machine-learning}
 \citation{svm}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Feature Scaling}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Machine Learning}{18}}
 \citation{k-means-clustering}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Feature Scaling}{19}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Clustering}{19}}
 \newlabel{subsec:Clustering}{{4.1.2}{19}}
 \citation{k-means++}
@@ -53,47 +53,47 @@
 \newlabel{k-means++}{{2}{20}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces One training example}}{21}}
 \newlabel{fig:training_example}{{7}{21}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Elbow Method for cluster count detection}}{21}}
-\newlabel{fig:elbow-method}{{8}{21}}
-\citation{ri-index}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Elbow Method for cluster count detection}}{22}}
+\newlabel{fig:elbow-method}{{8}{22}}
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Example of cluster centroids: A row is a cluster and a column is a feature}}{22}}
 \newlabel{table:centroids-example}{{3}{22}}
+\citation{ri-index}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Learned information after clustering}}{23}}
 \newlabel{table:learned-clustering}{{4}{23}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Anomaly Detection using One Class Support Vector Machine}{23}}
-\newlabel{subsec:Anomaly_Detection}{{4.1.3}{23}}
 \citation{svm}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Anomaly Detection using one-class Support Vector Machine}{24}}
+\newlabel{subsec:Anomaly_Detection}{{4.1.3}{24}}
+\@writefile{toc}{\contentsline {paragraph}{Support Vector Machine (SVM):}{24}}
 \citation{svm}
 \citation{svm-ml}
-\@writefile{toc}{\contentsline {paragraph}{Support Vector Machine (SVM):}{24}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Linear Separation using Support Vector}}{24}}
-\newlabel{fig:SVM}{{9}{24}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Linear Separation using Support Vector}}{25}}
+\newlabel{fig:SVM}{{9}{25}}
 \citation{svm}
-\@writefile{toc}{\contentsline {paragraph}{One Class Support Vector Machine:}{25}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Detection}{27}}
-\newlabel{sec:Detection}{{5}{27}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Detection Simulation}{28}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Elbow method to find number of clusters}}{28}}
-\newlabel{fig:elbow-method-applied}{{10}{28}}
+\@writefile{toc}{\contentsline {paragraph}{One-class Support Vector Machine:}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Detection}{28}}
+\newlabel{sec:Detection}{{5}{28}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Detection Simulation}{29}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Elbow method to find number of clusters}}{29}}
+\newlabel{fig:elbow-method-applied}{{10}{29}}
 \citation{pca}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Cluster centroids for our training examples}}{29}}
-\newlabel{table:centroids}{{5}{29}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Clustering using k-means++ algorithm}}{29}}
-\newlabel{fig:k-means-clustering}{{11}{29}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Labeled Training Set (with cluster number)}}{30}}
-\newlabel{table:labeled-set}{{6}{30}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces One Class SVM}}{31}}
-\newlabel{fig:one-class-SVM}{{12}{31}}
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Program output}}{31}}
-\newlabel{fig:detected_IP}{{13}{31}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Cluster centroids for our training examples}}{30}}
+\newlabel{table:centroids}{{5}{30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Clustering using k-means++ algorithm}}{30}}
+\newlabel{fig:k-means-clustering}{{11}{30}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Labeled Training Set (with cluster number)}}{31}}
+\newlabel{table:labeled-set}{{6}{31}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces one-class SVM}}{32}}
+\newlabel{fig:one-class-SVM}{{12}{32}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Program output}}{32}}
+\newlabel{fig:detected_IP}{{13}{32}}
 \citation{nfv}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Mitigation}{32}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Mitigation}{33}}
 \citation{icmp}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Blocking traffic at router: The out-bound traffic for S2 is blocked from router R6, because attack has been detected. While traffic from all other routers is unaffected}}{33}}
-\newlabel{fig:mitigation_path}{{14}{33}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Communication between a router and a destination server}}{34}}
-\newlabel{fig:router-network-communication}{{15}{34}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{35}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Blocking traffic at router: The out-bound traffic for S2 is blocked from router R6, because attack has been detected. While traffic from all other routers is unaffected}}{34}}
+\newlabel{fig:mitigation_path}{{14}{34}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Communication between a router and a destination server}}{35}}
+\newlabel{fig:router-network-communication}{{15}{35}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{36}}
 \bibstyle{unsrt}
 \bibdata{biblo}
 \bibcite{network-data-packet}{1}
@@ -107,8 +107,8 @@
 \bibcite{router-switch}{9}
 \bibcite{icmp}{10}
 \bibcite{routing-tablesize}{11}
-\bibcite{machine-learning}{12}
-\bibcite{machine-learning-def}{13}
+\bibcite{machine-learning-def}{12}
+\bibcite{machine-learning}{13}
 \bibcite{svm}{14}
 \bibcite{k-means-clustering}{15}
 \bibcite{k-means++}{16}
