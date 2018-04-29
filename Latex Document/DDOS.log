@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  28 APR 2018 20:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  28 APR 2018 21:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -462,15 +462,15 @@ Overfull \hbox (18.43065pt too wide) in paragraph at lines 75--75
 ach cam-den.rutgers.edu
  []
 
-[8 <./TraceRoute.png (PNG copy)>]
-<attack_path.png, id=58, 525.965pt x 416.55624pt>
+[8 <./TraceRoute.png (PNG copy)>] [9]
+<attack_path.png, id=61, 525.965pt x 416.55624pt>
 File: attack_path.png Graphic file (type png)
 <use attack_path.png>
 Package pdftex.def Info: attack_path.png  used on input line 86. on input line 
 86.
 Package pdftex.def Info: Requested size: 291.78174pt x 231.0961pt on input line
  86.
- [9] [10 <./attack_path.png>]
+ [10 <./attack_path.png>]
 <Data_Flow_Capture.png, id=67, 720.6925pt x 228.855pt>
 File: Data_Flow_Capture.png Graphic file (type png)
 <use Data_Flow_Capture.png>
@@ -643,7 +643,7 @@ Here is how much of TeX's memory you used:
  8059 multiletter control sequences out of 15000+600000
  12370 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,18n,43p,1168b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,18n,43p,1176b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmex10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/a
@@ -663,7 +663,7 @@ fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
 /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb>
-Output written on DDOS.pdf (38 pages, 812989 bytes).
+Output written on DDOS.pdf (38 pages, 812650 bytes).
 PDF statistics:
  247 PDF objects out of 1000 (max. 8388607)
  153 compressed objects within 2 object streams
