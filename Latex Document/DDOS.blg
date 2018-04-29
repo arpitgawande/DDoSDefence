@@ -11,7 +11,7 @@ Too many commas in name 1 of "Tapas Kanungo, David M. Mount, Nathan S. Netanyahu
 while executing---line 944 of file unsrt.bst
 You've used 20 entries,
             1791 wiz_defined-function locations,
-            557 strings with 6587 characters,
+            557 strings with 6436 characters,
 and the built_in function-call counts, 3672 in all, are:
 = -- 329
 > -- 105

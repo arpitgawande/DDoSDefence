@@ -7,9 +7,10 @@
 \usepackage{amssymb}
 \usepackage{algorithm}% http://ctan.org/pkg/algorithms
 \usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
-\usepackage{url} %for including urls in References
 \usepackage{cite}
 \usepackage{pdfpages} % To include title page pdf
+\usepackage{url} %For .bib i.e. bibliography
+\urlstyle{same} %Keep same font for url in biblography
 
 \begin{document}
 \includepdf{title}
@@ -317,7 +318,7 @@ The hyperplane is represented with the equation $w^{T} \phi(x) + b = 0$, where $
 $sign(\sum_{i=1}^m \alpha^i y^i K(x,x^i) \ + b)$
 \end{center}
 
-$\alpha^i$ are the Lagrange multipliers, $\alpha^i y^i$ are called the support vectors and function $K(x,x^i) = \phi(x)^T \phi(x^i)$ is the kernel function. Kernel function is a similarity function which is a dot product of data points mapped in the higher dimensional feature space by function \Phi.
+$\alpha^i$ are the Lagrange multipliers, $\alpha^i y^i$ are called the support vectors and function $K(x,x^i) = \phi(x)^T \phi(x^i)$ is the kernel function. Kernel function is a similarity function which is a dot product of data points mapped in the higher dimensional feature space by function $\Phi$.
 
 \paragraph{One-class Support Vector Machine:}
 
@@ -418,25 +419,26 @@ We applied detection techniques explained in section \ref{sec:Detection} on page
 \includegraphics[width=0.80\textwidth]{detected_IP.png}
 \caption{Program output} \label{fig:detected_IP}
 \end{figure}
+
 \pagebreak
 \section{Mitigation}
 
-By now we have a computer program (consist of few modules, e.g., clustering, classification, detection) which can run on a router and can be used to detect a DDoS attack. There are many routers through which a destination can be reached, so, to correctly detect a DDoS attack we should have our programs on every router on the Internet. We can do this either by manually installing program on each router or we can use Network Function Virtualization (NFV)\cite{nfv} to install program on routers. NFV is an advanced technology which allows us to manage network devices remotely and also allows us to add functionality to those networking devices. Because of this virtual technology, we don't have to manually install computer programs on routers, rather we can do it anytime from anywhere. Although this technology is new, its spreading very fast, and soon it will be available for every commercial router.
+By now we have a computer program (consisting of a few modules, i.e., clustering, classification and detection) which can run on a router and can be used to detect a DDoS attack. There are many routers through which a destination can be reached, so, to correctly detect a DDoS attack we should have our program on every router on the Internet. We can do this either by manually installing the program on each router, or we can use Network Function Virtualization (NFV)\cite{nfv}. NFV is an advanced technology which allows us to manage network devices remotely, and also allows us to add functionality to those networking devices. Because of this virtual technology we don't have to manually install computer programs on routers; rather we can do it any time from anywhere. Although this technology is new, it is spreading very fast, and soon it will be available for every commercial router.
 
-After detecting an attack, a router can choose to block all the packets going to the destination under attack, or it can communicate the attack information to the destination. The attack information can contain region name and packet count. Region is the geographical location where the router is located, and packet count is the average number of packets observed at the router for the destination during an attack.
+After detecting an attack a router can choose to block all the packets going to the destination under attack, or it can communicate the attack information to the destination. The attack information can contain region name and packet count. A region is a geographical location where the router is located, and packet count is the average number of packets observed at a router for a given destination.
 
-If an attack information is communicated to the destination, destination can know the nature of the attack, i.e. from the information provided by a router it will know where the attack is originated and how intense it is. Destination can also query router for more information, such as source IP address of the packets capture during an attack.
+If an attack information is communicated to the destination, destination can know the nature of the attack, i.e. it can know where the attack is originated and how intense it is. Destination can also query router for more information, such as source IP address of the packets captured during an attack.
 
-The control of blocking the traffic at the router can also be given to the destination. In this case, destination can perform its own analysis, understand the nature of the attack and then decide whether the incoming packets from the reporting router should be block or not. There can be different parameter based on which a destination server can decide to block the traffic. Those parameters can be provided by the router as additional information. Many questions can be asked before making the decision at a destination, such as, How many routers have reported the change in traffic? Is the attack information coming from the region which never had traffic in the past? etc.
+The control of blocking the traffic at a router can also be given to the destination. In this case the destination can perform its own analysis, understand the nature of the attack, and then decide whether the incoming packets from the reporting router should be blocked or not. There can be different parameters based on which a destination server can decide to block the traffic. Those parameters can be provided by the router as additional information. Many questions can be asked before making the decision at a destination, such as: How many routers have reported a change in traffic? Is the attack information coming from a region which never had traffic in the past? etc.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.60]{mitigation_path.png}
-\caption{Blocking traffic at router: The out-bound traffic for S2 is blocked from router R6,
-because attack has been detected. While traffic from all other routers is unaffected} \label{fig:mitigation_path}
+\caption{Blocking traffic at a router: The out-bound traffic for S2 is blocked from router R6,
+because attack has been detected. Traffic from all other routers is unaffected} \label{fig:mitigation_path}
 \end{figure}
 
-A router can use the existing ICMP protocol to communicate with a destination network. ICMP protocol is used to provide feedback about the problems in the communication environment. ICMP messages are sent in several situations such as: 1) when a datagram cannot reach its destination. 2) when the gateway does not have the buffering capacity to forward a datagram. 3) when the gateway can direct the host to send traffic on a shorter route etc.\cite{icmp} Similarly we can use ICMP protocol to inform destination about anomalies in the traffic. ICMP protocol has many unused types (there can be 0-255 types but as of now only 0-41 are in use). We can create a new ICMP type to send DDoS attack detection information from a router to a destination server, and then destination server can send mitigation instructions to a routers.
+A router can use the existing Internet Control Message Protocol (ICMP) to communicate with a destination network. This protocol is used to provide feedback about the problems in the communication environment. ICMP messages are sent in several situations such as: 1) when a datagram cannot reach its destination; 2) when the gateway does not have the buffering capacity to forward a datagram; 3) when the gateway can direct the host to send traffic on a shorter route etc.\cite{icmp} Similarly we can use the ICMP protocol to inform the destination about anomalies in the traffic. This protocol has many unused types (there can be 0-255 types but as of now only 0-41 are in use). We can create a new ICMP type to send DDoS attack detection information from a router to a destination server, and then destination server can send mitigation instructions to a routers.
 
 \begin{figure}[H]
 \centering
@@ -447,7 +449,7 @@ A router can use the existing ICMP protocol to communicate with a destination ne
 \pagebreak
 \section{Conclusion}
 
-DDoS attacks are real threat to everyone on the Internet, and its detection is difficult because of the spoofing techniques employed by the attackers. We discussed how we can combine two machine learning algorithms (clustering and classification) to efficiently detect DDoS attacks at routers. We also discussed how to create a programs that uses learning algorithms, and then how to installed that program on routers. This eliminate need for extra infrastructure for detection of a DDoS attack. With the advancement of Network Function Virtualization (NFV), it is easy to push the learning program on the routers. We also have discussed how a router can stop an attack and how it can communicate the attack information with the stake holders (e.g., server) for taking better decisions about blocking the attack traffic.
+DDoS attacks are a real threat to everyone on the Internet, and their detection is difficult because of the spoofing techniques employed by the attackers. We discussed how we can combine two machine learning algorithms (clustering and classification) to efficiently detect DDoS attacks at the router. We also discussed how to create a programs that uses learning algorithms, and then how to installed that program on routers. This eliminate the need for extra infrastructure for detection of a DDoS attack. With the advancement of Network Function Virtualization (NFV), it is easy to push the learning program on the routers. We also have discussed how a router can stop an attack and how it can communicate the attack information with the stake holders (e.g., server) for taking better decisions about blocking the attack traffic.
 \pagebreak
 
 \singlespacing

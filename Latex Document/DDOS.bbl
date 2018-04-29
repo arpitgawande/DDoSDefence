@@ -7,21 +7,21 @@ D.~W. Davies.
 
 \bibitem{DDoS-attacks}
 Cisco~Security portal.
-\newblock A cisco guide to defending against distributed denial of service
+\newblock A {C}isco guide to defending against distributed denial of service
   attacks.
 \newblock
   \url{https://www.cisco.com/c/en/us/about/security-center/guide-ddos-defense.html}.
-\newblock Online; accessed 1-August-2017.
+\newblock Online; accessed 1 August 2017.
 
 \bibitem{ddos-attack-news}
 Derek Kortepeter.
 \newblock Destructive ddos attacks increasing at a rapid rate.
 \newblock \url{http://techgenix.com/ddos-attacks-increasing/}, December 2017.
-\newblock Online; accessed 22-August-2017.
+\newblock Online; accessed 22 August 2017.
 
 \bibitem{ip-spoofing}
 S.~M. Bellovin.
-\newblock A look back at "security problems in the tcp/ip protocol suite".
+\newblock A look back at security problems in the tcp/ip protocol suite.
 \newblock In {\em 20th Annual Computer Security Applications Conference}, pages
   229--249, Dec 2004.
 
@@ -38,24 +38,24 @@ Network~Working Group.
 
 \bibitem{cisco-netflow}
 Cisco.
-\newblock Introduction to cisco ios netflow.
+\newblock {Introduction to Cisco IOS NetFlow}.
 \newblock
-  \url{https://www.cisco.com/c/en/us/products/collateral/ios-nx-os-software/ios-netflow/prod_white_paper0900aecd80406232.html},
+  \url{https://www.cisco.com/c/en/us/products/collateral/ios-nx-os-software/ios-netflow/},
   May 2012.
-\newblock Online; accessed 22-August-2017.
+\newblock Online; accessed 22 August 2017.
 
 \bibitem{sflow}
 sFlow.
 \newblock Using sflow.
 \newblock \url{http://www.sflow.org/using_sflow/index.php}.
-\newblock Online; accessed 16-November-2017.
+\newblock Online; accessed 16 November 2017.
 
 \bibitem{router-switch}
 Cisco.
 \newblock What is a network switch vs. a router?
 \newblock
   \url{https://www.cisco.com/c/en/us/solutions/small-business/resource-center/connect-employees-offices/network-switch-what.html}.
-\newblock Online; accessed 16-November-2017.
+\newblock Online; accessed 16 November 2017.
 
 \bibitem{icmp}
 Network~Working Group.
@@ -66,15 +66,13 @@ Network~Working Group.
 Omar Santos.
 \newblock The size of the internet global routing table and its potential side
   effects.
-\newblock
-  \url{https://supportforums.cisco.com/t5/network-infrastructure-documents/the-size-of-the-internet-global-routing-table-and-its-potential/ta-p/3136453},
-  May 2014.
-\newblock Online; accessed 22-August-2017.
+\newblock \url{https://supportforums.cisco.com}, May 2014.
+\newblock Online; accessed 22 August 2017.
 
 \bibitem{machine-learning-def}
 T.M. Mitchell.
 \newblock {\em Machine Learning}.
-\newblock McGraw-Hill international editions - computer science series.
+\newblock McGraw-Hill international editions - Computer Science Series.
   McGraw-Hill Education, 1997.
 
 \bibitem{machine-learning}
@@ -100,8 +98,8 @@ Nathan S. Netanyahu Christine D. Piatko Ruth~Silverman Tapas~Kanungo, David
 \bibitem{k-means++}
 David Arthur and Sergei Vassilvitskii.
 \newblock K-means++: the advantages of careful seeding.
-\newblock In {\em In Proceedings of the 18th Annual ACM-SIAM Symposium on
-  Discrete Algorithms}, 2007.
+\newblock In {\em Proceedings of the 18th Annual ACM-SIAM Symposium on Discrete
+  Algorithms}, 2007.
 
 \bibitem{ri-index}
 William~M. Rand.

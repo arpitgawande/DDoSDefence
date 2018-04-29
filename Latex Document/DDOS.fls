@@ -50,8 +50,6 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/algorithmicx/algpseudocode.st
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty
-INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/cite/cite.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/cite/cite.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/pdfpages/pdfpages.sty
@@ -73,6 +71,8 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/pdfpages/pppdftex.def
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/pdfpages/pppdftex.def
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/url/url.sty
 INPUT DDOS.aux
 INPUT DDOS.aux
 OUTPUT DDOS.aux
@@ -226,7 +226,6 @@ INPUT ./router-network-communication.png
 INPUT DDOS.bbl
 INPUT DDOS.bbl
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
 INPUT DDOS.aux
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
@@ -244,5 +243,4 @@ INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
-INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
 INPUT /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb
