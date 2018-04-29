@@ -48,7 +48,7 @@ These technologies scale well and can be sufficient to indicate trends in networ
 
 \subsection{A DDoS attack detection and mitigation}
 
-DDoS attacks can be detected by checking if there is any anomalous behavior in the network traffic, such as, a sudden increase in the number of packets going to a destination. Detection can occur at the server by observing all of the incoming traffic or it can be done by observing all of the outgoing/incoming traffic at the ISP's or at every router. The attack can be mitigated if the anomalous packets are blocked from reaching their destination.
+DDoS attacks can be detected by checking if there is any anomalous behavior in the network traffic, such as, a sudden increase in the number of packets going to a destination. Detection can occur at the server by observing all of the incoming traffic or it can be done by observing all of the outgoing/incoming traffic at the ISP or at every router. The attack can be mitigated if the anomalous packets are blocked from reaching their destination.
 
 From the previous section we know that the router-based flow analysis can be useful for anomaly detection, but it has limitations. We don't want to set up expensive hardware, we want to have a protocol or a system which is compatible with other routers. Also, we don't want a source IP address for detection analysis. If we can come up with a way to detect anomalies in the traffic at the intermediate devices on the Internet---such as routers--and create a communication protocol between routers and the destination server or network, then better decisions regarding regulating the packet flow can be made.
 
@@ -286,7 +286,7 @@ Clustering information tells us the normal behavior of packets traveling from a 
 
 \subsubsection{Anomaly detection using one-class Support Vector Machine} \label{subsec:Anomaly_Detection}
 
-From the experiments on different training sets, it is found that the destination under attack is sometime labeled with the same cluster number as we have after training. Because we have a fixed number of clusters, it gets assigned to the cluster whose centroid is nearest (which could be the same cluster it was found in the training). To avoid such a situation, we will have to create boundaries for the clusters, and if any IP address is found outside of the cluster boundaries, then traffic fot that destination can be considered suspicious. This provision will make sure that the attack on a destination IP address will be detected even if traffic for that destination is assigned to the same cluster it was assigned in the past.
+From the experiments on different training sets, it is found that the destination under attack is sometime labeled with the same cluster number as we have after training. Because we have a fixed number of clusters, it gets assigned to the cluster whose centroid is nearest (which could be the same cluster it was found in the training). To avoid such a situation, we will have to create boundaries for the clusters, and if any IP address is found outside of the cluster boundaries, then traffic for that destination can be considered suspicious. This provision will make sure that the attack on a destination IP address will be detected even if traffic for that destination is assigned to the same cluster it was assigned in the past.
 
 To create cluster boundaries, we have used one-class SVM classifier. One-class SVM is used when we have only one type of training examples. It classifies those training examples into one class. In our case we have training examples from a cluster as one type. So, for each cluster we will have one classifier that can classify whether a training example is inside the cluster or not.
 
@@ -349,7 +349,7 @@ In second pass---if the cluster label for an IP address matches with the cluster
 \pagebreak
 \section{Detection simulation}
 
-We have created a simulation for detecting DDoS attacks using the approach proposed in this thesis. As explained in section~\ref{sec:Implementation} on page \pageref{sec:Implementation}, we have a small network of three computers and a router.Normal as well as orchestrated DDoS attacks traffic is capture in that network. Captured traffic is then converted into samples for creating training sets. Training sets created from the normal traffic are used for labeling IP addresses with cluster numbers, and then training the classifiers.
+We have created a simulation for detecting DDoS attacks using the approach proposed in this thesis. As explained in section~\ref{sec:Implementation} on page \pageref{sec:Implementation}, we have a small network of three computers and a router. Normal as well as orchestrated DDoS attacks traffic is capture in that network. Captured traffic is then converted into samples for creating training sets. Training sets created from the normal traffic are used for labeling IP addresses with cluster numbers, and then training the classifiers.
 
 Elbow method explained in section \ref{subsec:Clustering} on page \pageref{subsec:Clustering} is used to detect the optimal cluster count, which is found to be 4 for our training sets.
 
@@ -400,7 +400,7 @@ The k-means++ algorithm gives label to each training example. This label is the 
 
 We also checked the clustering accuracy using the Rand Index explained in the section \ref{subsec:Clustering} on page \pageref{subsec:Clustering}. With more training sets, we observed that the RI index improves. A tag file which contains IP addresses, their cluster labels and average packet count is created. This tag file is used in first pass for detecting anomaly in the network traffic.
 
-As explained in the section \ref{subsec:Anomaly_Detection} on page \pageref{subsec:Anomaly_Detection}, we trained the model and created classifier for each cluster. We have used Scikit-learn's `OneClassSVM' library to achieve this. The input vector to the classifier is the set of all the training examples belonging to the same cluster. Thus, for our four clusters, we have four classifiers. The input vector to the classifier will be of the form shown in table \ref{table:labeled-set} on page \pageref{table:labeled-set}.
+As explained in the section \ref{subsec:Anomaly_Detection} on page \pageref{subsec:Anomaly_Detection}, we trained the model and created classifier for each cluster. We have used Scikit-learn's OneClassSVM library to achieve this. The input vector to the classifier is the set of all the training examples belonging to the same cluster. Thus, for our four clusters, we have four classifiers. The input vector to the classifier will be of the form shown in table \ref{table:labeled-set} on page \pageref{table:labeled-set}.
 
 The following is the result of modeling on the training data sets. Each cluster has its own model. We used PCA component analysis to draw the model.
 
