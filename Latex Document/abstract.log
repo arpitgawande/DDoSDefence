@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  26 APR 2018 18:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.14)  4 MAY 2018 16:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -137,14 +137,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--23
 Here is how much of TeX's memory you used:
  757 strings out of 492985
  10579 string characters out of 6132570
- 70652 words of memory out of 5000000
+ 70655 words of memory out of 5000000
  4381 multiletter control sequences out of 15000+600000
  4236 words of font info for 16 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 23i,4n,19p,774b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 23i,4n,19p,777b,107s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmr12.pfb>
-Output written on abstract.pdf (1 page, 19015 bytes).
+Output written on abstract.pdf (1 page, 18663 bytes).
 PDF statistics:
  12 PDF objects out of 1000 (max. 8388607)
  7 compressed objects within 1 object stream
